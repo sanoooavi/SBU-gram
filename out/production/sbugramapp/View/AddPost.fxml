@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddPostController">
+   <children>
+      <TextField fx:id="post_title_field" layoutX="342.0" layoutY="50.0" prefHeight="35.0" prefWidth="228.0" promptText="title" style="-fx-background-color: #cce5f8; -fx-prompt-text-fill: #000000; -fx-text-fill: #000000;">
+         <font>
+            <Font name="Century Gothic Italic" size="13.0" />
+         </font>
+      </TextField>
+      <JFXTextArea fx:id="description_field" focusColor="#2a363f" layoutX="342.0" layoutY="96.0" prefHeight="189.0" prefWidth="228.0" promptText=" description" style="-fx-background-color: #acd6f4; -fx-text-fill: #000000; -fx-prompt-text-fill: #000000;" unFocusColor="#2a363f">
+         <font>
+            <Font name="Century Gothic Italic" size="13.0" />
+         </font>
+      </JFXTextArea>
+      <Button layoutX="342.0" layoutY="296.0" mnemonicParsing="false" onAction="#PublishPost" prefHeight="35.0" prefWidth="228.0" style="-fx-background-color: #43a7e9;" text="Publish" textFill="#2a363f">
+         <font>
+            <Font name="Century Gothic Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="342.0" layoutY="342.0" mnemonicParsing="false" onAction="#ClearAllFields" prefHeight="35.0" prefWidth="228.0" style="-fx-background-color: #197db7;" text="Clear all" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="25.0" layoutY="305.0" mnemonicParsing="false" onAction="#Add_Image_toPost" prefHeight="79.0" prefWidth="290.0" style="-fx-background-color: #2A363F;" text="add Image" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="defaultbackground" fitHeight="231.0" fitWidth="228.0" layoutX="56.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/frame3.png" />
+         </image>
+      </ImageView>
+      <Pane prefHeight="26.0" prefWidth="661.0" style="-fx-background-color: #e4ebef;">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="3.0" layoutY="1.0" onMouseClicked="#GoBackToPostList" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/f0a111531f184580b39cd8cc3ca6bbed.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="530.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Post" wrappingWidth="53.1353874206543">
+               <font>
+                  <Font name="Century Gothic Bold Italic" size="12.0" />
+               </font>
+            </Text>
+         </children></Pane>
+      <ImageView fx:id="imageToPost" fitHeight="231.0" fitWidth="228.0" layoutX="56.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+   </children>
+</Pane>

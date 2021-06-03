@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SignUpController">
+   <children>
+      <TextField fx:id="name_field" layoutX="360.0" layoutY="50.0" prefHeight="25.0" prefWidth="175.0" promptText="Name" style="-fx-background-color: #2A363F; -fx-border-color: #465058; -fx-text-fill: #fbfcfc;">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="lastname_field" layoutX="360.0" layoutY="90.0" prefHeight="25.0" prefWidth="175.0" promptText="Last Name" style="-fx-background-color: #2A363F; -fx-border-color: #465058; -fx-text-fill: #fbfcfc;">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="username_field" layoutX="360.0" layoutY="130.0" prefHeight="25.0" prefWidth="175.0" promptText="Username" style="-fx-background-color: #2A363F; -fx-border-color: #465058; -fx-text-fill: #fbfcfc;">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </TextField>
+      <DatePicker fx:id="Birthdate" layoutX="360.0" layoutY="170.0" prefHeight="25.0" prefWidth="175.0" promptText="Birth Date" style="-fx-background-color: #2A363F;" />
+      <PasswordField fx:id="pass_field" layoutX="360.0" layoutY="210.0" prefHeight="25.0" prefWidth="175.0" promptText="Password" style="-fx-background-color: #2A363F; -fx-border-color: #465058; -fx-text-fill: #fbfcfc;">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </PasswordField>
+      <Button layoutX="360.0" layoutY="330.0" mnemonicParsing="false" onAction="#SignUp" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #6ED9A0;" text="Sign Up" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
+      </Button>
+      <Line endX="-100.0" endY="266.33331298828125" fill="#9abe52" layoutX="398.0" layoutY="69.0" startX="-100.0" stroke="#7e8d4b" strokeWidth="2.0" />
+      <Button layoutX="360.0" layoutY="370.0" mnemonicParsing="false" onAction="#HadAccount" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #2A363F;" text="Already have an account?" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="defaultProfile" fitHeight="237.0" fitWidth="239.0" layoutX="36.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/prof-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="55.0" layoutY="234.0" mnemonicParsing="false" onAction="#addProfile" prefHeight="97.0" prefWidth="203.0" style="-fx-background-color: #2A363F;" text="Add Profile!" textFill="#c7d79f">
+         <font>
+            <Font name="Century Gothic" size="15.0" />
+         </font>
+      </Button>
+      <MenuButton fx:id="genderType" layoutX="360.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #6ED9A0;" text="              Gender" textFill="#fbfcfc">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Male" />
+          <MenuItem mnemonicParsing="false" text="Female" />
+            <MenuItem mnemonicParsing="false" text="Non_Binary" />
+            <MenuItem mnemonicParsing="false" text="Not_Say" />
+        </items>
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
+      </MenuButton>
+      <Circle fx:id="circle" fill="WHITE" layoutX="149.0" layoutY="128.0" radius="106.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <TextField fx:id="password_again" layoutX="360.0" layoutY="250.0" prefHeight="25.0" prefWidth="175.0" promptText="Retype password" style="-fx-background-color: #2A363F; -fx-text-fill: #fbfcfc; -fx-border-color: #465058;">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </TextField>
+      <Text fill="#be4628" layoutX="342.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*">
+         <font>
+            <Font name="Century Gothic" size="21.0" />
+         </font>
+      </Text>
+      <Text fill="#be4628" layoutX="342.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*">
+         <font>
+            <Font name="Century Gothic" size="21.0" />
+         </font>
+      </Text>
+      <Text fill="#be4628" layoutX="342.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*">
+         <font>
+            <Font name="Century Gothic" size="21.0" />
+         </font>
+      </Text>
+      <Text fill="#be4628" layoutX="342.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*">
+         <font>
+            <Font name="Century Gothic" size="21.0" />
+         </font>
+      </Text>
+      <Text fill="#be4628" layoutX="342.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*">
+         <font>
+            <Font name="Century Gothic" size="21.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

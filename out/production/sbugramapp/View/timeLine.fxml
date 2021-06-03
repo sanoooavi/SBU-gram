@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="638.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TimeLineController">
+   <children>
+      <Separator layoutX="585.0" orientation="VERTICAL" prefHeight="410.0" prefWidth="0.0" />
+      <ListView fx:id="PostList" prefHeight="410.0" prefWidth="585.0" />
+      <ImageView fitHeight="41.0" fitWidth="35.0" layoutX="594.0" layoutY="5.0" onMouseClicked="#GotoMenu" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/main%20menu.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="35.0" layoutX="594.0" layoutY="60.0" onMouseClicked="#AddPost" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/addpost.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="594.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/refresh.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

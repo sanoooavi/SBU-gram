@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="638.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainMenuController">
+   <children>
+      <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="229.0" onAction="#LogOut" prefHeight="120.0" prefWidth="120.0" ripplerFill="#6b653f" style="-fx-background-color: #2A363F; -fx-border-color: #fbfcfc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Log Out" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="229.0" onAction="#GoToProfilePage" prefHeight="120.0" prefWidth="120.0" ripplerFill="#6b653f" style="-fx-background-color: #2A363F; -fx-background-radius: 10; -fx-border-color: #fbfcfc; -fx-border-radius: 10;" text="View Profile" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="80.0" onAction="#SecretChat" prefHeight="120.0" prefWidth="120.0" ripplerFill="#6b653f" style="-fx-background-color: #2A363F; -fx-border-color: #fbfcfc; -fx-border-radius: 10; -fx-background-radius: 10;" text="Direct Message" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="80.0" onAction="#AddPost" prefHeight="120.0" prefWidth="120.0" ripplerFill="#6b653f" style="-fx-background-color: #2A363F; -fx-border-color: #fbfcfc; -fx-border-radius: 10; -fx-background-radius: 10;" text="New Post" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="13.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="14.0" layoutY="13.0" onMouseClicked="#backToTimeLine" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/exit.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="188.0" fitWidth="227.0" layoutX="389.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/logo.png" />
+         </image>
+      </ImageView>
+      <Line endX="-100.0" endY="321.6666564941406" layoutX="445.0" layoutY="49.0" startX="-100.0" stroke="#fbfcfc" />
+      <Button layoutX="398.0" layoutY="289.0" mnemonicParsing="false" onAction="#AboutUs" prefHeight="41.0" prefWidth="183.0" style="-fx-background-color: #2A363F;" text="about us!" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
