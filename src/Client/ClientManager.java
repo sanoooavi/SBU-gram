@@ -46,4 +46,12 @@ public class ClientManager {
         if (received.get("answer") == null ) return null;
         return (List<Post>)received.get("answer");
     }
+
+    public static List<Profile> LoadingTable() {
+        Map<String,Object> toSend = new HashMap<>();
+        toSend.put("command", Command.LoadSearchTable);
+        Map<String,Object> received = Network.serve(toSend);
+        if (received.get("answer") == null ) return null;
+        return (List<Profile>)received.get("answer");
+    }
 }

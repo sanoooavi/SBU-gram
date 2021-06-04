@@ -5,6 +5,7 @@ import Model.Post;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Profile implements Serializable {
     private String lastname;
     private String password;
     private LocalDate birthDate;
+    private Integer age;
     private int followings = 0;
     private int followers = 0;
     private Gender gender;
@@ -79,6 +81,10 @@ public class Profile implements Serializable {
 
     public int getFollowers() {
         return followers;
+    }
+    public Integer getAge(){
+        this.age= LocalDateTime.now().getYear()-birthDate.getYear();
+        return this.age;
     }
 
     public List<Post> getPosts() {

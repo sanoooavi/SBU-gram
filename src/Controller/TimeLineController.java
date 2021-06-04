@@ -28,4 +28,8 @@ public class TimeLineController {
     public void AddPost(MouseEvent mouseEvent) throws IOException {
         new PageLoader().load("AddPost");
     }
+
+    public void RefreshTimeLine(MouseEvent mouseEvent) throws IOException {
+        new PageLoader().load("SerachPage");
+    }
 }

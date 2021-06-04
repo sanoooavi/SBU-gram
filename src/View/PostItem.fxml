@@ -43,26 +43,26 @@
             <Image url="@../pic/comment.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="frame" fitHeight="276.0" fitWidth="345.0" layoutX="18.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../pic/postframe.png" />
-         </image>
-      </ImageView>
       <Label fx:id="PostTitle" layoutX="323.0" layoutY="37.0" prefHeight="22.0" prefWidth="191.0" style="-fx-text-fill: #000000;" text="Post title">
          <font>
             <Font name="Century Gothic Bold Italic" size="13.0" />
          </font>
       </Label>
       <Line endX="-100.00003051757812" endY="335.33331298828125" layoutX="408.0" layoutY="54.0" startX="-100.00003051757812" startY="-37.0" stroke="#7b7272" strokeWidth="2.0" />
-      <Label fx:id="PostDesc" layoutX="323.0" layoutY="59.0" prefHeight="35.0" prefWidth="250.0" style="-fx-text-fill: #000000;" text="Post desc">
+      <Label fx:id="PostDesc" layoutX="323.0" layoutY="59.0" prefWidth="250.0" style="-fx-text-fill: #000000;" text="Post desc" wrapText="true">
          <font>
             <Font name="Century Gothic" size="12.0" />
          </font>
       </Label>
-      <JFXTextArea focusColor="#313748" layoutX="323.0" layoutY="106.0" prefHeight="265.0" prefWidth="242.0" promptText="Comments" unFocusColor="WHITE">
+      <JFXTextArea focusColor="#313748" layoutX="323.0" layoutY="124.0" prefHeight="265.0" prefWidth="242.0" promptText="Comments" unFocusColor="WHITE">
          <font>
             <Font name="Century Gothic" size="12.0" />
          </font></JFXTextArea>
       <ImageView fx:id="theImagePosted" fitHeight="265.0" fitWidth="265.0" layoutX="23.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="frame" fitHeight="276.0" fitWidth="345.0" layoutX="18.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/noimage.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

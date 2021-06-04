@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,6 +11,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddPostController">
    <children>
+      <JFXButton buttonType="RAISED" layoutX="342.0" layoutY="294.0" onAction="#PublishPost" prefHeight="43.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc;" text="Publish" textFill="#fdffff">
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font></JFXButton>
       <TextField fx:id="post_title_field" layoutX="342.0" layoutY="50.0" prefHeight="35.0" prefWidth="228.0" promptText="title" style="-fx-background-color: #cce5f8; -fx-prompt-text-fill: #000000; -fx-text-fill: #000000;">
          <font>
             <Font name="Century Gothic Italic" size="13.0" />
@@ -21,22 +25,7 @@
             <Font name="Century Gothic Italic" size="13.0" />
          </font>
       </JFXTextArea>
-      <Button layoutX="342.0" layoutY="296.0" mnemonicParsing="false" onAction="#PublishPost" prefHeight="35.0" prefWidth="228.0" style="-fx-background-color: #43a7e9;" text="Publish" textFill="#2a363f">
-         <font>
-            <Font name="Century Gothic Bold" size="13.0" />
-         </font>
-      </Button>
-      <Button layoutX="342.0" layoutY="342.0" mnemonicParsing="false" onAction="#ClearAllFields" prefHeight="35.0" prefWidth="228.0" style="-fx-background-color: #197db7;" text="Clear all" textFill="WHITE">
-         <font>
-            <Font name="Century Gothic Bold Italic" size="13.0" />
-         </font>
-      </Button>
-      <Button layoutX="25.0" layoutY="305.0" mnemonicParsing="false" onAction="#Add_Image_toPost" prefHeight="79.0" prefWidth="290.0" style="-fx-background-color: #2A363F;" text="add Image" textFill="WHITE">
-         <font>
-            <Font name="Century Gothic Bold Italic" size="14.0" />
-         </font>
-      </Button>
-      <ImageView fx:id="defaultbackground" fitHeight="231.0" fitWidth="228.0" layoutX="56.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="defaultBackground" fitHeight="204.0" fitWidth="195.0" layoutX="79.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pic/frame3.png" />
          </image>
@@ -55,5 +44,15 @@
             </Text>
          </children></Pane>
       <ImageView fx:id="imageToPost" fitHeight="231.0" fitWidth="228.0" layoutX="56.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <JFXButton buttonType="RAISED" layoutX="342.0" layoutY="343.0" onAction="#ClearAll" prefHeight="43.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc;" text="Clear all" textFill="#fdffff">
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="308.0" onAction="#AddImageToPost" prefHeight="68.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc;" text="add post" textFill="#fdffff">
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
+      </JFXButton>
    </children>
 </Pane>

@@ -47,6 +47,9 @@ public class ClientHandler implements Runnable {
                     case LoadTimeLine:
                         answer = ServerManager.LoadTimeLine(income);
                         break;
+                    case LoadSearchTable:
+                        answer = ServerManager.LoadingTable(income);
+                        break;
                     case ForgotPassword:
                         break;
                 }

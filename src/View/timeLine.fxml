@@ -20,7 +20,7 @@
             <Image url="@../pic/addpost.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="594.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="594.0" layoutY="115.0" onMouseClicked="#RefreshTimeLine" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pic/refresh.png" />
          </image>

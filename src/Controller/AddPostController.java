@@ -5,7 +5,6 @@ import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
 import Model.Post;
-import Server.DataManager;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -13,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 
@@ -23,7 +21,7 @@ public class AddPostController {
     public JFXTextArea description_field;
     public TextField post_title_field;
     public ImageView imageToPost;
-    public ImageView defaultbackground;
+    public ImageView defaultBackground;
     byte[] BytesOfPhotoPosted;
     Post currentPost = new Post();
 
@@ -42,31 +40,9 @@ public class AddPostController {
         post_title_field.clear();
         description_field.clear();
         imageToPost.setVisible(false);
-        defaultbackground.setVisible(true);
+        defaultBackground.setVisible(true);
         BytesOfPhotoPosted=null;
         currentPost = new Post();
-    }
-
-    public void ClearAllFields(ActionEvent actionEvent) {
-        post_title_field.clear();
-        description_field.clear();
-        imageToPost.setVisible(false);
-        defaultbackground.setVisible(true);
-        BytesOfPhotoPosted=null;
-    }
-
-    public void Add_Image_toPost(ActionEvent actionEvent) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(new Popup());
-        if (file == null) {
-            return;
-        }
-        FileInputStream fileInputStream = new FileInputStream(file);
-        BytesOfPhotoPosted = fileInputStream.readAllBytes();
-        Image image = new Image(new ByteArrayInputStream(BytesOfPhotoPosted));
-        imageToPost.setImage(image);
-        defaultbackground.setVisible(false);
-        imageToPost.setVisible(true);
     }
 
     public boolean hasEmpty() {
@@ -97,5 +73,27 @@ public class AddPostController {
 
     public void GoBackToPostList(MouseEvent mouseEvent) throws IOException {
         new PageLoader().load("timeLine");
+    }
+
+    public void ClearAll(ActionEvent actionEvent) {
+        post_title_field.clear();
+        description_field.clear();
+        imageToPost.setVisible(false);
+        defaultBackground.setVisible(true);
+        BytesOfPhotoPosted=null;
+    }
+
+    public void AddImageToPost(ActionEvent actionEvent) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(new Popup());
+        if (file == null) {
+            return;
+        }
+        FileInputStream fileInputStream = new FileInputStream(file);
+        BytesOfPhotoPosted = fileInputStream.readAllBytes();
+        Image image = new Image(new ByteArrayInputStream(BytesOfPhotoPosted));
+        imageToPost.setImage(image);
+        defaultBackground.setVisible(false);
+        imageToPost.setVisible(true);
     }
 }

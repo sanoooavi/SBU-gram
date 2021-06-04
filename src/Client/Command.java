@@ -6,5 +6,6 @@ public enum Command {
     ForgotPassword,
     Username_unique,
     Publish_Post,
-    LoadTimeLine
+    LoadTimeLine,
+    LoadSearchTable
 }

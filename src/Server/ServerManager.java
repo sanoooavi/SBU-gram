@@ -5,6 +5,7 @@ import Client.Profile;
 import Model.Post;
 import Whatever.Time;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 public class ServerManager {
@@ -81,7 +82,14 @@ public class ServerManager {
         String username= (String) income.get("username");
         Map<String,Object> ans = new HashMap<>();
         ans.put("command",Command.LoadTimeLine);
-        ans.put("answer",Server.users.get(username).getPosts());
+        ans.put("answer",new ArrayList<>(Server.users.get(username).getPosts()));
+        return ans;
+    }
+
+    public static Map<String, Object> LoadingTable(Map<String, Object> income) {
+        Map<String,Object> ans = new HashMap<>();
+        ans.put("command",Command.LoadTimeLine);
+        ans.put("answer",new ArrayList<>(Server.users.values()));
         return ans;
     }
 }
