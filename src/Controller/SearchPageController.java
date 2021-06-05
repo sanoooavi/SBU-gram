@@ -2,104 +2,86 @@ package Controller;
 
 import Client.ClientManager;
 import Client.Profile;
-import com.jfoenix.controls.JFXTextField;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class SearchPageController implements Initializable {
     @FXML
-    public JFXTextField search_field;
-    @FXML
-    private TableView<Profile> table;
-    @FXML
-    private TableColumn<Profile, String> username;
+    private Label label;
+    @FXML private TextField filterField;
+    @FXML private TableView<Profile> tableview;
+    @FXML private TableColumn<Profile, String> Username;
+    @FXML private TableColumn<Profile, String> Name;
+    @FXML private TableColumn<Profile, Integer> age;
 
-    @FXML
-    private TableColumn<Profile, String> name;
-    @FXML
-    private TableColumn<Profile, Integer> age;
-    private ObservableList<Profile> masterData = FXCollections.observableArrayList();
-    private ObservableList<Profile> filteredData = FXCollections.observableArrayList();
+    //observalble list to store data
+    private final ObservableList<Profile> dataList = FXCollections.observableArrayList();
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        username.setCellValueFactory(new PropertyValueFactory<Profile, String>("username"));
-        name.setCellValueFactory(new PropertyValueFactory<Profile, String>("name"));
-        age.setCellValueFactory(new PropertyValueFactory<Profile, Integer>("age"));
-        masterData.addAll(ClientManager.LoadingTable());
-        filteredData.addAll(masterData);
-        masterData.addListener(new ListChangeListener<Profile>() {
-            @Override
-            public void onChanged(ListChangeListener.Change<? extends Profile> change) {
-                updateFilteredData();
-            }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        Username.setCellValueFactory(new PropertyValueFactory<>("Username"));
+        Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        age.setCellValueFactory(new PropertyValueFactory<>("age"));
+        dataList.addAll(ClientManager.LoadingTable());
+
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Profile> filteredData = new FilteredList<>(dataList, b -> true);
+
+        // 2. Set the filter Predicate whenever the filter changes.
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(profile -> {
+                // If filter text is empty, display all persons.
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (profile.getName().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                } else if (profile.getUsername().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                else if (String.valueOf(profile.getAge()).indexOf(lowerCaseFilter)!=-1)
+                    return true;
+                else
+                    return false; // Does not match.
+            });
         });
-        table.setItems(FXCollections.observableArrayList(filteredData));
-        search_field.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
 
-                updateFilteredData();
-            }
-        });
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Profile> sortedData = new SortedList<>(filteredData);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        // 	  Otherwise, sorting the TableView would have no effect.
+        sortedData.comparatorProperty().bind(tableview.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        tableview.setItems(sortedData);
+
+
     }
 
-    private void updateFilteredData() {
-        filteredData.clear();
-
-        for (Profile p : masterData) {
-            if (matchesFilter(p)) {
-                filteredData.add(p);
-            }
-        }
-
-        // Must re-sort table after items changed
-        reapplyTableSortOrder();
+    public void clear(MouseEvent mouseEvent) {
     }
 
-
-    private boolean matchesFilter(Profile person) {
-        String filterString = search_field.getText();
-        if (filterString == null || filterString.isEmpty()) {
-            // No filter --> Add all.
-            return true;
-        }
-
-        String lowerCaseFilterString = filterString.toLowerCase();
-
-        if (person.getName().toLowerCase().contains(lowerCaseFilterString)) {
-            return true;
-        } else if (person.getUsername().toLowerCase().contains(lowerCaseFilterString)) {
-            return true;
-        }
-
-        return false; // Does not match
-    }
-
-    private void reapplyTableSortOrder() {
-        ArrayList<TableColumn<Profile, ?>> sortOrder = new ArrayList<>(table.getSortOrder());
-        table.getSortOrder().clear();
-        table.getSortOrder().addAll(sortOrder);
-    }
-
-
-    public void GoFind(MouseEvent mouseEvent) {
-    }
-
-    public void clearSearch(MouseEvent mouseEvent) {
+    public void GotoProfile(MouseEvent mouseEvent) {
     }
 }

@@ -30,6 +30,6 @@ public class TimeLineController {
     }
 
     public void RefreshTimeLine(MouseEvent mouseEvent) throws IOException {
-        new PageLoader().load("SerachPage");
+        new PageLoader().load("SearchPage");
     }
 }

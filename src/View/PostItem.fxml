@@ -23,22 +23,12 @@
             <Font name="Century Gothic" size="16.0" />
          </font>
       </Label>
-      <ImageView fx:id="emptyHeart" fitHeight="35.0" fitWidth="46.0" layoutX="32.0" layoutY="362.0" onMouseClicked="#Like" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../pic/beforelike.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="RedHeart" fitHeight="42.0" fitWidth="43.0" layoutX="31.0" layoutY="358.0" onMouseClicked="#RemoveLike" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../pic/afterlike.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="46.0" fitWidth="35.0" layoutX="146.0" layoutY="362.0" onMouseClicked="#Retweet" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="46.0" fitWidth="35.0" layoutX="150.0" layoutY="362.0" onMouseClicked="#Retweet" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pic/retweet.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="91.0" layoutY="362.0" onMouseClicked="#ToComment" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="89.0" layoutY="362.0" onMouseClicked="#ToComment" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pic/comment.png" />
          </image>
@@ -54,7 +44,7 @@
             <Font name="Century Gothic" size="12.0" />
          </font>
       </Label>
-      <JFXTextArea focusColor="#313748" layoutX="323.0" layoutY="124.0" prefHeight="265.0" prefWidth="242.0" promptText="Comments" unFocusColor="WHITE">
+      <JFXTextArea fx:id="comments_field" focusColor="#313748" layoutX="323.0" layoutY="124.0" prefHeight="195.0" prefWidth="242.0" promptText="write here" style="-fx-text-fill: #000000;" unFocusColor="WHITE" visible="false">
          <font>
             <Font name="Century Gothic" size="12.0" />
          </font></JFXTextArea>
@@ -64,5 +54,30 @@
             <Image url="@../pic/noimage.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="RedHeart" fitHeight="40.0" fitWidth="35.0" layoutX="30.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../pic/afterlike.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="emptyHeart" fitHeight="40.0" fitWidth="35.0" layoutX="30.0" layoutY="362.0" onMouseClicked="#Like" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/beforelike.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="commentslabel" layoutX="323.0" layoutY="93.0" style="-fx-text-fill: #000000;" text="comments">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="AddCommentButton" layoutX="366.0" layoutY="348.0" mnemonicParsing="false" onAction="#AddTheComment" prefHeight="28.0" prefWidth="70.0" style="-fx-background-color: #ffedfc; -fx-border-color: #000000; -fx-border-radius: 4;" text="Ok!" visible="false">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="DismissButton" layoutX="448.0" layoutY="348.0" mnemonicParsing="false" onAction="#DismissTheComment" prefHeight="28.0" prefWidth="70.0" style="-fx-background-color: #ffedfc; -fx-border-color: #000000; -fx-border-radius: 4;" text="Dismiss!" visible="false">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

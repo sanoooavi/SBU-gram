@@ -1,8 +1,14 @@
 package Model;
 
+import Client.Profile;
+import Whatever.Comment;
+
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Post implements Serializable {
    @Serial
@@ -11,9 +17,14 @@ public class Post implements Serializable {
     private String writer;
     private  String title;
     private  String description;
-
+    List<Profile> likes= new CopyOnWriteArrayList<>();
+    List<Comment>comments=new CopyOnWriteArrayList<>();
     public void setPhoto(byte[] photo) {
         Photo = photo;
+    }
+
+    public List<Profile> getLikes() {
+        return likes;
     }
 
     public byte[] getPhoto() {
@@ -44,9 +55,15 @@ public class Post implements Serializable {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" + "writer='" + writer + '\'' + ", title='" + title + '\'' + ", description='" + description + '\'' + '}';
+    public List<Comment> getComments() {
+        return comments;
+    }
+    public String getCommentsOnField(){
+        String str="";
+        for (int i=0;i<getComments().size();i++){
+            str+=getComments().get(i);
+        }
+        return str;
     }
 
     @Override
@@ -54,11 +71,13 @@ public class Post implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Post)) return false;
         Post post = (Post) o;
-        return writer.equals(post.writer) && title.equals(post.title) && description.equals(post.description);
+        return Arrays.equals(Photo, post.Photo) && Objects.equals(writer, post.writer) && Objects.equals(title, post.title) && Objects.equals(description, post.description) && Objects.equals(likes, post.likes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(writer, title, description);
+        int result = Objects.hash(writer, title, description, likes);
+        result = 31 * result + Arrays.hashCode(Photo);
+        return result;
     }
 }

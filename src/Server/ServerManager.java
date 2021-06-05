@@ -3,6 +3,7 @@ package Server;
 import Client.Command;
 import Client.Profile;
 import Model.Post;
+import Whatever.Comment;
 import Whatever.Time;
 
 import java.util.ArrayList;
@@ -90,6 +91,47 @@ public class ServerManager {
         Map<String,Object> ans = new HashMap<>();
         ans.put("command",Command.LoadTimeLine);
         ans.put("answer",new ArrayList<>(Server.users.values()));
+        return ans;
+    }
+
+    public static Map<String, Object> LikePost(Map<String, Object> income) {
+        boolean isGonnaLike=true;
+       //Profile of the person who wants to like the post
+        Profile profile= (Profile) income.get("Profile");
+        Post post=(Post) income.get("Post");
+        //user name of the publisher of this post
+        String username=post.getWriter();
+        if(Server.users.containsKey(username)&&Server.users.containsValue(profile)){
+            int index=Server.users.get(username).getPosts().indexOf(post);
+            //if the boolean becomes false it means this user didn't like this post before
+             isGonnaLike=((Server.users.get(username)).getPosts()).get(index).getLikes().contains(profile);
+             if(!isGonnaLike){
+                 Server.users.get(username).getPosts().get(index).getLikes().add(profile);
+                 DataManager.getInstance().updateDataBase();
+             }
+        }
+        //if the boolean is true it means this user has liked this post before or has deleted account
+        Map<String,Object> ans = new HashMap<>();
+        ans.put("command",Command.LikePost);
+        ans.put("answer",new Boolean(isGonnaLike));
+        System.out.println( profile.getUsername()+" "+"like");
+        System.out.println("message: "+ post.getWriter()+" "+post.getTitle());
+        System.out.println("time : "+Time.getTime());
+      return ans;
+    }
+
+    public static Map<String, Object> AddComment(Map<String, Object> income) {
+        Comment comment= (Comment) income.get("Comment");
+        Post post=(Post) income.get("Post");
+        int index= Server.users.get(post.getWriter()).getPosts().indexOf(post);
+        Server.users.get(post.getWriter()).getPosts().get(index).getComments().add(comment);
+        DataManager.getInstance().updateDataBase();
+        Map<String,Object> ans = new HashMap<>();
+        ans.put("command",Command.AddComment);
+        ans.put("answer",new Boolean(true));
+        System.out.println( comment.toString());
+        System.out.println("message: "+ post.getTitle());
+        System.out.println("time : "+Time.getTime());
         return ans;
     }
 }

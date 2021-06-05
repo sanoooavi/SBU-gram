@@ -50,6 +50,12 @@ public class ClientHandler implements Runnable {
                     case LoadSearchTable:
                         answer = ServerManager.LoadingTable(income);
                         break;
+                    case LikePost:
+                        answer = ServerManager.LikePost(income);
+                        break;
+                    case AddComment:
+                        answer = ServerManager.AddComment(income);
+                        break;
                     case ForgotPassword:
                         break;
                 }

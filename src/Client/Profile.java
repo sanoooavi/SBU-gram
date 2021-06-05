@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Profile implements Serializable {
     @Serial
@@ -18,8 +20,6 @@ public class Profile implements Serializable {
     private String password;
     private LocalDate birthDate;
     private Integer age;
-    private int followings = 0;
-    private int followers = 0;
     private Gender gender;
     byte[] ProfilePhoto;
     public List<Post> posts=new ArrayList<>();
@@ -75,16 +75,24 @@ public class Profile implements Serializable {
         return birthDate;
     }
 
-    public int getFollowings() {
-        return followings;
-    }
-
-    public int getFollowers() {
-        return followers;
-    }
     public Integer getAge(){
         this.age= LocalDateTime.now().getYear()-birthDate.getYear();
         return this.age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Profile)) return false;
+        Profile profile = (Profile) o;
+        return Objects.equals(username, profile.username) && Objects.equals(name, profile.name) && Objects.equals(lastname, profile.lastname) && Objects.equals(password, profile.password) && Objects.equals(birthDate, profile.birthDate) && Objects.equals(age, profile.age) && gender == profile.gender && Arrays.equals(ProfilePhoto, profile.ProfilePhoto) && Objects.equals(posts, profile.posts);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(username, name, lastname, password, birthDate, age, gender, posts);
+        result = 31 * result + Arrays.hashCode(ProfilePhoto);
+        return result;
     }
 
     public List<Post> getPosts() {

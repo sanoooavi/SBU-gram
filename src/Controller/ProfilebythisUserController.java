@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -31,5 +32,8 @@ public class ProfilebythisUserController {
     }
 
     public void DeleteAccount(ActionEvent actionEvent) {
+    }
+
+    public void ExitPage(MouseEvent mouseEvent) {
     }
 }
