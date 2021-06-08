@@ -1,9 +1,10 @@
-package Client;
+package Whatever;
 
+import Client.Profile;
 import Model.Post;
-import java.util.List;
 
-public class thisClient{
+import java.util.List;
+public class ThatUser {
     public static Profile profile;
     public static void setProfile(Profile justCreatedProfile) {
         profile=justCreatedProfile;
@@ -17,10 +18,4 @@ public class thisClient{
     public static List<Post> getPosts(){
         return profile.posts;
     }
-    public static List<Profile>getFollowings(){
-        return profile.getFollowings();
-    }
-    public static int getFollowersNum(){return profile.getFollowers().size();}
-    public static int getFollowingsNum(){return profile.getFollowings().size();}
-
 }

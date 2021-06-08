@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Profile implements Serializable {
     @Serial
@@ -23,6 +24,15 @@ public class Profile implements Serializable {
     private Gender gender;
     byte[] ProfilePhoto;
     public List<Post> posts=new ArrayList<>();
+    public List<Profile>followings=new CopyOnWriteArrayList<>();
+    public List<Profile>followers=new CopyOnWriteArrayList<>();
+    public List<Profile> getFollowers() {
+        return followers;
+    }
+    public List<Profile> getFollowings() {
+        return followings;
+    }
+
     public byte[] getProfilePhoto() {
         return ProfilePhoto;
     }
@@ -85,14 +95,12 @@ public class Profile implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Profile)) return false;
         Profile profile = (Profile) o;
-        return Objects.equals(username, profile.username) && Objects.equals(name, profile.name) && Objects.equals(lastname, profile.lastname) && Objects.equals(password, profile.password) && Objects.equals(birthDate, profile.birthDate) && Objects.equals(age, profile.age) && gender == profile.gender && Arrays.equals(ProfilePhoto, profile.ProfilePhoto) && Objects.equals(posts, profile.posts);
+        return Objects.equals(username, profile.username);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(username, name, lastname, password, birthDate, age, gender, posts);
-        result = 31 * result + Arrays.hashCode(ProfilePhoto);
-        return result;
+        return Objects.hash(username);
     }
 
     public List<Post> getPosts() {

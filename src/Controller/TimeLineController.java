@@ -29,7 +29,11 @@ public class TimeLineController {
         new PageLoader().load("AddPost");
     }
 
-    public void RefreshTimeLine(MouseEvent mouseEvent) throws IOException {
-        new PageLoader().load("SearchPage");
+    public void RefreshTimeLine(MouseEvent mouseEvent){
+      
+    }
+
+    public void SearchForPeople(MouseEvent mouseEvent) throws IOException {
+         new PageLoader().load("SearchPage");
     }
 }

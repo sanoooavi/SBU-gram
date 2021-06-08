@@ -7,5 +7,10 @@ public enum Command {
     Username_unique,
     Publish_Post,
     LoadTimeLine,
-    LikePost, AddComment, LoadSearchTable
+    LikePost,
+    AddComment,
+    Follow,
+    GetInfo,
+    LoadSearchTable,
+    UnFollow ,
 }

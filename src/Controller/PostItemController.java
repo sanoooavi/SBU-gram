@@ -1,16 +1,15 @@
 package Controller;
-
 import Client.ClientManager;
+import Client.Profile;
 import Client.thisClient;
 import Model.PageLoader;
 import Model.Post;
 import Server.Server;
 import Whatever.Comment;
+import Whatever.ThatUser;
 import com.jfoenix.controls.JFXTextArea;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,44 +19,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
 
 
 public class PostItemController {
     @FXML
     public ImageView emptyHeart;
-    @FXML
-    public ImageView RedHeart;
-    @FXML
     public Circle UserProfilePhoto;
-    @FXML
     public Label UsernameLabel;
-    @FXML
     public AnchorPane RootPage;
-    @FXML
     public Label PostTitle;
-    @FXML
     public Label PostDesc;
-    @FXML
     public ImageView theImagePosted;
-    @FXML
     public ImageView frame;
-    @FXML
-    private JFXTextArea comments_field;
-    @FXML
-    private Label commentslabel;
-    @FXML
+    public Label commentslabel;
+    public JFXTextArea comments_field;
+    public ImageView RedHeart;
+    public Button AddCommentButton;
+    public Button DismissButton;
+    public Label LikesNumber;
     Post post;
-    @FXML
-    private Button AddCommentButton;
-    @FXML
-    private Button DismissButton;
-
-
     public PostItemController(Post post) throws IOException {
         new PageLoader().load("postItem", this);
         this.post = post;
@@ -74,18 +56,30 @@ public class PostItemController {
             theImagePosted.setImage(new Image(new ByteArrayInputStream(post.getPhoto())));
             frame.setVisible(false);
         }
+        LikesNumber.setText(String.valueOf(post.getLikes().size()));
         if (Server.users != null) {
-            boolean isLiked = ClientManager.LikePost(thisClient.getProfile(), this.post);
+            boolean isLiked =post.getLikes().contains(thisClient.getProfile());
             if (isLiked) {
                 emptyHeart.setVisible(false);
                 RedHeart.setVisible(true);
+            }
+            else {
+              RedHeart.setVisible(false);
             }
         }
         return RootPage;
     }
 
-    public void ViewProfile(ActionEvent actionEvent) {
+    public void ViewProfile(ActionEvent actionEvent) throws IOException {
+        Profile profile = ClientManager.getInfo(post.getWriter(),thisClient.getUserName());
+        if(profile==null){
+            ShowInvalidViewProfileDialog();
+            return;
+        }
+        ThatUser.setProfile(profile);
+        new PageLoader().load("ProfilePageOtherUsers");
     }
+
 
     public void Retweet(MouseEvent mouseEvent) {
     }
@@ -104,7 +98,7 @@ public class PostItemController {
 
     @FXML
     void AddTheComment(ActionEvent event) throws IOException {
-        if(comments_field.getText().isEmpty()){
+       if(comments_field.getText().isEmpty()){
            ShowInvalidCommentDialog();return;
         }
         Comment comment = new Comment(thisClient.getUserName(), comments_field.getText());
@@ -121,16 +115,22 @@ public class PostItemController {
         DismissButton.setVisible(false);
     }
 
-    public void Like(MouseEvent mouseEvent) {
+    public void Like(MouseEvent mouseEvent) throws IOException {
         boolean HasLiked = ClientManager.LikePost(thisClient.getProfile(), this.post);
         if (HasLiked) {
             ShowInvalidLikeDialog();
             return;
         } else {
-            emptyHeart.setVisible(false);
-            RedHeart.setVisible(true);
+           emptyHeart.setVisible(false);
         }
+        new PageLoader().load("timeLine");
     }
+    private void ShowInvalidViewProfileDialog() {
+        String title = "Error in ViewProfile";
+        String contentText = "This user might have deleted account";
+        this.makeAndShowInformationDialog(title, contentText);
+    }
+
 
     public void ShowInvalidLikeDialog() {
         String title = "Error in Liking";

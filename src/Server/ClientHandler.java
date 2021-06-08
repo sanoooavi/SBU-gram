@@ -56,6 +56,15 @@ public class ClientHandler implements Runnable {
                     case AddComment:
                         answer = ServerManager.AddComment(income);
                         break;
+                    case Follow:
+                        answer = ServerManager.Follow(income);
+                        break;
+                    case UnFollow:
+                        answer = ServerManager.UnFollow(income);
+                        break;
+                    case GetInfo:
+                        answer = ServerManager.GetInfo(income);
+                        break;
                     case ForgotPassword:
                         break;
                 }

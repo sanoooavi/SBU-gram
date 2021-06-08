@@ -65,19 +65,16 @@ public class Post implements Serializable {
         }
         return str;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Post)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Arrays.equals(Photo, post.Photo) && Objects.equals(writer, post.writer) && Objects.equals(title, post.title) && Objects.equals(description, post.description) && Objects.equals(likes, post.likes);
+        return Objects.equals(writer, post.writer) && Objects.equals(title, post.title) && Objects.equals(description, post.description);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(writer, title, description, likes);
-        result = 31 * result + Arrays.hashCode(Photo);
-        return result;
+        return Objects.hash(writer, title, description);
     }
 }

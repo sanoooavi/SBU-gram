@@ -76,4 +76,38 @@ public class ClientManager {
         toSend.put("Post", post);
         Network.serve(toSend);
     }
+
+
+
+    public static Profile getInfo(String userTarget, String userName) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.GetInfo);
+        toSend.put("user", userName);
+        toSend.put("userTarget", userTarget);
+        Map<String, Object> received =Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (Profile) received.get("answer");
+
+    }
+    public static Boolean follow(Profile profile_following, Profile profile_follower) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.Follow);
+        //the one who you want to follow
+        toSend.put("following",profile_following);
+        //your profile
+        toSend.put("follower", profile_follower);
+        Map<String, Object> received =Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (Boolean) received.get("answer");
+    }
+
+    public static Boolean Unfollow(Profile profile, Profile profile1) {
+        Map<String ,Object>toSend=new HashMap<>();
+        toSend.put("command",Command.UnFollow);
+        toSend.put("ToUnfollow",profile);
+        toSend.put("User",profile1);
+        Map<String, Object> received =Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (Boolean) received.get("answer");
+    }
 }

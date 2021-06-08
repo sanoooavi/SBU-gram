@@ -2,6 +2,8 @@ package Controller;
 
 import Client.ClientManager;
 import Client.Profile;
+import Model.PageLoader;
+import Whatever.ThatUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -75,13 +78,19 @@ public class SearchPageController implements Initializable {
 
         // 5. Add sorted (and filtered) data to the table.
         tableview.setItems(sortedData);
-
-
     }
 
     public void clear(MouseEvent mouseEvent) {
+        filterField.clear();
     }
 
-    public void GotoProfile(MouseEvent mouseEvent) {
+    public void GotoProfile(MouseEvent mouseEvent) throws IOException {
+        Profile prof=tableview.getSelectionModel().getSelectedItem();
+        ThatUser.setProfile(prof);
+        new PageLoader().load("ProfilePageOtherUsers");
+    }
+
+    public void GoBackToTimeLine(MouseEvent mouseEvent) throws IOException {
+        new PageLoader().load("timeLine");
     }
 }
