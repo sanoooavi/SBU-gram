@@ -32,13 +32,14 @@ public class ProfilebythisUserController {
         followings.setText(String.valueOf(thisClient.getFollowingsNum()));
     }
 
-    public void UpdateAccount(ActionEvent actionEvent) {
+    public void UpdateAccount(ActionEvent actionEvent) throws IOException {
+        new PageLoader().load("UpdateProfilePage");
     }
 
     public void DeleteAccount(ActionEvent actionEvent) {
     }
 
     public void ExitPage(MouseEvent mouseEvent) throws IOException {
-        new PageLoader().load("MainMenu");
+        new PageLoader().load("timeLine");
     }
 }

@@ -4,7 +4,7 @@ import Model.Post;
 import java.util.List;
 
 public class thisClient{
-    public static Profile profile;
+    public static Profile profile=null;
     public static void setProfile(Profile justCreatedProfile) {
         profile=justCreatedProfile;
     }

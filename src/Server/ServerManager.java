@@ -189,4 +189,13 @@ public class ServerManager {
     }
 
 
+    public static Map<String, Object> UpdateProfile(Map<String, Object> income) {
+        String username=(String) income.get("username");
+        String email=(String) income.get("email");
+        String newName=(String)income.get("newName");
+        String newLastName=(String)income.get("newLastName");
+        String phoneNumber=(String)income.get("phoneNumber");
+        String location=(String)income.get("location");
+        return null;
+    }
 }

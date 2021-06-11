@@ -57,15 +57,14 @@ public class PostItemController {
             frame.setVisible(false);
         }
         LikesNumber.setText(String.valueOf(post.getLikes().size()));
-        if (Server.users != null) {
+        //if (Server.users != null) {
             boolean isLiked =post.getLikes().contains(thisClient.getProfile());
             if (isLiked) {
-                emptyHeart.setVisible(false);
-                RedHeart.setVisible(true);
-            }
-            else {
-              RedHeart.setVisible(false);
-            }
+                emptyHeart.setImage(new Image("/pic/afterlike.png"));
+            //}
+          //  else {
+             // RedHeart.setVisible(false);
+           // }
         }
         return RootPage;
     }
@@ -102,9 +101,10 @@ public class PostItemController {
            ShowInvalidCommentDialog();return;
         }
         Comment comment = new Comment(thisClient.getUserName(), comments_field.getText());
+        post.getComments().add(comment);
         ClientManager.AddComment(comment, post);
         afterComment();
-        new PageLoader().load("timeLine");
+      //  new PageLoader().load("timeLine");
     }
 
     public void afterComment() {
@@ -121,9 +121,10 @@ public class PostItemController {
             ShowInvalidLikeDialog();
             return;
         } else {
-           emptyHeart.setVisible(false);
+            post.getLikes().add(thisClient.getProfile());
+            emptyHeart.setImage(new Image("/pic/afterlike.png"));
         }
-        new PageLoader().load("timeLine");
+      //  new PageLoader().load("timeLine");
     }
     private void ShowInvalidViewProfileDialog() {
         String title = "Error in ViewProfile";

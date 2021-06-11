@@ -110,4 +110,16 @@ public class ClientManager {
         if (received.get("answer") == null) return null;
         return (Boolean) received.get("answer");
     }
+
+    public static void UpdateProfile(String userName, String email, String newName, String newLastName, String phoneNumber, String location) {
+        Map<String,Object>toSend=new HashMap<>();
+        toSend.put("command",Command.UpdateProfile);
+        toSend.put("username",userName);
+        toSend.put("email",email);
+        toSend.put("newName",newName);
+        toSend.put("newLastName",newLastName);
+        toSend.put("phoneNumber",phoneNumber);
+        toSend.put("location",location);
+        Map<String, Object> received =Network.serve(toSend);
+    }
 }

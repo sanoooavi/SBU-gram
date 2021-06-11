@@ -35,8 +35,8 @@ public class SignUpController {
         if(!isValidBirth(Birthdate.getValue().getYear()))return;;
         //profile seems valid
         Profile justCreatedProfile = this.makeProfileFromPageContent();
-        ClientManager.signUp(justCreatedProfile);
         thisClient.setProfile(justCreatedProfile);
+        ClientManager.signUp(justCreatedProfile);
         showProfileCreatedDialog();
         try {
             new PageLoader().load("timeLine");

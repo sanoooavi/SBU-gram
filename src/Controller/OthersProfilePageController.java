@@ -51,10 +51,8 @@ public class OthersProfilePageController {
     }
 
     public void Follow(ActionEvent actionEvent) {
-        if (profile == thisClient.getProfile()) {
-            ShowInvalidFollowDialog();
-            return;
-        }
+        thisClient.getFollowings().add(profile);
+        profile.getFollowers().add(thisClient.getProfile());
         ClientManager.follow(profile, thisClient.getProfile());
         //UnfollowButton.setVisible(true);
         FollowButton.setVisible(false);
@@ -77,21 +75,9 @@ public class OthersProfilePageController {
     }
 
     public void ExitPage(MouseEvent mouseEvent) throws IOException {
-        new PageLoader().load("SearchPage");
+        new PageLoader().load("timeLine");
     }
 
-    public void ShowInvalidFollowDialog() {
-        String title = "Error in Following";
-        String contentText = "You can not follow yourself!";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-    public void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-    }
     public void ConfirmationAlert(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Unfollow contest");

@@ -1,7 +1,6 @@
 package Client;
 
 import Model.Post;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 public class Profile implements Serializable {
     @Serial
     private static final long serialVersionUID = 19841212603990502L;
@@ -23,6 +21,9 @@ public class Profile implements Serializable {
     private Integer age;
     private Gender gender;
     byte[] ProfilePhoto;
+    String email=null;
+    String phoneNumber=null;
+    String location=null;
     public List<Post> posts=new ArrayList<>();
     public List<Profile>followings=new CopyOnWriteArrayList<>();
     public List<Profile>followers=new CopyOnWriteArrayList<>();
@@ -31,6 +32,30 @@ public class Profile implements Serializable {
     }
     public List<Profile> getFollowings() {
         return followings;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public byte[] getProfilePhoto() {
@@ -69,9 +94,9 @@ public class Profile implements Serializable {
     }
 
     public Profile authenticate(String username, String password) {
-        if (this.username.equals(username) && this.password.equals(password)) return this;
-        return null;
-    }
+    if (this.username.equals(username) && this.password.equals(password)) return this;
+      return null;
+   }
 
     public String getName() {
         return name;

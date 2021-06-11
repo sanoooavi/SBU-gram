@@ -65,6 +65,9 @@ public class ClientHandler implements Runnable {
                     case GetInfo:
                         answer = ServerManager.GetInfo(income);
                         break;
+                    case UpdateProfile:
+                        answer = ServerManager.UpdateProfile(income);
+                        break;
                     case ForgotPassword:
                         break;
                 }

@@ -2,6 +2,7 @@ package Controller;
 
 import Client.ClientManager;
 import Client.Profile;
+import Client.thisClient;
 import Model.PageLoader;
 import Whatever.ThatUser;
 import javafx.collections.FXCollections;
@@ -86,8 +87,13 @@ public class SearchPageController implements Initializable {
 
     public void GotoProfile(MouseEvent mouseEvent) throws IOException {
         Profile prof=tableview.getSelectionModel().getSelectedItem();
-        ThatUser.setProfile(prof);
-        new PageLoader().load("ProfilePageOtherUsers");
+        if(prof.equals(thisClient.getProfile())){
+            new PageLoader().load("ProfilebythisUser");
+        }
+        else {
+            ThatUser.setProfile(prof);
+            new PageLoader().load("ProfilePageOtherUsers");
+        }
     }
 
     public void GoBackToTimeLine(MouseEvent mouseEvent) throws IOException {
