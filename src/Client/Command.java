@@ -12,5 +12,5 @@ public enum Command {
     Follow,
     GetInfo,
     LoadSearchTable,
-    UnFollow, UpdateProfile,
+    UnFollow, UpdateProfile, rePost, LoadPersonalTimeLine,
 }

@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -27,12 +28,12 @@
       <font>
          <Font name="Century Gothic" size="12.0" />
       </font></JFXTextField>
-    <JFXButton layoutX="30.0" layoutY="316.0" onAction="#EditProfilePhoto" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #6ED9A0;" text="Edit profile photo" textFill="#fbfcfc">
+    <JFXButton layoutX="30.0" layoutY="350.0" onAction="#EditProfilePhoto" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #6ED9A0;" text="Edit profile photo" textFill="#fbfcfc">
       <font>
          <Font name="Century Gothic" size="12.0" />
       </font></JFXButton>
    <Line endX="-100.0" endY="321.0" layoutX="359.0" layoutY="44.0" startX="-100.0" stroke="#6ed9a0" />
-    <JFXButton layoutX="352.0" layoutY="316.0" onAction="#SaveNewProfile" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #6ED9A0;" text="Save Profile" textFill="#fbfcfc">
+    <JFXButton layoutX="350.0" layoutY="350.0" onAction="#SaveNewProfile" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #6ED9A0;" text="Save Profile" textFill="#fbfcfc">
       <font>
          <Font name="Century Gothic" size="12.0" />
       </font></JFXButton>
@@ -62,4 +63,19 @@
       </font>
    </Label>
    <Ellipse fx:id="ProfilePhotoField" fill="WHITE" layoutX="130.0" layoutY="171.0" radiusX="100.0" radiusY="129.0" stroke="BLACK" strokeType="INSIDE" />
+   <RadioButton fx:id="malebutton" layoutX="300.0" layoutY="305.0" mnemonicParsing="false" text="Male" textFill="#6ed9a0">
+      <font>
+         <Font name="Century Gothic" size="12.0" />
+      </font>
+   </RadioButton>
+   <RadioButton fx:id="female_button" layoutX="500.0" layoutY="305.0" mnemonicParsing="false" text="Female" textFill="#6ed9a0">
+      <font>
+         <Font name="Century Gothic" size="12.0" />
+      </font>
+   </RadioButton>
+   <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="5.0" layoutY="3.0" onMouseClicked="#BackToProfilePage" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../pic/f0a111531f184580b39cd8cc3ca6bbed.png" />
+      </image>
+   </ImageView>
 </AnchorPane>

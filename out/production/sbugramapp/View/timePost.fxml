@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="410.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.timePostController">
+   <children>
+      <Pane prefHeight="30.0" prefWidth="638.0" style="-fx-background-color: #2A363F;">
+         <children>
+            <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="6.0" layoutY="3.0" onMouseClicked="#BacktoInfoPage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/f0a111531f184580b39cd8cc3ca6bbed.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="567.0" layoutY="7.0" text="User Posts" textFill="#fbfcfc">
+               <font>
+                  <Font name="Century Gothic Bold Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ListView fx:id="PostList" layoutY="30.0" prefHeight="380.0" prefWidth="638.0" />
+   </children>
+</AnchorPane>

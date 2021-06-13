@@ -35,26 +35,38 @@ public class OthersProfilePageController {
     public Label followers;
     public Label followings;
     public AnchorPane RootPage;
+    public Label phone_number_field;
+    public Label gender_field;
+    public Label email_field;
     Profile profile;
 
     public void initialize() {
         this.profile = ThatUser.getProfile();
         UserName.setText("  " + profile.getUsername());
         FullName.setText("  " + profile.getName() + " " + profile.getLastname());
-        Location.setText("  " + "Iran");
+        Location.setText("  " + profile.getLocation());
         BirthDate.setText("  " + profile.getBirthDate().toString());
         UserProfileImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(profile.getProfilePhoto()))));
+        followers.setText(String.valueOf(profile.getFollowers().size()));
+        followings.setText(String.valueOf(profile.getFollowings().size()));
         if (thisClient.getFollowings().contains(profile)) {
-           // UnfollowButton.setVisible(true);
+            UnfollowButton.setVisible(true);
             FollowButton.setVisible(false);
         }
+        else {
+            UnfollowButton.setVisible(false);
+            FollowButton.setVisible(true);
+        }
+        email_field.setText(" " + profile.getEmail());
+        phone_number_field.setText(" " + profile.getPhoneNumber());
+        gender_field.setText(" " + profile.getGender());
     }
 
     public void Follow(ActionEvent actionEvent) {
         thisClient.getFollowings().add(profile);
         profile.getFollowers().add(thisClient.getProfile());
-        ClientManager.follow(profile, thisClient.getProfile());
-        //UnfollowButton.setVisible(true);
+        ClientManager.follow(profile.getUsername(), thisClient.getUserName());
+        UnfollowButton.setVisible(true);
         FollowButton.setVisible(false);
     }
 
@@ -65,7 +77,13 @@ public class OthersProfilePageController {
     }
 
     public void Unfollow(ActionEvent actionEvent) {
-        ConfirmationAlert();
+        if(ConfirmationAlert()) {
+            thisClient.getFollowings().remove(profile);
+            profile.getFollowers().remove(thisClient.getProfile());
+            UnfollowButton.setVisible(false);
+            FollowButton.setVisible(true);
+            ClientManager.Unfollow(profile.getUsername(), thisClient.getUserName());
+        }
     }
 
     public void UnMute(ActionEvent actionEvent) {
@@ -78,20 +96,23 @@ public class OthersProfilePageController {
         new PageLoader().load("timeLine");
     }
 
-    public void ConfirmationAlert(){
+    public boolean ConfirmationAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Unfollow contest");
         alert.setHeaderText("Please confirm!");
         alert.setContentText("Are you sure want to unfollow this user?");
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.get() == null) {
-        } else if (option.get() == ButtonType.OK) {
+       if (option.get() == ButtonType.OK) {
             UnfollowButton.setVisible(false);
             FollowButton.setVisible(true);
-          ClientManager.Unfollow(profile, thisClient.getProfile());
-        } else{return;
+            return true;
         }
+            return false;
     }
 
 
+    public void ShowMyPosts(ActionEvent actionEvent) throws IOException {
+        ThatUser.setProfile(profile);
+        new PageLoader().load("timePost");
+    }
 }

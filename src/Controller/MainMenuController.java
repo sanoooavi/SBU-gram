@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class MainMenuController {
     public void LogOut(ActionEvent actionEvent) {
+          PageLoader.logout();
     }
 
     public void GoToProfilePage(ActionEvent actionEvent) throws IOException {
@@ -17,7 +18,8 @@ public class MainMenuController {
     public void SecretChat(ActionEvent actionEvent) {
     }
 
-    public void AddPost(ActionEvent actionEvent) {
+    public void AddPost(ActionEvent actionEvent) throws IOException {
+        new PageLoader().load("AddPost");
     }
 
     public void backToTimeLine(MouseEvent mouseEvent) throws IOException {

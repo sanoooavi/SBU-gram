@@ -1,6 +1,7 @@
 package Server;
 
 import Client.Command;
+import Client.Gender;
 import Client.Profile;
 import Model.Post;
 import Whatever.Comment;
@@ -105,7 +106,7 @@ public class ServerManager {
         Profile profile = (Profile) income.get("Profile");
         Post post = (Post) income.get("Post");
         //user name of the publisher of this post
-        String username = post.getWriter();
+        String username = post.getPublisher();
         if (Server.users.containsKey(username) && Server.users.containsValue(profile)) {
             int index = Server.users.get(username).getPosts().indexOf(post);
             //if the boolean becomes false it means this user didn't like this post before
@@ -128,8 +129,8 @@ public class ServerManager {
     public static Map<String, Object> AddComment(Map<String, Object> income) {
         Comment comment = (Comment) income.get("Comment");
         Post post = (Post) income.get("Post");
-        int index = Server.users.get(post.getWriter()).getPosts().indexOf(post);
-        Server.users.get(post.getWriter()).getPosts().get(index).getComments().add(comment);
+        int index = Server.users.get(post.getPublisher()).getPosts().indexOf(post);
+        Server.users.get(post.getPublisher()).getPosts().get(index).getComments().add(comment);
         DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.AddComment);
@@ -141,30 +142,39 @@ public class ServerManager {
     }
 
     public static Map<String, Object> Follow(Map<String, Object> income) {
-        Profile following = (Profile) income.get("following");
-        Profile follower = (Profile) income.get("follower");
-        Server.users.get(follower.getUsername()).getFollowings().add(following);
+        String following = (String) income.get("following");
+        String follower = (String) income.get("follower");
+        Profile profTo = Server.users.get(following);
+        Profile profFrom = Server.users.get(follower);
+        Server.users.get(follower).getFollowings().add(profTo);
         DataManager.getInstance().updateDataBase();
-        Server.users.get(following.getUsername()).getFollowers().add(follower);
+        Server.users.get(following).getFollowers().add(profFrom);
         DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.Follow);
         ans.put("answer", new Boolean(true));
+        System.out.println(follower + " followed");
+        System.out.println("message: " + following);
+        System.out.println("time : " + Time.getTime());
         return ans;
     }
 
     public static Map<String, Object> UnFollow(Map<String, Object> income) {
-        Profile User = (Profile) income.get("User");
-        Profile ToUnfollow = (Profile) income.get("ToUnfollow");
-        Boolean isNullProfile = (Server.users.get(User.getUsername()) == null||Server.users.get(ToUnfollow.getUsername()) == null);
+        String User = (String) income.get("User");
+        String ToUnfollow = (String) income.get("ToUnfollow");
+        Profile User_Profile = Server.users.get(User);
+        Profile ToUnfollow_Profile=Server.users.get(ToUnfollow);
+        boolean isNullProfile = (Server.users.get(User) == null || Server.users.get(ToUnfollow) == null);
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.UnFollow);
         ans.put("exists", !isNullProfile);
         if (isNullProfile) {
             return ans;
         }
-        Server.users.get(ToUnfollow.getUsername()).getFollowers().remove(User);
-        Server.users.get(User.getUsername()).getFollowings().remove(ToUnfollow);
+        //when someone unfollow another person their likes will be removed or not?
+        Server.users.get(ToUnfollow).getFollowers().remove(User_Profile);
+        DataManager.getInstance().updateDataBase();
+        Server.users.get(User).getFollowings().remove(ToUnfollow_Profile);
         DataManager.getInstance().updateDataBase();
         ans.put("answer", new Boolean(true));
         return ans;
@@ -173,7 +183,7 @@ public class ServerManager {
     public static Map<String, Object> GetInfo(Map<String, Object> income) {
         String userTarget = (String) income.get("userTarget");
         String username = (String) income.get("user");
-        Boolean isNullProfile = (Server.users.get(userTarget) == null);
+        boolean isNullProfile = (Server.users.get(userTarget) == null);
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.GetInfo);
         ans.put("exists", !isNullProfile);
@@ -190,12 +200,58 @@ public class ServerManager {
 
 
     public static Map<String, Object> UpdateProfile(Map<String, Object> income) {
-        String username=(String) income.get("username");
-        String email=(String) income.get("email");
-        String newName=(String)income.get("newName");
-        String newLastName=(String)income.get("newLastName");
-        String phoneNumber=(String)income.get("phoneNumber");
-        String location=(String)income.get("location");
-        return null;
+        String username = (String) income.get("username");
+        String email = (String) income.get("email");
+        String newName = (String) income.get("newName");
+        String newLastName = (String) income.get("newLastName");
+        String phoneNumber = (String) income.get("phoneNumber");
+        String location = (String) income.get("location");
+        Gender gender = (Gender) income.get("gender");
+        byte[] profilePhoto = (byte[]) income.get("profilePhoto");
+        if (!newLastName.equals("null")) {
+            Server.users.get(username).setLastname(newLastName);
+        }
+        if (!newName.equals("null")) {
+            Server.users.get(username).setName(newName);
+        }
+        if (profilePhoto != null) {
+            Server.users.get(username).setProfilePhoto(profilePhoto);
+        }
+        Server.users.get(username).setEmail(email);
+        Server.users.get(username).setPhoneNumber(phoneNumber);
+        Server.users.get(username).setLocation(location);
+        Server.users.get(username).setGender(gender);
+        DataManager.getInstance().updateDataBase(); // save to local file
+        Map<String, Object> ans = new HashMap<>();
+        Profile prof = Server.users.get(username);
+        ans.put("command", Command.UpdateProfile);
+        ans.put("answer", prof);
+        System.out.println(username + " updated info");
+        System.out.println("message: ");
+        System.out.println("time : " + Time.getTime());
+        return ans;
+    }
+
+    public static Map<String, Object> rePost(Map<String, Object> income) {
+        Post post = (Post) income.get("post");
+        String username = (String) income.get("username");
+        Server.users.get(username).getPosts().add(post);
+        DataManager.getInstance().updateDataBase(); // save to local file
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.rePost);
+        ans.put("answer", new Boolean(true));
+        System.out.println(username + " rePost");
+        System.out.println("message: " + post.getWriter() + " " + post.getTitle());
+        System.out.println("time : " + Time.getTime());
+        return ans;
+    }
+
+    public static Map<String, Object> LoadingPersonalInfo(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.LoadPersonalTimeLine);
+        ArrayList<Post> returnValue = new ArrayList<>(Server.users.get(username).getPosts());
+        ans.put("answer", returnValue);
+        return ans;
     }
 }

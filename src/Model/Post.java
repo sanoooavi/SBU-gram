@@ -15,12 +15,21 @@ public class Post implements Serializable {
     private static final long serialVersionUID = -2622370219466881429L;
     byte[] Photo;
     private String writer;
+    private String publisher;
     private  String title;
     private  String description;
     List<Profile> likes= new CopyOnWriteArrayList<>();
     List<Comment>comments=new CopyOnWriteArrayList<>();
     public void setPhoto(byte[] photo) {
         Photo = photo;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublisher() {
+        return publisher;
     }
 
     public List<Profile> getLikes() {
@@ -65,16 +74,16 @@ public class Post implements Serializable {
         }
         return str;
     }
-    @Override
+    //@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Objects.equals(writer, post.writer) && Objects.equals(title, post.title) && Objects.equals(description, post.description);
+        return Objects.equals(publisher, post.publisher) && Objects.equals(title, post.title) && Objects.equals(description, post.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(writer, title, description);
+        return Objects.hash(publisher, title, description);
     }
 }

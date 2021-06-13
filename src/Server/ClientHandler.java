@@ -68,6 +68,12 @@ public class ClientHandler implements Runnable {
                     case UpdateProfile:
                         answer = ServerManager.UpdateProfile(income);
                         break;
+                    case rePost:
+                        answer = ServerManager.rePost(income);
+                        break;
+                    case LoadPersonalTimeLine:
+                        answer = ServerManager.LoadingPersonalInfo(income);
+                        break;
                     case ForgotPassword:
                         break;
                 }

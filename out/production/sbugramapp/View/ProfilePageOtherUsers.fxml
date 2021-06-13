@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,7 @@
 
 <AnchorPane fx:id="RootPage" prefHeight="410.0" prefWidth="638.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.OthersProfilePageController">
    <children>
-      <Pane layoutX="244.0" layoutY="40.0" prefHeight="217.0" prefWidth="390.0" style="-fx-background-color: #fbfcfc;">
+      <Pane layoutX="244.0" layoutY="40.0" prefHeight="217.0" prefWidth="385.0" style="-fx-background-color: #fbfcfc;">
          <children>
             <Button fx:id="UnBlockButton" layoutX="278.0" layoutY="170.0" mnemonicParsing="false" onAction="#UnBlock" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e61717; -fx-background-radius: 10;" text="UnBlock">
                <font>
@@ -59,29 +60,29 @@
                   <Font name="Century Gothic" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="BlockButton" layoutX="274.0" layoutY="170.0" mnemonicParsing="false" onAction="#Block" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Block">
+            <Button fx:id="BlockButton" layoutX="273.0" layoutY="170.0" mnemonicParsing="false" onAction="#Block" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Block">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <Label fx:id="FullName" layoutX="325.0" layoutY="91.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  Full Name">
+      <Label fx:id="FullName" layoutX="324.0" layoutY="91.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  Full Name">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="UserName" layoutX="325.0" layoutY="51.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  UserName">
+      <Label fx:id="UserName" layoutX="324.0" layoutY="51.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  UserName">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="Location" layoutX="325.0" layoutY="131.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  Location">
+      <Label fx:id="Location" layoutX="324.0" layoutY="131.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  Location">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="BirthDate" layoutX="325.0" layoutY="171.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  BirthDate">
+      <Label fx:id="BirthDate" layoutX="324.0" layoutY="171.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  BirthDate">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
@@ -125,5 +126,45 @@
             </ImageView>
          </children>
       </Pane>
+      <Pane layoutX="15.0" layoutY="270.0" prefHeight="99.0" prefWidth="615.0" style="-fx-background-color: #fbfcfc;">
+         <children>
+            <Label layoutX="10.0" layoutY="70.0" text="Phone-Number">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text="E-mail">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="40.0" text="Gender">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="email_field" layoutX="110.0" layoutY="5.0" prefHeight="25.0" prefWidth="492.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 4;" text="   e-mail adress">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="gender_field" layoutX="110.0" layoutY="35.0" prefHeight="25.0" prefWidth="492.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 4;" text="   gender-type">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="phone_number_field" layoutX="110.0" layoutY="65.0" prefHeight="25.0" prefWidth="492.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 4;" text="  phone-number">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Separator layoutY="369.0" prefHeight="24.0" prefWidth="638.0" />
+      <Button layoutY="381.0" mnemonicParsing="false" onAction="#ShowMyPosts" prefHeight="30.0" prefWidth="638.0" style="-fx-background-color: #2A363F;" text=" Posts" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic Bold Italic" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

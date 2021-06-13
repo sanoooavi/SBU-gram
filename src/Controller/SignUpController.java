@@ -21,10 +21,11 @@ public class SignUpController {
     public TextField username_field;
     public PasswordField pass_field;
     public Circle circle;
-    public MenuButton genderType;
     public DatePicker Birthdate;
     public ImageView defaultProfile;
     public TextField password_again;
+    public RadioButton MaleButton;
+    public RadioButton FemaleButton;
     private Image image = null;
     private byte[]bytes;
 
@@ -32,7 +33,11 @@ public class SignUpController {
         if (hasEmptyField()) return;
         if (!isValidPassword(pass_field.getText(), password_again.getText())) return;
         if (!isValidUsername(username_field.getText())) return;
-        if(!isValidBirth(Birthdate.getValue().getYear()))return;;
+        if(!isValidBirth(Birthdate.getValue().getYear()))return;
+        if(MaleButton.isSelected() && FemaleButton.isSelected()){
+            ShowInvalidChooseGenderDialog();
+            return;
+        }
         //profile seems valid
         Profile justCreatedProfile = this.makeProfileFromPageContent();
         thisClient.setProfile(justCreatedProfile);
@@ -54,23 +59,14 @@ public class SignUpController {
             newProfile.setLastname(lastname_field.getText());
         }
         newProfile.setBirthDate((Birthdate.getValue()));
-        if (genderType.getText() == null) {
+        if(MaleButton.isSelected()){
+            newProfile.setGender(Gender.Male);
+        }
+        else if(FemaleButton.isSelected()){
+            newProfile.setGender(Gender.Female);
+        }
+        else {
             newProfile.setGender(Gender.Not_Say);
-        } else {
-            String gender = genderType.getText();
-            switch (gender) {
-                case "Non_Binary":
-                    newProfile.setGender(Gender.Non_Binary);
-                    break;
-                case "Male":
-                    newProfile.setGender(Gender.Male);
-                    break;
-                case "Female":
-                    newProfile.setGender(Gender.Female);
-                    break;
-                case "Not_Say":
-                    newProfile.setGender(Gender.Not_Say);
-            }
         }
         if(image==null){
             File file = new File("src/pic/prof-removebg-preview.png");
@@ -86,6 +82,8 @@ public class SignUpController {
         }
         return newProfile;
     }
+
+
 
     public void addProfile(ActionEvent actionEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -121,6 +119,11 @@ public class SignUpController {
     public void showProfileCreatedDialog() {
         String title = "Success";
         String contentText = "profile created successfully!";
+        this.makeAndShowInformationDialog(title, contentText);
+    }
+    private void ShowInvalidChooseGenderDialog() {
+        String title = "Wrong choose";
+        String contentText = "You can not be both a man and a woman:|!!!!";
         this.makeAndShowInformationDialog(title, contentText);
     }
 

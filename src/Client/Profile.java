@@ -85,6 +85,9 @@ public class Profile implements Serializable {
         this.gender = gender;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
     public Profile(String username) {
         this.username = username;
     }

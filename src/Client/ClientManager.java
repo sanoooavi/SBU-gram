@@ -2,6 +2,7 @@ package Client;
 
 import Model.Post;
 import Whatever.Comment;
+import Whatever.ThatUser;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ClientManager {
     public static void PublishPost(Post post) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.Publish_Post);
-        toSend.put("username", post.getWriter());
+        toSend.put("username", post.getPublisher());
         toSend.put("post", post);
         Network.serve(toSend);
     }
@@ -89,19 +90,19 @@ public class ClientManager {
         return (Profile) received.get("answer");
 
     }
-    public static Boolean follow(Profile profile_following, Profile profile_follower) {
+    public static Boolean follow(String followingUserName, String followerUserName) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.Follow);
         //the one who you want to follow
-        toSend.put("following",profile_following);
+        toSend.put("following",followingUserName);
         //your profile
-        toSend.put("follower", profile_follower);
+        toSend.put("follower", followerUserName);
         Map<String, Object> received =Network.serve(toSend);
         if (received.get("answer") == null) return null;
         return (Boolean) received.get("answer");
     }
 
-    public static Boolean Unfollow(Profile profile, Profile profile1) {
+    public static Boolean Unfollow(String profile,String profile1) {
         Map<String ,Object>toSend=new HashMap<>();
         toSend.put("command",Command.UnFollow);
         toSend.put("ToUnfollow",profile);
@@ -111,7 +112,7 @@ public class ClientManager {
         return (Boolean) received.get("answer");
     }
 
-    public static void UpdateProfile(String userName, String email, String newName, String newLastName, String phoneNumber, String location) {
+    public static Profile UpdateProfile(String userName, String email, String newName, String newLastName, String phoneNumber, String location, Gender gender, byte[] bytes) {
         Map<String,Object>toSend=new HashMap<>();
         toSend.put("command",Command.UpdateProfile);
         toSend.put("username",userName);
@@ -120,6 +121,26 @@ public class ClientManager {
         toSend.put("newLastName",newLastName);
         toSend.put("phoneNumber",phoneNumber);
         toSend.put("location",location);
+        toSend.put("gender",gender);
+        toSend.put("profilePhoto",bytes);
         Map<String, Object> received =Network.serve(toSend);
+        return (Profile) received.get("answer");
+    }
+
+    public static void rePost(Post post, String userName) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.rePost);
+        toSend.put("username", userName);
+        toSend.put("post", post);
+        Network.serve(toSend);
+    }
+
+    public static List<Post> LoadingPersonalInfo() {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.LoadPersonalTimeLine);
+        toSend.put("username", ThatUser.getUserName());
+        Map<String, Object> received = Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (List<Post>) received.get("answer");
     }
 }

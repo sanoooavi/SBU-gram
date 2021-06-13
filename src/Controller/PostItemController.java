@@ -35,7 +35,7 @@ public class PostItemController {
     public ImageView frame;
     public Label commentslabel;
     public JFXTextArea comments_field;
-    public ImageView RedHeart;
+ //   public ImageView RedHeart;
     public Button AddCommentButton;
     public Button DismissButton;
     public Label LikesNumber;
@@ -49,9 +49,7 @@ public class PostItemController {
         PostTitle.setText(post.getTitle());
         PostDesc.setText(post.getDescription());
         UserProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
-        //if(post.getComments()!=null) {
-            commentslabel.setText(post.getCommentsOnField());
-       // }
+        commentslabel.setText(post.getCommentsOnField());
         if (post.getPhoto() != null) {
             theImagePosted.setImage(new Image(new ByteArrayInputStream(post.getPhoto())));
             frame.setVisible(false);
@@ -75,12 +73,28 @@ public class PostItemController {
             ShowInvalidViewProfileDialog();
             return;
         }
-        ThatUser.setProfile(profile);
-        new PageLoader().load("ProfilePageOtherUsers");
+        if(profile.equals(thisClient.getProfile())){
+            new PageLoader().load("ProfilebythisUser");
+        }
+        else {
+            ThatUser.setProfile(profile);
+            new PageLoader().load("ProfilePageOtherUsers");
+        }
     }
 
 
     public void Retweet(MouseEvent mouseEvent) {
+        if(post.getPublisher().equals(thisClient.getUserName())){
+           ShowInvalidRePostDialog();
+           return;
+        }
+        Post newPost=new Post();
+        newPost.setWriter(this.post.getWriter());
+        newPost.setPublisher(thisClient.getUserName());
+        newPost.setDescription(this.post.getDescription());
+        newPost.setTitle(this.post.getTitle());
+        newPost.setPhoto(this.post.getPhoto());
+        ClientManager.rePost(post,thisClient.getUserName());
     }
 
     public void ToComment(MouseEvent mouseEvent) {
@@ -129,6 +143,12 @@ public class PostItemController {
     private void ShowInvalidViewProfileDialog() {
         String title = "Error in ViewProfile";
         String contentText = "This user might have deleted account";
+        this.makeAndShowInformationDialog(title, contentText);
+    }
+
+    private void ShowInvalidRePostDialog() {
+        String title = "Error in RePosting";
+        String contentText = "You Can Not repost your posts!!!";
         this.makeAndShowInformationDialog(title, contentText);
     }
 

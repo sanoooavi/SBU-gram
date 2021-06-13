@@ -30,6 +30,7 @@ public class AddPostController {
         currentPost.setTitle(post_title_field.getText());
         currentPost.setDescription(description_field.getText());
         currentPost.setWriter(thisClient.getProfile().getUsername());
+        currentPost.setPublisher(thisClient.getProfile().getUsername());
         currentPost.setPhoto(BytesOfPhotoPosted);
         ClientManager.PublishPost(currentPost);
         makeSuccessfulDialog();
