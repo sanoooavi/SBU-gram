@@ -48,7 +48,7 @@ public class PostItemController {
         UsernameLabel.setText(post.getWriter());
         PostTitle.setText(post.getTitle());
         PostDesc.setText(post.getDescription());
-        UserProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
+        UserProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream(post.getProfilePhoto()))));
         commentslabel.setText(post.getCommentsOnField());
         if (post.getPhoto() != null) {
             theImagePosted.setImage(new Image(new ByteArrayInputStream(post.getPhoto())));

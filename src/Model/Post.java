@@ -14,6 +14,7 @@ public class Post implements Serializable {
    @Serial
     private static final long serialVersionUID = -2622370219466881429L;
     byte[] Photo;
+    byte[]ProfilePhoto;
     private String writer;
     private String publisher;
     private  String title;
@@ -22,6 +23,14 @@ public class Post implements Serializable {
     List<Comment>comments=new CopyOnWriteArrayList<>();
     public void setPhoto(byte[] photo) {
         Photo = photo;
+    }
+
+    public byte[] getProfilePhoto() {
+        return ProfilePhoto;
+    }
+
+    public void setProfilePhoto(byte[] profilePhoto) {
+        ProfilePhoto = profilePhoto;
     }
 
     public void setPublisher(String publisher) {

@@ -67,12 +67,12 @@
             </Button>
          </children>
       </Pane>
-      <Label fx:id="FullName" layoutX="324.0" layoutY="91.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  Full Name">
+      <Label fx:id="FullName" layoutX="324.0" layoutY="51.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  Full Name">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="UserName" layoutX="324.0" layoutY="51.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  UserName">
+      <Label fx:id="UserName" layoutX="324.0" layoutY="91.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #a1d4bc; -fx-background-radius: 5;" text="  UserName">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>

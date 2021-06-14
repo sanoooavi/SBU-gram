@@ -40,7 +40,14 @@ public class LoginController {
         new PageLoader().load("SignUp");
     }
 
-    public void Password_recovery(ActionEvent actionEvent) {
+    public void Password_recovery(ActionEvent actionEvent) throws IOException {
+        if(Username_field.getText().isEmpty()){
+            InvalidLoginDialog();return;
+        }
+        else {
+
+            new PageLoader().load("SecurityQuestion");
+        }
     }
     public void  InvalidLoginDialog(){
         String title = "Incomplete information";

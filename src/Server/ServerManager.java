@@ -254,4 +254,29 @@ public class ServerManager {
         ans.put("answer", returnValue);
         return ans;
     }
+
+    public static Map<String, Object> SaveTheForgettingPassword(Map<String, Object> income) {
+        String username=(String) income.get("username");
+        String Ur_Password=(String)income.get("text");
+        Server.users.get(username).setForgettablePassword(Ur_Password);
+        DataManager.getInstance().updateDataBase();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command",Command.UrgentPassword);
+        ans.put("answer",new Boolean(true));
+        return ans;
+    }
+
+    public static Map<String, Object> GetPassword(Map<String, Object> income) {
+        String username=(String) income.get("username");
+        String writtenPassword=(String) income.get("text");
+        String password=Server.users.get(username).getForgettablePassword();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command",Command.UrgentPassword);
+        if(password==null || !password.equals(writtenPassword)){
+            ans.put("answer",null);
+            return ans;
+        }
+        ans.put("answer",password);
+        return ans;
+    }
 }

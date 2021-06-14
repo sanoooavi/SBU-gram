@@ -32,6 +32,7 @@ public class AddPostController {
         currentPost.setWriter(thisClient.getProfile().getUsername());
         currentPost.setPublisher(thisClient.getProfile().getUsername());
         currentPost.setPhoto(BytesOfPhotoPosted);
+        currentPost.setProfilePhoto(thisClient.profile.getProfilePhoto());
         ClientManager.PublishPost(currentPost);
         makeSuccessfulDialog();
         clearAfterPublish();

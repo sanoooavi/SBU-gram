@@ -143,4 +143,23 @@ public class ClientManager {
         if (received.get("answer") == null) return null;
         return (List<Post>) received.get("answer");
     }
+
+    public static boolean SaveTheSecondPassword(String userName, String text) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.UrgentPassword);
+        toSend.put("username", userName);
+        toSend.put("text", text);
+        Map<String, Object> received = Network.serve(toSend);
+        return (boolean) received.get("answer");
+    }
+
+    public static String GetThePassword(String password, String userName) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.ForgotPassword);
+        toSend.put("username", userName);
+        toSend.put("text",password);
+        Map<String, Object> received = Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (String) received.get("answer");
+    }
 }

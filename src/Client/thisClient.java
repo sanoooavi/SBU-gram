@@ -46,6 +46,9 @@ public class thisClient {
     public static String getPhoneNumber() {
         return profile.getPhoneNumber();
     }
+    public static String getSecondPassword() {
+        return profile.getForgettablePassword();
+    }
 
     public static Gender getGender() {
         return profile.getGender();

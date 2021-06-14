@@ -17,6 +17,7 @@ public class Profile implements Serializable {
     private String name;
     private String lastname;
     private String password;
+    private String ForgettablePassword=null;
     private LocalDate birthDate;
     private Integer age;
     private Gender gender;
@@ -32,6 +33,14 @@ public class Profile implements Serializable {
     }
     public List<Profile> getFollowings() {
         return followings;
+    }
+
+    public void setForgettablePassword(String forgettablePassword) {
+        ForgettablePassword = forgettablePassword;
+    }
+
+    public String getForgettablePassword() {
+        return ForgettablePassword;
     }
 
     public void setEmail(String email) {

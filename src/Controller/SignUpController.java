@@ -44,7 +44,7 @@ public class SignUpController {
         ClientManager.signUp(justCreatedProfile);
         showProfileCreatedDialog();
         try {
-            new PageLoader().load("timeLine");
+          new PageLoader().load("SecurityQuestion");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +144,6 @@ public class SignUpController {
         }
         return !exists;
     }
-
     private boolean isValidPassword(String text, String text2) {
         if (!text.equals(text2)) {
             String title = "invalid password";
