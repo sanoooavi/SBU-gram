@@ -6,65 +6,41 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="410.0" prefWidth="638.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SecurityController">
    <children>
-      <Button layoutX="50.0" layoutY="146.0" mnemonicParsing="false" onAction="#AddSecondPassword" prefHeight="20.0" prefWidth="257.0" style="-fx-background-color: #6ED9A0;" text="OK" textFill="#fbfcfc">
+      <Button layoutX="38.0" layoutY="232.0" mnemonicParsing="false" onAction="#AddSecondPassword" prefHeight="24.0" prefWidth="281.0" style="-fx-background-color: #6ED9A0;" text="OK" textFill="#fbfcfc">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="50.0" layoutY="314.0" mnemonicParsing="false" onAction="#GetThePassword" prefHeight="20.0" prefWidth="257.0" style="-fx-background-color: #6ED9A0;" text="OK" textFill="#fbfcfc">
+      <Label layoutX="38.0" layoutY="110.0" text="Question box" textFill="#6ed9a0">
          <font>
-            <Font name="Century Gothic" size="13.0" />
-         </font>
-      </Button>
-      <Label layoutX="50.0" layoutY="45.0" prefHeight="15.0" prefWidth="131.0" text="Question box" textFill="#6ed9a0">
-         <font>
-            <Font name="Century Gothic Italic" size="18.0" />
+            <Font name="Century Gothic Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="205.0" prefHeight="23.0" prefWidth="190.0" text="Find your password" textFill="#6ed9a0">
+      <Label layoutX="38.0" layoutY="148.0" prefHeight="16.0" text="&quot;What is your car's license plate number?&quot;" textFill="#fbfcfc">
          <font>
-            <Font name="Century Gothic Italic" size="18.0" />
+            <Font name="Century Gothic Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="75.0" prefHeight="16.0" prefWidth="269.0" text="&quot;What is your car's license plate number?&quot;" textFill="#fbfcfc">
-         <font>
-            <Font name="Century Gothic Italic" size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="savethepassword" layoutX="50.0" layoutY="106.0" prefHeight="30.0" prefWidth="257.0" promptText="answer here" style="-fx-background-color: #2A363F; -fx-border-color: #fbfcfc; -fx-border-radius: 4; -fx-prompt-text-fill: #fbfcfc; -fx-text-fill: #fbfcfc;">
+      <TextField fx:id="savethepassword" layoutX="38.0" layoutY="181.0" prefHeight="30.0" prefWidth="281.0" promptText="answer here" style="-fx-background-color: #2A363F; -fx-border-color: #fbfcfc; -fx-border-radius: 4; -fx-prompt-text-fill: #fbfcfc; -fx-text-fill: #fbfcfc;">
          <font>
             <Font name="Century Gothic" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="getthepassword" layoutX="50.0" layoutY="269.0" prefHeight="30.0" prefWidth="257.0" promptText="answer here" style="-fx-background-color: #2A363F; -fx-border-color: #fbfcfc; -fx-border-radius: 4; -fx-prompt-text-fill: #fbfcfc; -fx-text-fill: #fbfcfc;">
-         <font>
-            <Font name="Century Gothic" size="12.0" />
-         </font>
-      </TextField>
-      <Label layoutX="50.0" layoutY="240.0" prefHeight="16.0" prefWidth="269.0" text="&quot;Write your car's licence plate&quot;" textFill="#fbfcfc">
-         <font>
-            <Font name="Century Gothic Italic" size="13.0" />
-         </font>
-      </Label>
-      <Label layoutX="397.0" layoutY="205.0" prefHeight="23.0" prefWidth="167.0" text="Your password is:" textFill="#6ed9a0">
-         <font>
-            <Font name="Century Gothic Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="password_here" layoutX="423.0" layoutY="240.0" prefHeight="16.0" prefWidth="57.0" text="Label" textFill="#fbfcfc">
-         <font>
-            <Font name="Century Gothic Italic" size="13.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="8.0" layoutY="7.0" onMouseClicked="#GotoTimeLine" pickOnBounds="true" preserveRatio="true">
+      <Line endX="-99.99996948242188" endY="333.66668701171875" layoutX="442.0" layoutY="41.0" startX="-100.0" stroke="#6ed9a0" />
+      <ImageView fitHeight="89.0" fitWidth="94.0" layoutX="441.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../pic/f0a111531f184580b39cd8cc3ca6bbed.png" />
+            <Image url="@../pic/logo.png" />
          </image>
       </ImageView>
+      <Label layoutX="448.0" layoutY="111.0" text="Privacy Policy" textFill="#fbfcfc">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

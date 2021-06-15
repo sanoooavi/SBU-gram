@@ -110,6 +110,10 @@ public class Profile implements Serializable {
       return null;
    }
 
+    public String getPassword() {
+        return password;
+    }
+
     public String getName() {
         return name;
     }

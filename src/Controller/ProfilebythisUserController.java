@@ -1,5 +1,6 @@
 package Controller;
 
+import Client.Gender;
 import Client.thisClient;
 import Model.PageLoader;
 import Whatever.ThatUser;
@@ -26,17 +27,17 @@ public class ProfilebythisUserController {
     public Label gender_field;
     public Label email_field;
 
-    public void initialize(){
-        UserName.setText("  "+thisClient.getProfile().getUsername());
-        FullName.setText("  "+thisClient.getProfile().getName()+" "+thisClient.getProfile().getLastname());
-        Location.setText("  "+thisClient.getLocation());
-        BirthDate.setText("  "+thisClient.getProfile().getBirthDate().toString());
+    public void initialize() {
+        UserName.setText("  " + thisClient.getProfile().getUsername());
+        FullName.setText("  " + thisClient.getProfile().getName() + " " + thisClient.getProfile().getLastname());
+        Location.setText("  " + thisClient.getLocation());
+        BirthDate.setText("  " + thisClient.getProfile().getBirthDate().toString());
         UserProfileImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
         followers.setText(String.valueOf(thisClient.getFollowersNum()));
         followings.setText(String.valueOf(thisClient.getFollowingsNum()));
-        email_field.setText(" "+thisClient.getEmail());
-        phone_number_field.setText(" "+thisClient.getPhoneNumber());
-        gender_field.setText(" "+thisClient.getGender());
+        email_field.setText(" " + thisClient.getEmail());
+        phone_number_field.setText(" " + thisClient.getPhoneNumber());
+        gender_field.setText(" " + thisClient.getGender());
     }
 
     public void UpdateAccount(ActionEvent actionEvent) throws IOException {

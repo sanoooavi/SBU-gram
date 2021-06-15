@@ -41,13 +41,7 @@ public class LoginController {
     }
 
     public void Password_recovery(ActionEvent actionEvent) throws IOException {
-        if(Username_field.getText().isEmpty()){
-            InvalidLoginDialog();return;
-        }
-        else {
-
-            new PageLoader().load("SecurityQuestion");
-        }
+            new PageLoader().load("FindPassWord");
     }
     public void  InvalidLoginDialog(){
         String title = "Incomplete information";

@@ -163,7 +163,7 @@ public class ServerManager {
         String User = (String) income.get("User");
         String ToUnfollow = (String) income.get("ToUnfollow");
         Profile User_Profile = Server.users.get(User);
-        Profile ToUnfollow_Profile=Server.users.get(ToUnfollow);
+        Profile ToUnfollow_Profile = Server.users.get(ToUnfollow);
         boolean isNullProfile = (Server.users.get(User) == null || Server.users.get(ToUnfollow) == null);
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.UnFollow);
@@ -216,12 +216,18 @@ public class ServerManager {
         }
         if (profilePhoto != null) {
             Server.users.get(username).setProfilePhoto(profilePhoto);
+            for (Post a:Server.users.get(username).getPosts()){
+                a.setProfilePhoto(profilePhoto);
+            }
         }
         Server.users.get(username).setEmail(email);
         Server.users.get(username).setPhoneNumber(phoneNumber);
         Server.users.get(username).setLocation(location);
-        Server.users.get(username).setGender(gender);
+        if(gender!=null) {
+            Server.users.get(username).setGender(gender);
+        }
         DataManager.getInstance().updateDataBase(); // save to local file
+
         Map<String, Object> ans = new HashMap<>();
         Profile prof = Server.users.get(username);
         ans.put("command", Command.UpdateProfile);
@@ -255,28 +261,36 @@ public class ServerManager {
         return ans;
     }
 
-    public static Map<String, Object> SaveTheForgettingPassword(Map<String, Object> income) {
-        String username=(String) income.get("username");
-        String Ur_Password=(String)income.get("text");
-        Server.users.get(username).setForgettablePassword(Ur_Password);
-        DataManager.getInstance().updateDataBase();
+    public static Map<String, Object> GetPassword(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        String writtenPassword = (String) income.get("text");
         Map<String, Object> ans = new HashMap<>();
-        ans.put("command",Command.UrgentPassword);
-        ans.put("answer",new Boolean(true));
+        ans.put("command", Command.ForgotPassword);
+        Boolean isNullProfile = (Server.users.get(username) == null);
+        if (isNullProfile) {
+            ans.put("answer", null);
+            return ans;
+        }
+        String password = Server.users.get(username).getForgettablePassword();
+        if (password == null || !password.equals(writtenPassword)) {
+            ans.put("answer", null);
+            return ans;
+        }
+        String realPassword=Server.users.get(username).getPassword();
+        ans.put("answer", realPassword);
         return ans;
     }
 
-    public static Map<String, Object> GetPassword(Map<String, Object> income) {
+
+    public static Map<String, Object> SaveThePassword(Map<String, Object> income) {
         String username=(String) income.get("username");
-        String writtenPassword=(String) income.get("text");
-        String password=Server.users.get(username).getForgettablePassword();
-        Map<String, Object> ans = new HashMap<>();
-        ans.put("command",Command.UrgentPassword);
-        if(password==null || !password.equals(writtenPassword)){
-            ans.put("answer",null);
-            return ans;
-        }
-        ans.put("answer",password);
+        String password=(String)income.get("password");
+        Server.users.get(username).setForgettablePassword(password);
+        DataManager.getInstance().updateDataBase();
+        Map<String,Object>ans=new HashMap<>();
+        ans.put("command",Command.SaveSecondPassword);
+        ans.put("answer",new Boolean(true));
         return ans;
+
     }
 }

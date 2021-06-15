@@ -144,16 +144,15 @@ public class ClientManager {
         return (List<Post>) received.get("answer");
     }
 
-    public static boolean SaveTheSecondPassword(String userName, String text) {
+    public static void SaveTheSecondPassword(String userName, String text) {
         Map<String, Object> toSend = new HashMap<>();
-        toSend.put("command", Command.UrgentPassword);
+        toSend.put("command", Command.SaveSecondPassword);
         toSend.put("username", userName);
-        toSend.put("text", text);
+        toSend.put("password", text);
         Map<String, Object> received = Network.serve(toSend);
-        return (boolean) received.get("answer");
     }
 
-    public static String GetThePassword(String password, String userName) {
+    public static String GetThePassword(String userName, String password) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.ForgotPassword);
         toSend.put("username", userName);

@@ -74,11 +74,11 @@ public class ClientHandler implements Runnable {
                     case LoadPersonalTimeLine:
                         answer = ServerManager.LoadingPersonalInfo(income);
                         break;
-                    case UrgentPassword:
-                        answer = ServerManager.SaveTheForgettingPassword(income);
-                        break;
                     case ForgotPassword:
                         answer=ServerManager.GetPassword(income);
+                        break;
+                    case SaveSecondPassword:
+                       answer = ServerManager.SaveThePassword(income);
                         break;
                 }
                 dos.writeObject(answer);

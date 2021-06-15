@@ -54,10 +54,10 @@ public class UpdateProfileController {
     }
 
     public void SaveNewProfile(ActionEvent actionEvent) {
-        if(!isPhoneNumberValid(PhoneNumberField.getText()))return;
-        if(malebutton.isSelected() && female_button.isSelected()){
-           ShowInvalidChooseGenderDialog();
-           return;
+        if (!isPhoneNumberValid(PhoneNumberField.getText())) return;
+        if (malebutton.isSelected() && female_button.isSelected()) {
+            ShowInvalidChooseGenderDialog();
+            return;
         }
         String newName = NameField.getText();
         String newLastName = LastNameField.getText();
@@ -80,10 +80,10 @@ public class UpdateProfileController {
             location = "Not mentioned";
         }
         Gender gender = selectGender();
-        if(!ConfirmationAlert()){
+        if (!ConfirmationAlert()) {
             return;
         }
-        Profile prof =ClientManager.UpdateProfile(thisClient.getUserName(), email, newName, newLastName, phoneNumber, location, gender, bytes);
+        Profile prof = ClientManager.UpdateProfile(thisClient.getUserName(), email, newName, newLastName, phoneNumber, location, gender, bytes);
         thisClient.setProfile(prof);
     }
 
@@ -93,8 +93,6 @@ public class UpdateProfileController {
             gender = Gender.Male;
         } else if (female_button.isSelected()) {
             gender = Gender.Female;
-        } else {
-            gender = Gender.Not_Say;
         }
         return gender;
     }
@@ -110,8 +108,9 @@ public class UpdateProfileController {
         }
         return false;
     }
-    public boolean isEmailValid(String email){
-        String regex="";
+
+    public boolean isEmailValid(String email) {
+        String regex = "";
         if (!Pattern.matches(regex, email)) {
             String title = "invalid email-address";
             String contentText = "Please use valid emails\n then try again";
@@ -120,9 +119,10 @@ public class UpdateProfileController {
         }
         return true;
     }
-    public boolean isPhoneNumberValid(String phoneNumber){
-        String regex="09([0-9]{9})";
-        if(phoneNumber.isEmpty())
+
+    public boolean isPhoneNumberValid(String phoneNumber) {
+        String regex = "09([0-9]{9})";
+        if (phoneNumber.isEmpty())
             return true;
         if (!Pattern.matches(regex, phoneNumber)) {
             String title = "invalid phoneNumber";
@@ -132,11 +132,13 @@ public class UpdateProfileController {
         }
         return true;
     }
+
     private void ShowInvalidChooseGenderDialog() {
         String title = "Wrong choose";
         String contentText = "You can not be both a man and a woman:|!!!!";
         this.makeAndShowInformationDialog(title, contentText);
     }
+
     public void makeAndShowInformationDialog(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

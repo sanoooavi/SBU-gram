@@ -1,4 +1,5 @@
 package Controller;
+
 import Client.ClientManager;
 import Client.Profile;
 import Client.thisClient;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -35,15 +37,17 @@ public class PostItemController {
     public ImageView frame;
     public Label commentslabel;
     public JFXTextArea comments_field;
- //   public ImageView RedHeart;
+    //   public ImageView RedHeart;
     public Button AddCommentButton;
     public Button DismissButton;
     public Label LikesNumber;
     Post post;
+
     public PostItemController(Post post) throws IOException {
         new PageLoader().load("postItem", this);
         this.post = post;
     }
+
     public AnchorPane init() {
         UsernameLabel.setText(post.getWriter());
         PostTitle.setText(post.getTitle());
@@ -55,28 +59,22 @@ public class PostItemController {
             frame.setVisible(false);
         }
         LikesNumber.setText(String.valueOf(post.getLikes().size()));
-        //if (Server.users != null) {
-            boolean isLiked =post.getLikes().contains(thisClient.getProfile());
-            if (isLiked) {
-                emptyHeart.setImage(new Image("/pic/afterlike.png"));
-            //}
-          //  else {
-             // RedHeart.setVisible(false);
-           // }
+        boolean isLiked = post.getLikes().contains(thisClient.getProfile());
+        if (isLiked) {
+            emptyHeart.setImage(new Image("/pic/afterlike.png"));
         }
         return RootPage;
     }
 
     public void ViewProfile(ActionEvent actionEvent) throws IOException {
-        Profile profile = ClientManager.getInfo(post.getWriter(),thisClient.getUserName());
-        if(profile==null){
+        Profile profile = ClientManager.getInfo(post.getWriter(), thisClient.getUserName());
+        if (profile == null) {
             ShowInvalidViewProfileDialog();
             return;
         }
-        if(profile.equals(thisClient.getProfile())){
+        if (profile.equals(thisClient.getProfile())) {
             new PageLoader().load("ProfilebythisUser");
-        }
-        else {
+        } else {
             ThatUser.setProfile(profile);
             new PageLoader().load("ProfilePageOtherUsers");
         }
@@ -84,17 +82,17 @@ public class PostItemController {
 
 
     public void Retweet(MouseEvent mouseEvent) {
-        if(post.getPublisher().equals(thisClient.getUserName())){
-           ShowInvalidRePostDialog();
-           return;
+        if (post.getPublisher().equals(thisClient.getUserName())) {
+            ShowInvalidRePostDialog();
+            return;
         }
-        Post newPost=new Post();
+        Post newPost = new Post();
         newPost.setWriter(this.post.getWriter());
         newPost.setPublisher(thisClient.getUserName());
         newPost.setDescription(this.post.getDescription());
         newPost.setTitle(this.post.getTitle());
         newPost.setPhoto(this.post.getPhoto());
-        ClientManager.rePost(post,thisClient.getUserName());
+        ClientManager.rePost(post, thisClient.getUserName());
     }
 
     public void ToComment(MouseEvent mouseEvent) {
@@ -111,14 +109,15 @@ public class PostItemController {
 
     @FXML
     void AddTheComment(ActionEvent event) throws IOException {
-       if(comments_field.getText().isEmpty()){
-           ShowInvalidCommentDialog();return;
+        if (comments_field.getText().isEmpty()) {
+            ShowInvalidCommentDialog();
+            return;
         }
         Comment comment = new Comment(thisClient.getUserName(), comments_field.getText());
         post.getComments().add(comment);
         ClientManager.AddComment(comment, post);
         afterComment();
-      //  new PageLoader().load("timeLine");
+        //  new PageLoader().load("timeLine");
     }
 
     public void afterComment() {
@@ -138,8 +137,9 @@ public class PostItemController {
             post.getLikes().add(thisClient.getProfile());
             emptyHeart.setImage(new Image("/pic/afterlike.png"));
         }
-      //  new PageLoader().load("timeLine");
+        //  new PageLoader().load("timeLine");
     }
+
     private void ShowInvalidViewProfileDialog() {
         String title = "Error in ViewProfile";
         String contentText = "This user might have deleted account";
