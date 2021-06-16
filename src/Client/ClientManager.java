@@ -2,6 +2,7 @@ package Client;
 
 import Model.Post;
 import Whatever.Comment;
+import Whatever.Message;
 import Whatever.ThatUser;
 
 import java.util.HashMap;
@@ -61,10 +62,10 @@ public class ClientManager {
         return (List<Profile>) received.get("answer");
     }
 
-    public static boolean LikePost(Profile profile, Post post) {
+    public static boolean LikePost(String username, Post post) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.LikePost);
-        toSend.put("Profile", profile);
+        toSend.put("username", username);
         toSend.put("Post", post);
         Map<String, Object> received = Network.serve(toSend);
         return (boolean) received.get("answer");
@@ -160,5 +161,42 @@ public class ClientManager {
         Map<String, Object> received = Network.serve(toSend);
         if (received.get("answer") == null) return null;
         return (String) received.get("answer");
+    }
+
+    public static List<Profile> LoadingDirectInfo() {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.LoadUserDirect);
+        toSend.put("username", thisClient.getUserName());
+        Map<String, Object> received = Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (List<Profile>) received.get("answer");
+    }
+
+    public static void ChangePassword(String username, String oldPass, String newPass) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.ChangePassword);
+        toSend.put("username", username);
+        toSend.put("oldPassword",oldPass);
+        toSend.put("newPassword",newPass);
+        Map<String, Object> received = Network.serve(toSend);
+    }
+
+    public static void SendMessage(Message message, String userName, String userName1) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.SendMessage);
+        toSend.put("message",message);
+        toSend.put("usernameSender",  userName);
+        toSend.put("usernameReceiver",userName1);
+        Network.serve(toSend);
+    }
+
+    public static List<Message> LoadingChatInfo() {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.LoadChatPage);
+        toSend.put("username", thisClient.getUserName());
+        toSend.put("chatWith",ThatUser.getUserName());
+        Map<String, Object> received = Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (List<Message>) received.get("answer");
     }
 }

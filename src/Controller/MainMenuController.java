@@ -15,7 +15,8 @@ public class MainMenuController {
         new PageLoader().load("ProfilebythisUser");
     }
 
-    public void SecretChat(ActionEvent actionEvent) {
+    public void SecretChat(ActionEvent actionEvent) throws IOException {
+        new PageLoader().load("ChatPage");
     }
 
     public void AddPost(ActionEvent actionEvent) throws IOException {

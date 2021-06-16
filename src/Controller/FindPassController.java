@@ -19,6 +19,14 @@ public class FindPassController {
     public TextField UsernameField;
 
     public void SaveChangedPassword(ActionEvent actionEvent) {
+        if(OldPasswordField.getText().isEmpty()||newPasswordField.getText().isEmpty()){
+            ShowInvalidFilling();
+            return;
+        }
+        if(!SignUpController.isValidPassword(newPasswordField.getText(),newPasswordField.getText())){
+            return;
+        }
+        ClientManager.ChangePassword(UsernameField.getText(),OldPasswordField.getText(),newPasswordField.getText());
     }
 
     public void BackToLogin(MouseEvent mouseEvent) throws IOException {

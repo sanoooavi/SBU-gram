@@ -80,6 +80,15 @@ public class ClientHandler implements Runnable {
                     case SaveSecondPassword:
                        answer = ServerManager.SaveThePassword(income);
                         break;
+                    case LoadUserDirect:
+                        answer=ServerManager.LoadingDirectInfo(income);
+                        break;
+                    case SendMessage:
+                        answer=ServerManager.SendMessage(income);
+                        break;
+                    case LoadChatPage:
+                        answer=ServerManager.LoadChatPage(income);
+                        break;
                 }
                 dos.writeObject(answer);
                 dos.flush();

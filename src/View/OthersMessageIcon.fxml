@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="leftItem" prefHeight="100.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="UserProfileleft" layoutX="29.0" layoutY="50.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="UserMessageleft" layoutX="56.0" layoutY="10.0" prefHeight="79.0" prefWidth="348.0" style="-fx-background-color: #f4d6d6; -fx-background-radius: 10;" textFill="#f4d6d6">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

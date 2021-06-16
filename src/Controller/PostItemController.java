@@ -8,6 +8,7 @@ import Model.Post;
 import Server.Server;
 import Whatever.Comment;
 import Whatever.ThatUser;
+import Whatever.Time;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,6 +93,8 @@ public class PostItemController {
         newPost.setDescription(this.post.getDescription());
         newPost.setTitle(this.post.getTitle());
         newPost.setPhoto(this.post.getPhoto());
+        newPost.setTimeReleased(Time.getTime());
+        newPost.setTimerMil(Time.getMilli());
         ClientManager.rePost(post, thisClient.getUserName());
     }
 
@@ -129,7 +132,7 @@ public class PostItemController {
     }
 
     public void Like(MouseEvent mouseEvent) throws IOException {
-        boolean HasLiked = ClientManager.LikePost(thisClient.getProfile(), this.post);
+        boolean HasLiked = ClientManager.LikePost(thisClient.getUserName(), this.post);
         if (HasLiked) {
             ShowInvalidLikeDialog();
             return;

@@ -5,12 +5,10 @@ import Client.Gender;
 import Client.Profile;
 import Model.Post;
 import Whatever.Comment;
+import Whatever.Message;
 import Whatever.Time;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class ServerManager {
     public static Map<String, Object> signUp(Map<String, Object> income) {
@@ -103,7 +101,8 @@ public class ServerManager {
     public static Map<String, Object> LikePost(Map<String, Object> income) {
         boolean isGonnaLike = true;
         //Profile of the person who wants to like the post
-        Profile profile = (Profile) income.get("Profile");
+        String usernameToAdd = (String) income.get("username");
+        Profile profile = Server.users.get(usernameToAdd);
         Post post = (Post) income.get("Post");
         //user name of the publisher of this post
         String username = post.getPublisher();
@@ -216,14 +215,14 @@ public class ServerManager {
         }
         if (profilePhoto != null) {
             Server.users.get(username).setProfilePhoto(profilePhoto);
-            for (Post a:Server.users.get(username).getPosts()){
+            for (Post a : Server.users.get(username).getPosts()) {
                 a.setProfilePhoto(profilePhoto);
             }
         }
         Server.users.get(username).setEmail(email);
         Server.users.get(username).setPhoneNumber(phoneNumber);
         Server.users.get(username).setLocation(location);
-        if(gender!=null) {
+        if (gender != null) {
             Server.users.get(username).setGender(gender);
         }
         DataManager.getInstance().updateDataBase(); // save to local file
@@ -276,21 +275,70 @@ public class ServerManager {
             ans.put("answer", null);
             return ans;
         }
-        String realPassword=Server.users.get(username).getPassword();
+        String realPassword = Server.users.get(username).getPassword();
         ans.put("answer", realPassword);
         return ans;
     }
 
 
     public static Map<String, Object> SaveThePassword(Map<String, Object> income) {
-        String username=(String) income.get("username");
-        String password=(String)income.get("password");
+        String username = (String) income.get("username");
+        String password = (String) income.get("password");
         Server.users.get(username).setForgettablePassword(password);
         DataManager.getInstance().updateDataBase();
-        Map<String,Object>ans=new HashMap<>();
-        ans.put("command",Command.SaveSecondPassword);
-        ans.put("answer",new Boolean(true));
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.SaveSecondPassword);
+        ans.put("answer", new Boolean(true));
         return ans;
 
+    }
+
+    public static Map<String, Object> LoadingDirectInfo(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.LoadUserDirect);
+        ArrayList<Profile> returnValue = new ArrayList<>();
+        returnValue.addAll(Server.users.values());
+        ans.put("answer", returnValue);
+        return ans;
+    }
+
+    public static Map<String, Object> SendMessage(Map<String, Object> income) {
+        String sender = (String) income.get("usernameSender");
+        String Receiver = (String) income.get("usernameReceiver");
+        Message message = (Message) income.get("message");
+        ArrayList<Object> messages = new ArrayList<>();
+        if (Server.users.get(sender).getMessages() != null) {
+            if (Server.users.get(sender).getMessages().containsKey(Receiver)) {
+                messages.addAll(Server.users.get(sender).getMessages().get(sender));
+            }
+        }
+        messages.add(message);
+        Server.users.get(sender).getMessages().put(Receiver, messages);
+        DataManager.getInstance().updateDataBase();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.SendMessage);
+        ans.put("answer", new Boolean(true));
+        return ans;
+    }
+
+    public static Map<String, Object> LoadChatPage(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        String chatWith = (String) income.get("chatWith");
+        List<Object> returnValue = new ArrayList<>();
+        if (Server.users.get(username).getMessages() != null) {
+            if (Server.users.get(username).getMessages().containsKey(chatWith)) {
+                returnValue .addAll(Server.users.get(username).getMessages().get(chatWith));
+            }
+        }
+        if (Server.users.get(chatWith).getMessages() != null) {
+            if (Server.users.get(chatWith).getMessages().containsKey(username)) {
+                returnValue.addAll(Server.users.get(chatWith).getMessages().get(username));
+            }
+        }
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.LoadChatPage);
+        ans.put("answer", returnValue);
+        return ans;
     }
 }

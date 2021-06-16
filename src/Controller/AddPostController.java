@@ -5,6 +5,7 @@ import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
 import Model.Post;
+import Whatever.Time;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -33,6 +34,8 @@ public class AddPostController {
         currentPost.setPublisher(thisClient.getProfile().getUsername());
         currentPost.setProfilePhoto(thisClient.getProfile().getProfilePhoto());
         currentPost.setPhoto(BytesOfPhotoPosted);
+        currentPost.setTimeReleased(Time.getTime());
+        currentPost.setTimerMil(Time.getMilli());
         ClientManager.PublishPost(currentPost);
         makeSuccessfulDialog();
         clearAfterPublish();

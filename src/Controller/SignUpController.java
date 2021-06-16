@@ -127,7 +127,7 @@ public class SignUpController {
         this.makeAndShowInformationDialog(title, contentText);
     }
 
-    public void makeAndShowInformationDialog(String title, String contentText) {
+    public static void makeAndShowInformationDialog(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -144,7 +144,7 @@ public class SignUpController {
         }
         return !exists;
     }
-    private boolean isValidPassword(String text, String text2) {
+    public static boolean isValidPassword(String text, String text2) {
         if (!text.equals(text2)) {
             String title = "invalid password";
             String contentText = "The passwords are not the same \nPlease try again";

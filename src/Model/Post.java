@@ -11,16 +11,35 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Post implements Serializable {
-   @Serial
+    @Serial
     private static final long serialVersionUID = -2622370219466881429L;
     byte[] Photo;
-    byte[]ProfilePhoto;
+    byte[] ProfilePhoto;
     private String writer;
     private String publisher;
-    private  String title;
-    private  String description;
-    List<Profile> likes= new CopyOnWriteArrayList<>();
-    List<Comment>comments=new CopyOnWriteArrayList<>();
+    private String title;
+    private String description;
+    List<Profile> likes = new CopyOnWriteArrayList<>();
+    List<Comment> comments = new CopyOnWriteArrayList<>();
+    private String timeReleased;
+    private Long timerMil;
+
+    public void setTimerMil(Long timerMil) {
+        this.timerMil = timerMil;
+    }
+
+    public Long getTimerMil() {
+        return timerMil;
+    }
+
+    public String getTimeReleased() {
+        return timeReleased;
+    }
+
+    public void setTimeReleased(String timeReleased) {
+        this.timeReleased = timeReleased;
+    }
+
     public void setPhoto(byte[] photo) {
         Photo = photo;
     }
@@ -76,13 +95,15 @@ public class Post implements Serializable {
     public List<Comment> getComments() {
         return comments;
     }
-    public String getCommentsOnField(){
-        String str="";
-        for (int i=0;i<getComments().size();i++){
-            str+=getComments().get(i);
+
+    public String getCommentsOnField() {
+        String str = "";
+        for (int i = 0; i < getComments().size(); i++) {
+            str += getComments().get(i);
         }
         return str;
     }
+
     //@Override
     public boolean equals(Object o) {
         if (this == o) return true;

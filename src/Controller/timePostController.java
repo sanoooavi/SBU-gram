@@ -18,6 +18,7 @@ public class timePostController {
     @FXML
     public void initialize(){
         List<Post> shown= ClientManager.LoadingPersonalInfo();
+        shown.sort(TimeLineController.timeCompare);
         PostList.setItems(FXCollections.observableArrayList(shown));
         PostList.setCellFactory(PostList->new PostItem());
     }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="410.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DirectPersonPageController">
+   <children>
+      <Pane prefHeight="43.0" prefWidth="638.0" style="-fx-background-color: #2A363F;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="550.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/call_64px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="30.0" layoutX="600.0" layoutY="11.0" onMouseClicked="#ExitPage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/exit_100px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="500.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/video_call_60px.png" />
+               </image>
+            </ImageView>
+            <Circle fx:id="ProfilePhoto" fill="WHITE" layoutX="23.0" layoutY="22.0" radius="16.0" stroke="WHITE" strokeType="INSIDE" />
+            <Label fx:id="UsernameLabel" layoutX="56.0" layoutY="13.0" text="Username" textFill="#fbfcfc">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutY="370.0" prefHeight="43.0" prefWidth="638.0" style="-fx-background-color: #2A363F;">
+         <children>
+            <TextField fx:id="MessageField" layoutX="48.0" layoutY="6.0" prefHeight="32.0" prefWidth="543.0" promptText="Write here..." style="-fx-background-color: #fbfcfc; -fx-text-fill: #2A363F; -fx-prompt-text-fill: #2A363F;" />
+            <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/attach_48px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="602.0" layoutY="8.0" onMouseClicked="#SendMessage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/paper_plane_48px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ListView fx:id="ListViewChats" layoutY="43.0" prefHeight="327.0" prefWidth="638.0" />
+   </children>
+</AnchorPane>
