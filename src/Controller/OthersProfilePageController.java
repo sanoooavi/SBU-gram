@@ -52,8 +52,7 @@ public class OthersProfilePageController {
         if (thisClient.getFollowings().contains(profile)) {
             UnfollowButton.setVisible(true);
             FollowButton.setVisible(false);
-        }
-        else {
+        } else {
             UnfollowButton.setVisible(false);
             FollowButton.setVisible(true);
         }
@@ -63,6 +62,10 @@ public class OthersProfilePageController {
     }
 
     public void Follow(ActionEvent actionEvent) {
+        if (profile.getBlockedByYou().contains(thisClient.getProfile())){
+            ShowInvalidFollowDialog();
+            return;
+        }
         thisClient.getFollowings().add(profile);
         profile.getFollowers().add(thisClient.getProfile());
         ClientManager.follow(profile.getUsername(), thisClient.getUserName());
@@ -74,10 +77,19 @@ public class OthersProfilePageController {
     }
 
     public void Block(ActionEvent actionEvent) {
+        ClientManager.Block(profile.getUsername(), thisClient.getUserName());
+        UnBlockButton.setVisible(true);
+        BlockButton.setVisible(false);
+        if (thisClient.getFollowings().contains(profile)){
+            profile.getFollowers().remove(thisClient.getProfile());
+            UnfollowButton.setVisible(false);
+            FollowButton.setVisible(true);
+            ClientManager.Unfollow(profile.getUsername(), thisClient.getUserName());
+        }
     }
 
     public void Unfollow(ActionEvent actionEvent) {
-        if(ConfirmationAlert()) {
+        if (ConfirmationAlert()) {
             thisClient.getFollowings().remove(profile);
             profile.getFollowers().remove(thisClient.getProfile());
             UnfollowButton.setVisible(false);
@@ -102,17 +114,39 @@ public class OthersProfilePageController {
         alert.setHeaderText("Please confirm!");
         alert.setContentText("Are you sure want to unfollow this user?");
         Optional<ButtonType> option = alert.showAndWait();
-       if (option.get() == ButtonType.OK) {
+        if (option.get() == ButtonType.OK) {
             UnfollowButton.setVisible(false);
             FollowButton.setVisible(true);
             return true;
         }
-            return false;
+        return false;
     }
 
 
     public void ShowMyPosts(ActionEvent actionEvent) throws IOException {
+        if (profile.getBlockedByYou().contains(thisClient.getProfile())) {
+            ShowInvalidShowPostDialog();
+            return;
+        }
         ThatUser.setProfile(profile);
         new PageLoader().load("timePost");
+    }
+    private void ShowInvalidFollowDialog() {
+        String title = "Blocked";
+        String contentText = "You can not follow this user\n You are blocked!";
+        this.makeAndShowInformationDialog(title, contentText);
+    }
+    private void ShowInvalidShowPostDialog() {
+        String title = "Blocked";
+        String contentText = "You can not this user's posts\n You are blocked!";
+        this.makeAndShowInformationDialog(title, contentText);
+    }
+
+    public static void makeAndShowInformationDialog(String title, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(contentText);
+        alert.showAndWait();
     }
 }

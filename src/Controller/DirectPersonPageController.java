@@ -2,6 +2,7 @@ package Controller;
 
 import Client.ClientManager;
 import Client.thisClient;
+import Model.PageLoader;
 import Model.Post;
 import Whatever.Message;
 import Whatever.ThatUser;
@@ -17,6 +18,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class DirectPersonPageController {
@@ -32,6 +34,9 @@ public class DirectPersonPageController {
         List<Message> shown = ClientManager.LoadingChatInfo();
         ListViewChats.setItems(FXCollections.observableArrayList(shown));
         ListViewChats.setCellFactory(ListViewChats -> new ChatItem());
+        for (int i=0;i<shown.size();i++){
+            System.out.println(shown.get(i).toString());
+        }
     }
 
     public void SendMessage(MouseEvent mouseEvent) {
@@ -39,8 +44,10 @@ public class DirectPersonPageController {
         message.setSender(thisClient.getUserName());
         message.setReceiver(ThatUser.getUserName());
         ClientManager.SendMessage(message, thisClient.getUserName(), ThatUser.getUserName());
+        MessageField.clear();
     }
 
-    public void ExitPage(MouseEvent mouseEvent) {
+    public void ExitPage(MouseEvent mouseEvent) throws IOException {
+        new PageLoader().load("ChatPage");
     }
 }

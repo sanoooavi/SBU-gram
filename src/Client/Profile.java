@@ -28,6 +28,8 @@ public class Profile implements Serializable {
     public List<Post> posts = new ArrayList<>();
     public List<Profile> followings = new CopyOnWriteArrayList<>();
     public List<Profile> followers = new CopyOnWriteArrayList<>();
+    public List<Profile>BlockedByYou=new CopyOnWriteArrayList<>();
+    public List<Profile>YouAreBlocked=new CopyOnWriteArrayList<>();
     public Map<String, List<Object>> Messages = new HashMap<>();
 
     public List<Profile> getFollowers() {
@@ -38,6 +40,13 @@ public class Profile implements Serializable {
         return followings;
     }
 
+    public List<Profile> getBlockedByYou() {
+        return BlockedByYou;
+    }
+
+    public List<Profile> getYouAreBlocked() {
+        return YouAreBlocked;
+    }
 
     public Map<String, List<Object>> getMessages() {
         return Messages;

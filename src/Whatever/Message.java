@@ -2,9 +2,12 @@ package Whatever;
 
 import Client.Profile;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Message implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -6263967550947218039L;
     String sender;
     String receiver;
     String textMessage;
@@ -30,7 +33,16 @@ public class Message implements Serializable {
         return sender;
     }
 
+    public String getTime() {
+        return time;
+    }
+
     public String getReceiver() {
         return receiver;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" + "sender='" + sender + '\'' + ", receiver='" + receiver + '\'' + ", textMessage='" + textMessage + '\'' + ", time='" + time + '\'' + '}';
     }
 }

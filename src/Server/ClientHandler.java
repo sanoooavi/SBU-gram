@@ -89,6 +89,12 @@ public class ClientHandler implements Runnable {
                     case LoadChatPage:
                         answer=ServerManager.LoadChatPage(income);
                         break;
+                    case Block:
+                        answer=ServerManager.Block(income);
+                        break;
+                    case TrashText:
+                        answer=ServerManager.TrashText(income);
+                        break;
                 }
                 dos.writeObject(answer);
                 dos.flush();

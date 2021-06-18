@@ -179,6 +179,23 @@ public class ServerManager {
         return ans;
     }
 
+    public static Map<String, Object> Block(Map<String, Object> income) {
+        String ToBlock = (String) income.get("ToBlock");
+        String from = (String) income.get("from");
+        Profile toBlock = Server.users.get(ToBlock);
+        Profile isBlocking = Server.users.get(from);
+        Server.users.get(ToBlock).getYouAreBlocked().add(isBlocking);
+        Server.users.get(from).getBlockedByYou().add(toBlock);
+        DataManager.getInstance().updateDataBase();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.Block);
+        ans.put("answer", new Boolean(true));
+        //System.out.println(follower + " followed");
+        // System.out.println("message: " + following);
+        System.out.println("time : " + Time.getTime());
+        return ans;
+    }
+
     public static Map<String, Object> GetInfo(Map<String, Object> income) {
         String userTarget = (String) income.get("userTarget");
         String username = (String) income.get("user");
@@ -310,7 +327,7 @@ public class ServerManager {
         ArrayList<Object> messages = new ArrayList<>();
         if (Server.users.get(sender).getMessages() != null) {
             if (Server.users.get(sender).getMessages().containsKey(Receiver)) {
-                messages.addAll(Server.users.get(sender).getMessages().get(sender));
+                messages.addAll(Server.users.get(sender).getMessages().get(Receiver));
             }
         }
         messages.add(message);
@@ -319,6 +336,12 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.SendMessage);
         ans.put("answer", new Boolean(true));
+        System.out.println(sender + " send");
+        System.out.println("message: from " + sender + " to " + Receiver);
+        System.out.println("time: " + Time.getTime());
+        System.out.println(Receiver + " received");
+        System.out.println("message: " + sender);
+        System.out.println("time: " + Time.getTime());
         return ans;
     }
 
@@ -328,7 +351,7 @@ public class ServerManager {
         List<Object> returnValue = new ArrayList<>();
         if (Server.users.get(username).getMessages() != null) {
             if (Server.users.get(username).getMessages().containsKey(chatWith)) {
-                returnValue .addAll(Server.users.get(username).getMessages().get(chatWith));
+                returnValue.addAll(Server.users.get(username).getMessages().get(chatWith));
             }
         }
         if (Server.users.get(chatWith).getMessages() != null) {
@@ -339,6 +362,18 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.LoadChatPage);
         ans.put("answer", returnValue);
+        return ans;
+    }
+
+
+    public static Map<String, Object> TrashText(Map<String, Object> income) {
+        String username=(String) income.get("username");
+        Message message=(Message) income.get("message");
+        String Receiver=message.getReceiver();
+        Server.users.get(username).getMessages().get(Receiver).remove(message);
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.TrashText);
+        ans.put("answer", new Boolean(true));
         return ans;
     }
 }

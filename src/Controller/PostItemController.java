@@ -42,6 +42,8 @@ public class PostItemController {
     public Button AddCommentButton;
     public Button DismissButton;
     public Label LikesNumber;
+    public Label PostPublisher;
+    public Label ReleaseTime;
     Post post;
 
     public PostItemController(Post post) throws IOException {
@@ -55,6 +57,8 @@ public class PostItemController {
         PostDesc.setText(post.getDescription());
         UserProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream(post.getProfilePhoto()))));
         commentslabel.setText(post.getCommentsOnField());
+        ReleaseTime.setText(post.getTimeReleased());
+        PostPublisher.setText(post.getPublisher());
         if (post.getPhoto() != null) {
             theImagePosted.setImage(new Image(new ByteArrayInputStream(post.getPhoto())));
             frame.setVisible(false);
@@ -88,14 +92,16 @@ public class PostItemController {
             return;
         }
         Post newPost = new Post();
-        newPost.setWriter(this.post.getWriter());
-        newPost.setPublisher(thisClient.getUserName());
-        newPost.setDescription(this.post.getDescription());
-        newPost.setTitle(this.post.getTitle());
-        newPost.setPhoto(this.post.getPhoto());
+        newPost.setWriter(post.getWriter());
+        newPost.setDescription(post.getDescription());
+        newPost.setTitle(post.getTitle());
+        newPost.setPhoto(post.getPhoto());
+        newPost.setProfilePhoto(post.getProfilePhoto());
         newPost.setTimeReleased(Time.getTime());
         newPost.setTimerMil(Time.getMilli());
-        ClientManager.rePost(post, thisClient.getUserName());
+        newPost.setPublisher(thisClient.getUserName());
+        ClientManager.rePost(newPost, thisClient.getUserName());
+        ShowSuccessfulRepostDialog();
     }
 
     public void ToComment(MouseEvent mouseEvent) {
@@ -165,6 +171,12 @@ public class PostItemController {
     public void ShowInvalidCommentDialog() {
         String title = "Error in adding comment";
         String contentText = "The comment part is null\nOr this user has deleted account";
+        this.makeAndShowInformationDialog(title, contentText);
+    }
+
+    public void ShowSuccessfulRepostDialog() {
+        String title = "Successful Reposting";
+        String contentText = "You Have reposted";
         this.makeAndShowInformationDialog(title, contentText);
     }
 

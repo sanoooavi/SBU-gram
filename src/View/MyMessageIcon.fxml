@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
@@ -8,10 +10,25 @@
 <AnchorPane fx:id="rightItem" prefHeight="100.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Circle fx:id="UserProfileright" layoutX="385.0" layoutY="50.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="UserMessageright" layoutX="11.0" layoutY="11.0" prefHeight="79.0" prefWidth="348.0" style="-fx-background-color: #6ED9A0; -fx-background-radius: 10;">
+      <Label fx:id="UserMessageright" layoutX="11.0" layoutY="11.0" lineSpacing="1.0" prefHeight="79.0" prefWidth="348.0" style="-fx-background-color: #6ED9A0; -fx-background-radius: 10;" text="  text">
          <font>
             <Font name="Century Gothic" size="12.0" />
          </font>
       </Label>
+      <Label fx:id="timeOftextright" layoutX="19.0" layoutY="73.0" text="time">
+         <font>
+            <Font name="Century Gothic" size="10.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="46.0" fitWidth="17.0" layoutX="333.0" layoutY="70.0" onMouseClicked="#EditText" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/edit_48px.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="17.0" layoutX="310.0" layoutY="70.0" onMouseClicked="#TrashMessage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/trash_48px.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

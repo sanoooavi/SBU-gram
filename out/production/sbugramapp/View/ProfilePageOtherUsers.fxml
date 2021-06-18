@@ -15,7 +15,7 @@
    <children>
       <Pane layoutX="244.0" layoutY="40.0" prefHeight="217.0" prefWidth="385.0" style="-fx-background-color: #fbfcfc;">
          <children>
-            <Button fx:id="UnBlockButton" layoutX="278.0" layoutY="170.0" mnemonicParsing="false" onAction="#UnBlock" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e61717; -fx-background-radius: 10;" text="UnBlock">
+            <Button fx:id="UnBlockButton" layoutX="278.0" layoutY="170.0" mnemonicParsing="false" onAction="#UnBlock" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e61717; -fx-background-radius: 10;" text="UnBlock" visible="false">
                <font>
                   <Font name="Century Gothic Bold Italic" size="12.0" />
                </font>
@@ -25,7 +25,7 @@
                   <Font name="Century Gothic Bold Italic" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="UnMuteButton" layoutX="148.0" layoutY="170.0" mnemonicParsing="false" onAction="#UnMute" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e61717; -fx-background-radius: 10;" text="UnMute">
+            <Button fx:id="UnMuteButton" layoutX="148.0" layoutY="170.0" mnemonicParsing="false" onAction="#UnMute" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e61717; -fx-background-radius: 10;" text="UnMute" visible="false">
                <font>
                   <Font name="Century Gothic Bold Italic" size="12.0" />
                </font>

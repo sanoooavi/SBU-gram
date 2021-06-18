@@ -112,6 +112,17 @@ public class ClientManager {
         if (received.get("answer") == null) return null;
         return (Boolean) received.get("answer");
     }
+    public static Boolean Block(String username, String userName) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.Block);
+        //the one who you want to block
+        toSend.put("ToBlock",username);
+        //your profile
+        toSend.put("from", userName);
+        Map<String, Object> received =Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (Boolean) received.get("answer");
+    }
 
     public static Profile UpdateProfile(String userName, String email, String newName, String newLastName, String phoneNumber, String location, Gender gender, byte[] bytes) {
         Map<String,Object>toSend=new HashMap<>();
@@ -198,5 +209,14 @@ public class ClientManager {
         Map<String, Object> received = Network.serve(toSend);
         if (received.get("answer") == null) return null;
         return (List<Message>) received.get("answer");
+    }
+
+
+    public static void TrashMessage(Message message, String userName) {
+        Map<String,Object>toSend=new HashMap<>();
+        toSend.put("command",Command.TrashText);
+        toSend.put("username",userName);
+        toSend.put("message",message);
+        Network.serve(toSend);
     }
 }
