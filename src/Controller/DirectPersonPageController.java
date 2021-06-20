@@ -19,6 +19,7 @@ import javafx.scene.shape.Circle;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 public class DirectPersonPageController {
@@ -26,17 +27,16 @@ public class DirectPersonPageController {
     public Label UsernameLabel;
     public ListView<Message> ListViewChats;
     public TextField MessageField;
+   // public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTime(), b.getTime());
 
-
-    public void initialize() {
+    public void initialize() { 
         UsernameLabel.setText(ThatUser.getUserName());
         ProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream((ThatUser.getProfile().getProfilePhoto())))));
         List<Message> shown = ClientManager.LoadingChatInfo();
+       // shown.sort(timeCompare);
         ListViewChats.setItems(FXCollections.observableArrayList(shown));
         ListViewChats.setCellFactory(ListViewChats -> new ChatItem());
-        for (int i=0;i<shown.size();i++){
-            System.out.println(shown.get(i).toString());
-        }
+
     }
 
     public void SendMessage(MouseEvent mouseEvent) {

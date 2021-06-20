@@ -10,6 +10,5 @@ public class TestRegexpass {
             String str = s.nextLine();
             System.out.println(Pattern.matches(regex, str));
         }
-
     }
 }

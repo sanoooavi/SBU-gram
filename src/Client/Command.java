@@ -16,5 +16,11 @@ public enum Command {
     UpdateProfile,
     rePost,
     LoadPersonalTimeLine,
-    SaveSecondPassword, LoadUserDirect, ChangePassword, SendMessage, LoadChatPage, Block, TrashText,
+    SaveSecondPassword,
+    LoadUserDirect,
+    ChangePassword,
+    SendMessage,
+    LoadChatPage,
+    Block,
+    TrashText, UpdateData,
 }

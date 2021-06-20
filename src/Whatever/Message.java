@@ -4,6 +4,7 @@ import Client.Profile;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Message implements Serializable {
     @Serial
@@ -44,5 +45,18 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "Message{" + "sender='" + sender + '\'' + ", receiver='" + receiver + '\'' + ", textMessage='" + textMessage + '\'' + ", time='" + time + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+        Message message = (Message) o;
+        return Objects.equals(sender, message.sender) && Objects.equals(receiver, message.receiver) && Objects.equals(textMessage, message.textMessage) && Objects.equals(time, message.time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sender, receiver, textMessage, time);
     }
 }

@@ -30,4 +30,9 @@ public class timePostController {
             new PageLoader().load("ProfilePageOtherUsers");
         }
     }
+
+    public void RefreshPost(MouseEvent mouseEvent) throws IOException {
+        ClientManager.UpdateData();
+        new PageLoader().load("timePost");
+    }
 }

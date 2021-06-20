@@ -19,14 +19,22 @@ public class FindPassController {
     public TextField UsernameField;
 
     public void SaveChangedPassword(ActionEvent actionEvent) {
-        if(OldPasswordField.getText().isEmpty()||newPasswordField.getText().isEmpty()){
+        if(UsernameField.getText().isEmpty()||OldPasswordField.getText().isEmpty()||newPasswordField.getText().isEmpty()){
             ShowInvalidFilling();
             return;
         }
         if(!SignUpController.isValidPassword(newPasswordField.getText(),newPasswordField.getText())){
             return;
         }
-        ClientManager.ChangePassword(UsernameField.getText(),OldPasswordField.getText(),newPasswordField.getText());
+        boolean CanChange=ClientManager.ChangePassword(UsernameField.getText(),OldPasswordField.getText(),newPasswordField.getText());
+        if(CanChange){
+            ChangedPasswordComplete();
+            return;
+        }
+        else {
+            CanNotChangePassword();
+            return;
+        }
     }
 
     public void BackToLogin(MouseEvent mouseEvent) throws IOException {
@@ -48,6 +56,16 @@ public class FindPassController {
             password_here.setText(received);
             password_here.setVisible(true);
         }
+    }
+    private void ChangedPasswordComplete() {
+        String title = "Success";
+        String contentText = "You have changed your password";
+        this.makeAndShowInformationDialog(title, contentText);
+    }
+    private void CanNotChangePassword() {
+        String title = "Error";
+        String contentText = "The old password wasn't correct\nPlease try again";
+        this.makeAndShowInformationDialog(title, contentText);
     }
 
     private void ShowInvalidFilling() {

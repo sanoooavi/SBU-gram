@@ -243,7 +243,7 @@ public class ServerManager {
             Server.users.get(username).setGender(gender);
         }
         DataManager.getInstance().updateDataBase(); // save to local file
-
+        UpdateAfterDifference();
         Map<String, Object> ans = new HashMap<>();
         Profile prof = Server.users.get(username);
         ans.put("command", Command.UpdateProfile);
@@ -256,8 +256,13 @@ public class ServerManager {
 
     public static Map<String, Object> rePost(Map<String, Object> income) {
         Post post = (Post) income.get("post");
+        Post MainPost = (Post) income.get("MainPost");
         String username = (String) income.get("username");
+        Profile profile = Server.users.get(username);
         Server.users.get(username).getPosts().add(post);
+        DataManager.getInstance().updateDataBase(); // save to local file
+        int index = Server.users.get(MainPost.getWriter()).getPosts().indexOf(MainPost);
+        Server.users.get(MainPost.getWriter()).getPosts().get(index).getRepost().add(profile);
         DataManager.getInstance().updateDataBase(); // save to local file
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.rePost);
@@ -367,13 +372,38 @@ public class ServerManager {
 
 
     public static Map<String, Object> TrashText(Map<String, Object> income) {
-        String username=(String) income.get("username");
-        Message message=(Message) income.get("message");
-        String Receiver=message.getReceiver();
+        String username = (String) income.get("username");
+        Message message = (Message) income.get("message");
+        String Receiver = message.getReceiver();
         Server.users.get(username).getMessages().get(Receiver).remove(message);
+        DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
+        System.out.println("message deleted");
         ans.put("command", Command.TrashText);
         ans.put("answer", new Boolean(true));
         return ans;
+
     }
+
+    public static Map<String, Object> ChangePassword(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        String newPassword = (String) income.get("newPassword");
+        String oldPassword = (String) income.get("oldPassword");
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.ChangePassword);
+        if (!Server.users.get(username).getPassword().equals(oldPassword)) {
+            ans.put("answer", new Boolean(false));
+            return ans;
+        }
+        Server.users.get(username).setPassword(newPassword);
+        DataManager.getInstance().updateDataBase();
+        ans.put("answer", new Boolean(true));
+        return ans;
+    }
+
+    public static void UpdateAfterDifference() {
+        DataManager.getInstance().initializeServer();
+    }
+
+
 }

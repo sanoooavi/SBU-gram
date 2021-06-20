@@ -139,11 +139,12 @@ public class ClientManager {
         return (Profile) received.get("answer");
     }
 
-    public static void rePost(Post post, String userName) {
+    public static void rePost(Post post, String userName, Post MainPost) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.rePost);
         toSend.put("username", userName);
         toSend.put("post", post);
+        toSend.put("MainPost",MainPost);
         Network.serve(toSend);
     }
 
@@ -183,13 +184,14 @@ public class ClientManager {
         return (List<Profile>) received.get("answer");
     }
 
-    public static void ChangePassword(String username, String oldPass, String newPass) {
+    public static boolean ChangePassword(String username, String oldPass, String newPass) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.ChangePassword);
         toSend.put("username", username);
         toSend.put("oldPassword",oldPass);
         toSend.put("newPassword",newPass);
         Map<String, Object> received = Network.serve(toSend);
+        return (boolean)received.get("answer");
     }
 
     public static void SendMessage(Message message, String userName, String userName1) {
@@ -217,6 +219,12 @@ public class ClientManager {
         toSend.put("command",Command.TrashText);
         toSend.put("username",userName);
         toSend.put("message",message);
+        Network.serve(toSend);
+    }
+
+    public static void UpdateData() {
+        Map<String,Object>toSend=new HashMap<>();
+        toSend.put("command",Command.UpdateData);
         Network.serve(toSend);
     }
 }

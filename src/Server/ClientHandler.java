@@ -95,6 +95,11 @@ public class ClientHandler implements Runnable {
                     case TrashText:
                         answer=ServerManager.TrashText(income);
                         break;
+                    case ChangePassword:
+                        answer=ServerManager.ChangePassword(income);
+                    case UpdateData:
+                       ServerManager.UpdateAfterDifference();
+                       break;
                 }
                 dos.writeObject(answer);
                 dos.flush();

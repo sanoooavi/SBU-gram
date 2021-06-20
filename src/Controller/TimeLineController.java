@@ -31,8 +31,9 @@ public class TimeLineController {
         new PageLoader().load("AddPost");
     }
 
-    public void RefreshTimeLine(MouseEvent mouseEvent) {
-
+    public void RefreshTimeLine(MouseEvent mouseEvent) throws IOException {
+            ClientManager.UpdateData();
+            new PageLoader().load("timeLine");
     }
 
     public void SearchForPeople(MouseEvent mouseEvent) throws IOException {

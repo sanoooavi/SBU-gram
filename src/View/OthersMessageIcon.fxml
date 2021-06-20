@@ -15,7 +15,7 @@
             <Font name="Century Gothic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="timeOftextleft" layoutX="335.0" layoutY="73.0" text="time">
+      <Label fx:id="timeOftextleft" layoutX="303.0" layoutY="73.0" text="time">
          <font>
             <Font name="Century Gothic" size="10.0" />
          </font>

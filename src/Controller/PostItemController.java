@@ -91,6 +91,10 @@ public class PostItemController {
             ShowInvalidRePostDialog();
             return;
         }
+        if (post.getRepost().contains(thisClient.getProfile())) {
+            ShowInvalidRePostDialog();
+            return;
+        }
         Post newPost = new Post();
         newPost.setWriter(post.getWriter());
         newPost.setDescription(post.getDescription());
@@ -100,7 +104,8 @@ public class PostItemController {
         newPost.setTimeReleased(Time.getTime());
         newPost.setTimerMil(Time.getMilli());
         newPost.setPublisher(thisClient.getUserName());
-        ClientManager.rePost(newPost, thisClient.getUserName());
+        ClientManager.rePost(newPost, thisClient.getUserName(), post);
+      //  post.getRepost().add(thisClient.getProfile());
         ShowSuccessfulRepostDialog();
     }
 
@@ -123,10 +128,8 @@ public class PostItemController {
             return;
         }
         Comment comment = new Comment(thisClient.getUserName(), comments_field.getText());
-        post.getComments().add(comment);
         ClientManager.AddComment(comment, post);
         afterComment();
-        //  new PageLoader().load("timeLine");
     }
 
     public void afterComment() {
@@ -143,10 +146,8 @@ public class PostItemController {
             ShowInvalidLikeDialog();
             return;
         } else {
-            post.getLikes().add(thisClient.getProfile());
             emptyHeart.setImage(new Image("/pic/afterlike.png"));
         }
-        //  new PageLoader().load("timeLine");
     }
 
     private void ShowInvalidViewProfileDialog() {
@@ -157,7 +158,7 @@ public class PostItemController {
 
     private void ShowInvalidRePostDialog() {
         String title = "Error in RePosting";
-        String contentText = "You Can Not repost your posts!!!";
+        String contentText = "You Can Not repost this post!";
         this.makeAndShowInformationDialog(title, contentText);
     }
 

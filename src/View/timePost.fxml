@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="410.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.timePostController">
    <children>
       <Pane prefHeight="30.0" prefWidth="638.0" style="-fx-background-color: #2A363F;">
@@ -23,6 +22,11 @@
                   <Font name="Century Gothic Bold Italic" size="12.0" />
                </font>
             </Label>
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="531.0" layoutY="4.0" onMouseClicked="#RefreshPost" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/refresh_60px.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <ListView fx:id="PostList" layoutY="30.0" prefHeight="380.0" prefWidth="638.0" />

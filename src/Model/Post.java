@@ -21,8 +21,13 @@ public class Post implements Serializable {
     private String description;
     List<Profile> likes = new CopyOnWriteArrayList<>();
     List<Comment> comments = new CopyOnWriteArrayList<>();
+    List<Profile>repost=new CopyOnWriteArrayList<>();
     private String timeReleased;
     private Long timerMil;
+
+    public List<Profile> getRepost() {
+        return repost;
+    }
 
     public void setTimerMil(Long timerMil) {
         this.timerMil = timerMil;
