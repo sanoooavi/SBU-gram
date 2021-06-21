@@ -41,6 +41,7 @@ public class OthersProfilePageController {
     Profile profile;
 
     public void initialize() {
+        ClientManager.UpdateData();
         this.profile = ThatUser.getProfile();
         UserName.setText("  " + profile.getUsername());
         FullName.setText("  " + profile.getName() + " " + profile.getLastname());
@@ -49,60 +50,83 @@ public class OthersProfilePageController {
         UserProfileImage.setFill(new ImagePattern(new Image(new ByteArrayInputStream(profile.getProfilePhoto()))));
         followers.setText(String.valueOf(profile.getFollowers().size()));
         followings.setText(String.valueOf(profile.getFollowings().size()));
-        if (thisClient.getFollowings().contains(profile)) {
+        if (profile.getFollowers().contains(thisClient.getProfile())) {
             UnfollowButton.setVisible(true);
             FollowButton.setVisible(false);
         } else {
             UnfollowButton.setVisible(false);
             FollowButton.setVisible(true);
         }
+        if (thisClient.getProfile().getMute().contains(profile)) {
+            MuteButton.setVisible(false);
+            UnMuteButton.setVisible(true);
+        } else {
+            MuteButton.setVisible(true);
+            UnMuteButton.setVisible(false);
+        }
+        if (thisClient.getProfile().getBlocked().contains(profile)) {
+            UnBlockButton.setVisible(true);
+            BlockButton.setVisible(false);
+        } else {
+            UnBlockButton.setVisible(false);
+            BlockButton.setVisible(true);
+        }
         email_field.setText(" " + profile.getEmail());
         phone_number_field.setText(" " + profile.getPhoneNumber());
         gender_field.setText(" " + profile.getGender());
     }
 
-    public void Follow(ActionEvent actionEvent) {
-        if (profile.getBlockedByYou().contains(thisClient.getProfile())){
+    public void Follow(ActionEvent actionEvent) throws IOException {
+        if (profile.getBlocked().contains(thisClient.getProfile())) {
             ShowInvalidFollowDialog();
             return;
         }
         thisClient.getFollowings().add(profile);
         profile.getFollowers().add(thisClient.getProfile());
         ClientManager.follow(profile.getUsername(), thisClient.getUserName());
-        UnfollowButton.setVisible(true);
-        FollowButton.setVisible(false);
+        new PageLoader().load("ProfilePageOtherUsers");
     }
 
-    public void Mute(ActionEvent actionEvent) {
-    }
-
-    public void Block(ActionEvent actionEvent) {
-        ClientManager.Block(profile.getUsername(), thisClient.getUserName());
-        UnBlockButton.setVisible(true);
-        BlockButton.setVisible(false);
-        if (thisClient.getFollowings().contains(profile)){
-            profile.getFollowers().remove(thisClient.getProfile());
-            UnfollowButton.setVisible(false);
-            FollowButton.setVisible(true);
-            ClientManager.Unfollow(profile.getUsername(), thisClient.getUserName());
-        }
-    }
-
-    public void Unfollow(ActionEvent actionEvent) {
+    public void Unfollow(ActionEvent actionEvent) throws IOException {
         if (ConfirmationAlert()) {
             thisClient.getFollowings().remove(profile);
             profile.getFollowers().remove(thisClient.getProfile());
-            UnfollowButton.setVisible(false);
-            FollowButton.setVisible(true);
             ClientManager.Unfollow(profile.getUsername(), thisClient.getUserName());
+            new PageLoader().load("ProfilePageOtherUsers");
         }
     }
 
-    public void UnMute(ActionEvent actionEvent) {
+
+    public void Block(ActionEvent actionEvent) throws IOException {
+        //if this user has followed you before
+        ClientManager.Block(profile.getUsername(), thisClient.getUserName());
+        thisClient.getProfile().getBlocked().add(profile);
+        if (thisClient.getFollowers().contains(profile)) {
+            ClientManager.Unfollow(thisClient.getUserName(), profile.getUsername());
+            profile.getFollowings().remove(thisClient.getProfile());
+            thisClient.getFollowers().remove(profile);
+        }
+        new PageLoader().load("ProfilePageOtherUsers");
     }
 
-    public void UnBlock(ActionEvent actionEvent) {
+    public void UnBlock(ActionEvent actionEvent) throws IOException {
+        ClientManager.UnBlock(profile.getUsername(), thisClient.getUserName());
+        thisClient.getProfile().getBlocked().remove(profile);
+        new PageLoader().load("ProfilePageOtherUsers");
     }
+
+    public void Mute(ActionEvent actionEvent) throws IOException {
+        ClientManager.Mute(profile.getUsername(), thisClient.getUserName());
+        thisClient.getProfile().getMute().add(profile);
+        new PageLoader().load("ProfilePageOtherUsers");
+    }
+
+    public void UnMute(ActionEvent actionEvent) throws IOException {
+        ClientManager.UnMute(profile.getUsername(), thisClient.getUserName());
+        thisClient.getProfile().getMute().remove(profile);
+        new PageLoader().load("ProfilePageOtherUsers");
+    }
+
 
     public void ExitPage(MouseEvent mouseEvent) throws IOException {
         new PageLoader().load("timeLine");
@@ -124,23 +148,16 @@ public class OthersProfilePageController {
 
 
     public void ShowMyPosts(ActionEvent actionEvent) throws IOException {
-        if (profile.getBlockedByYou().contains(thisClient.getProfile())) {
-            ShowInvalidShowPostDialog();
-            return;
-        }
         ThatUser.setProfile(profile);
         new PageLoader().load("timePost");
     }
+
     private void ShowInvalidFollowDialog() {
         String title = "Blocked";
         String contentText = "You can not follow this user\n You are blocked!";
         this.makeAndShowInformationDialog(title, contentText);
     }
-    private void ShowInvalidShowPostDialog() {
-        String title = "Blocked";
-        String contentText = "You can not this user's posts\n You are blocked!";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
+
 
     public static void makeAndShowInformationDialog(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

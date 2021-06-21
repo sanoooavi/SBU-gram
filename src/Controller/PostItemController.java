@@ -80,6 +80,12 @@ public class PostItemController {
         if (profile.equals(thisClient.getProfile())) {
             new PageLoader().load("ProfilebythisUser");
         } else {
+            if (profile.getBlocked() != null) {
+                if (profile.getBlocked().contains(thisClient.getProfile())) {
+                    ShowBlockedDialog();
+                    return;
+                }
+            }
             ThatUser.setProfile(profile);
             new PageLoader().load("ProfilePageOtherUsers");
         }
@@ -105,7 +111,7 @@ public class PostItemController {
         newPost.setTimerMil(Time.getMilli());
         newPost.setPublisher(thisClient.getUserName());
         ClientManager.rePost(newPost, thisClient.getUserName(), post);
-      //  post.getRepost().add(thisClient.getProfile());
+        //  post.getRepost().add(thisClient.getProfile());
         ShowSuccessfulRepostDialog();
     }
 
@@ -180,6 +186,13 @@ public class PostItemController {
         String contentText = "You Have reposted";
         this.makeAndShowInformationDialog(title, contentText);
     }
+
+    private void ShowBlockedDialog() {
+        String title = "Oops";
+        String contentText = "You can not see this user's profile \nYou are blocked";
+        makeAndShowInformationDialog(title, contentText);
+    }
+
 
     public void makeAndShowInformationDialog(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

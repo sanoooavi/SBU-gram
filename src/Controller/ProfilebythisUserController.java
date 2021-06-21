@@ -1,5 +1,6 @@
 package Controller;
 
+import Client.ClientManager;
 import Client.Gender;
 import Client.thisClient;
 import Model.PageLoader;
@@ -54,5 +55,10 @@ public class ProfilebythisUserController {
     public void ShowMyPosts(ActionEvent actionEvent) throws IOException {
         ThatUser.setProfile(thisClient.getProfile());
         new PageLoader().load("timePost");
+    }
+
+    public void Update(MouseEvent mouseEvent) throws IOException {
+        ClientManager.UpdateData();
+        new PageLoader().load("ProfilebythisUser");
     }
 }

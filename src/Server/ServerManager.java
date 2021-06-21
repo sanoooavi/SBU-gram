@@ -9,6 +9,7 @@ import Whatever.Message;
 import Whatever.Time;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class ServerManager {
     public static Map<String, Object> signUp(Map<String, Object> income) {
@@ -83,9 +84,12 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.LoadTimeLine);
         ArrayList<Post> returnValue = new ArrayList<>();
-        Server.users.get(username)
-                .getFollowings()
-                .forEach(p -> returnValue.addAll(p.getPosts()));
+        for (Profile a:Server.users.get(username).getFollowings()){
+            if(!Server.users.get(username).getMute().contains(a)){
+                returnValue.addAll(a.getPosts());
+            }
+        }
+        //Server.users.get(username).getFollowings().forEach(p -> returnValue.addAll(p.getPosts()));
         returnValue.addAll(Server.users.get(username).getPosts());
         ans.put("answer", returnValue);
         return ans;
@@ -155,6 +159,7 @@ public class ServerManager {
         System.out.println(follower + " followed");
         System.out.println("message: " + following);
         System.out.println("time : " + Time.getTime());
+        UpdateAfterDifference();
         return ans;
     }
 
@@ -183,19 +188,26 @@ public class ServerManager {
         String ToBlock = (String) income.get("ToBlock");
         String from = (String) income.get("from");
         Profile toBlock = Server.users.get(ToBlock);
-        Profile isBlocking = Server.users.get(from);
-        Server.users.get(ToBlock).getYouAreBlocked().add(isBlocking);
-        Server.users.get(from).getBlockedByYou().add(toBlock);
+        Server.users.get(from).getBlocked().add(toBlock);
         DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.Block);
         ans.put("answer", new Boolean(true));
-        //System.out.println(follower + " followed");
-        // System.out.println("message: " + following);
         System.out.println("time : " + Time.getTime());
         return ans;
     }
-
+    public static Map<String, Object> UnBlock(Map<String, Object> income) {
+        String ToUnBlock = (String) income.get("ToUnBlock");
+        String from = (String) income.get("from");
+        Profile toUnBlock = Server.users.get(ToUnBlock);
+        Server.users.get(from).getBlocked().remove(toUnBlock);
+        DataManager.getInstance().updateDataBase();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.UnBlock);
+        ans.put("answer", new Boolean(true));
+        System.out.println("time : " + Time.getTime());
+        return ans;
+    }
     public static Map<String, Object> GetInfo(Map<String, Object> income) {
         String userTarget = (String) income.get("userTarget");
         String username = (String) income.get("user");
@@ -254,24 +266,6 @@ public class ServerManager {
         return ans;
     }
 
-    public static Map<String, Object> rePost(Map<String, Object> income) {
-        Post post = (Post) income.get("post");
-        Post MainPost = (Post) income.get("MainPost");
-        String username = (String) income.get("username");
-        Profile profile = Server.users.get(username);
-        Server.users.get(username).getPosts().add(post);
-        DataManager.getInstance().updateDataBase(); // save to local file
-        int index = Server.users.get(MainPost.getWriter()).getPosts().indexOf(MainPost);
-        Server.users.get(MainPost.getWriter()).getPosts().get(index).getRepost().add(profile);
-        DataManager.getInstance().updateDataBase(); // save to local file
-        Map<String, Object> ans = new HashMap<>();
-        ans.put("command", Command.rePost);
-        ans.put("answer", new Boolean(true));
-        System.out.println(username + " rePost");
-        System.out.println("message: " + post.getWriter() + " " + post.getTitle());
-        System.out.println("time : " + Time.getTime());
-        return ans;
-    }
 
     public static Map<String, Object> LoadingPersonalInfo(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -315,6 +309,24 @@ public class ServerManager {
 
     }
 
+    public static Map<String, Object> rePost(Map<String, Object> income) {
+        Post post = (Post) income.get("post");
+        Post MainPost = (Post) income.get("MainPost");
+        String username = (String) income.get("username");
+        Profile profile = Server.users.get(username);
+        Server.users.get(username).getPosts().add(post);
+        DataManager.getInstance().updateDataBase(); // save to local file
+        int index = Server.users.get(MainPost.getWriter()).getPosts().indexOf(MainPost);
+        Server.users.get(MainPost.getWriter()).getPosts().get(index).getRepost().add(profile);
+        DataManager.getInstance().updateDataBase(); // save to local file
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.rePost);
+        ans.put("answer", new Boolean(true));
+        System.out.println(username + " rePost");
+        System.out.println("message: " + post.getWriter() + " " + post.getTitle());
+        System.out.println("time : " + Time.getTime());
+        return ans;
+    }
     public static Map<String, Object> LoadingDirectInfo(Map<String, Object> income) {
         String username = (String) income.get("username");
         Map<String, Object> ans = new HashMap<>();
@@ -403,6 +415,34 @@ public class ServerManager {
 
     public static void UpdateAfterDifference() {
         DataManager.getInstance().initializeServer();
+    }
+
+
+    public static Map<String, Object> Mute(Map<String, Object> income) {
+        String username = (String) income.get("userName");
+        String usernameToMute = (String) income.get("usernameToMute");
+        Profile ToMute = Server.users.get(usernameToMute);
+        Server.users.get(username).getMute().add(ToMute);
+        DataManager.getInstance().updateDataBase();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.Mute);
+        ans.put("answer", new Boolean(true));
+        System.out.println(username + " muted ");
+        System.out.println("message : " + usernameToMute);
+        System.out.println("time: " + Time.getTime());
+        return ans;
+    }
+
+    public static Map<String, Object> UnMute(Map<String, Object> income) {
+        String username = (String) income.get("userName");
+        String usernameToUnMute = (String) income.get("usernameToUnMute");
+        Profile ToUnMute = Server.users.get(usernameToUnMute);
+        Server.users.get(username).getMute().remove(ToUnMute);
+        DataManager.getInstance().updateDataBase();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.UnMute);
+        ans.put("answer", new Boolean(true));
+        return ans;
     }
 
 

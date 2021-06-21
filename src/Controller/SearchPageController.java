@@ -11,10 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
@@ -25,11 +22,16 @@ import java.util.ResourceBundle;
 public class SearchPageController implements Initializable {
     @FXML
     private Label label;
-    @FXML private TextField filterField;
-    @FXML private TableView<Profile> tableview;
-    @FXML private TableColumn<Profile, String> Username;
-    @FXML private TableColumn<Profile, String> Name;
-    @FXML private TableColumn<Profile, Integer> age;
+    @FXML
+    private TextField filterField;
+    @FXML
+    private TableView<Profile> tableview;
+    @FXML
+    private TableColumn<Profile, String> Username;
+    @FXML
+    private TableColumn<Profile, String> Name;
+    @FXML
+    private TableColumn<Profile, Integer> age;
 
     //observalble list to store data
     private final ObservableList<Profile> dataList = FXCollections.observableArrayList();
@@ -58,12 +60,11 @@ public class SearchPageController implements Initializable {
                 // Compare first name and last name of every person with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (profile.getName().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                if (profile.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true; // Filter matches first name.
                 } else if (profile.getUsername().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true; // Filter matches last name.
-                }
-                else if (String.valueOf(profile.getAge()).indexOf(lowerCaseFilter)!=-1)
+                } else if (String.valueOf(profile.getAge()).indexOf(lowerCaseFilter) != -1)
                     return true;
                 else
                     return false; // Does not match.
@@ -86,17 +87,36 @@ public class SearchPageController implements Initializable {
     }
 
     public void GotoProfile(MouseEvent mouseEvent) throws IOException {
-        Profile prof=tableview.getSelectionModel().getSelectedItem();
-        if(prof.equals(thisClient.getProfile())){
+        Profile prof = tableview.getSelectionModel().getSelectedItem();
+        if (prof.equals(thisClient.getProfile())) {
             new PageLoader().load("ProfilebythisUser");
-        }
-        else {
+        } else {
+            if (prof.getBlocked() != null) {
+                if (prof.getBlocked().contains(thisClient.getProfile())) {
+                    ShowBlockedDialog();
+                    return;
+                }
+            }
             ThatUser.setProfile(prof);
             new PageLoader().load("ProfilePageOtherUsers");
         }
     }
 
+    private void ShowBlockedDialog() {
+        String title = "Oops";
+        String contentText = "You can not see this user's profile \nYou are blocked";
+        makeAndShowInformationDialog(title, contentText);
+    }
+
     public void GoBackToTimeLine(MouseEvent mouseEvent) throws IOException {
         new PageLoader().load("timeLine");
+    }
+
+    public static void makeAndShowInformationDialog(String title, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(contentText);
+        alert.showAndWait();
     }
 }

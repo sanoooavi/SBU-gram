@@ -95,6 +95,11 @@
                   <Image url="@../pic/close_window_48px.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="24.0" layoutX="531.0" onMouseClicked="#Update" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/available_updates_64px.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutX="14.0" layoutY="264.0" prefHeight="99.0" prefWidth="610.0" style="-fx-background-color: #fbfcfc;">

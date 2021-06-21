@@ -10,7 +10,9 @@ public class thisClient {
     public static void setProfile(Profile justCreatedProfile) {
         profile = justCreatedProfile;
     }
-
+    public static  List<Profile> getFollowers() {
+        return profile.getFollowers();
+    }
     public static Profile getProfile() {
         return profile;
     }

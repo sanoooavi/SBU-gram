@@ -92,14 +92,24 @@ public class ClientHandler implements Runnable {
                     case Block:
                         answer=ServerManager.Block(income);
                         break;
+                    case UnBlock:
+                        answer=ServerManager.UnBlock(income);
+                        break;
                     case TrashText:
                         answer=ServerManager.TrashText(income);
                         break;
                     case ChangePassword:
                         answer=ServerManager.ChangePassword(income);
+                        break;
                     case UpdateData:
                        ServerManager.UpdateAfterDifference();
                        break;
+                    case Mute:
+                        answer=ServerManager.Mute(income);
+                        break;
+                    case UnMute:
+                        answer=ServerManager.UnMute(income);
+                        break;
                 }
                 dos.writeObject(answer);
                 dos.flush();

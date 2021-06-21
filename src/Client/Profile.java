@@ -19,7 +19,6 @@ public class Profile implements Serializable {
     private String password;
     private String ForgettablePassword = null;
     private LocalDate birthDate;
-    private Integer age;
     private Gender gender;
     byte[] ProfilePhoto;
     String email = null;
@@ -28,36 +27,17 @@ public class Profile implements Serializable {
     public List<Post> posts = new ArrayList<>();
     public List<Profile> followings = new CopyOnWriteArrayList<>();
     public List<Profile> followers = new CopyOnWriteArrayList<>();
-    public List<Profile>BlockedByYou=new CopyOnWriteArrayList<>();
-    public List<Profile>YouAreBlocked=new CopyOnWriteArrayList<>();
+    public List<Profile> Blocked = new CopyOnWriteArrayList<>();
+    public List<Profile> Mute = new CopyOnWriteArrayList<>();
     public Map<String, List<Object>> Messages = new HashMap<>();
 
-    public List<Profile> getFollowers() {
-        return followers;
+    public Profile(String username) {
+        this.username = username;
     }
 
-    public List<Profile> getFollowings() {
-        return followings;
-    }
-
-    public List<Profile> getBlockedByYou() {
-        return BlockedByYou;
-    }
-
-    public List<Profile> getYouAreBlocked() {
-        return YouAreBlocked;
-    }
-
-    public Map<String, List<Object>> getMessages() {
-        return Messages;
-    }
-
-    public void setForgettablePassword(String forgettablePassword) {
-        ForgettablePassword = forgettablePassword;
-    }
-
-    public String getForgettablePassword() {
-        return ForgettablePassword;
+    public Profile authenticate(String username, String password) {
+        if (this.username.equals(username) && this.password.equals(password)) return this;
+        return null;
     }
 
     public void setEmail(String email) {
@@ -70,22 +50,6 @@ public class Profile implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public byte[] getProfilePhoto() {
-        return ProfilePhoto;
     }
 
     public void setProfilePhoto(byte[] profilePhoto) {
@@ -112,22 +76,49 @@ public class Profile implements Serializable {
         this.gender = gender;
     }
 
+    public void setForgettablePassword(String forgettablePassword) {
+        ForgettablePassword = forgettablePassword;
+    }
+
+
+    public List<Profile> getFollowers() {
+        return followers;
+    }
+
+    public List<Profile> getFollowings() {
+        return followings;
+    }
+
+
+    public Map<String, List<Object>> getMessages() {
+        return Messages;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public byte[] getProfilePhoto() {
+        return ProfilePhoto;
+    }
+
     public Gender getGender() {
         return gender;
     }
 
-    public Profile(String username) {
-        this.username = username;
-    }
 
     public String getUsername() {
         return username;
     }
 
-    public Profile authenticate(String username, String password) {
-        if (this.username.equals(username) && this.password.equals(password)) return this;
-        return null;
-    }
 
     public String getPassword() {
         return password;
@@ -146,8 +137,19 @@ public class Profile implements Serializable {
     }
 
     public Integer getAge() {
-        this.age = LocalDateTime.now().getYear() - birthDate.getYear();
-        return this.age;
+        return LocalDateTime.now().getYear() - birthDate.getYear();
+    }
+
+    public List<Profile> getBlocked() {
+        return Blocked;
+    }
+
+    public String getForgettablePassword() {
+        return ForgettablePassword;
+    }
+
+    public List<Profile> getMute() {
+        return Mute;
     }
 
     @Override
