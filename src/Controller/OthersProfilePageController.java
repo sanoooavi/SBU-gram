@@ -4,6 +4,7 @@ import Client.ClientManager;
 import Client.Profile;
 import Client.thisClient;
 import Model.PageLoader;
+import Whatever.Errors;
 import Whatever.ThatUser;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -79,7 +80,7 @@ public class OthersProfilePageController {
 
     public void Follow(ActionEvent actionEvent) throws IOException {
         if (profile.getBlocked().contains(thisClient.getProfile())) {
-            ShowInvalidFollowDialog();
+            Errors.ShowInvalidFollowDialog();
             return;
         }
         thisClient.getFollowings().add(profile);
@@ -155,20 +156,7 @@ public class OthersProfilePageController {
         new PageLoader().load("timePost");
     }
 
-    private void ShowInvalidFollowDialog() {
-        String title = "Blocked";
-        String contentText = "You can not follow this user\n You are blocked!";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
 
-
-    public static void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-    }
 
     public void Refresh(MouseEvent mouseEvent) throws IOException {
         new PageLoader().load("ProfilePageOtherUsers");

@@ -257,4 +257,12 @@ public class ClientManager {
         return (Profile) received.get("answer");
     }
 
+    public static Boolean SearchForChat(String username) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.StartChat);
+        toSend.put("username", username);
+        Map<String, Object> received = Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (Boolean) received.get("answer");
+    }
 }

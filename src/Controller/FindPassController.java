@@ -3,6 +3,7 @@ package Controller;
 import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
+import Whatever.Errors;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -19,20 +20,19 @@ public class FindPassController {
     public TextField UsernameField;
 
     public void SaveChangedPassword(ActionEvent actionEvent) {
-        if(UsernameField.getText().isEmpty()||OldPasswordField.getText().isEmpty()||newPasswordField.getText().isEmpty()){
-            ShowInvalidFilling();
+        if (UsernameField.getText().isEmpty() || OldPasswordField.getText().isEmpty() || newPasswordField.getText().isEmpty()) {
+            Errors.ShowInvalidFilling();
             return;
         }
-        if(!SignUpController.isValidPassword(newPasswordField.getText(),newPasswordField.getText())){
+        if (!Errors.isValidPassword(newPasswordField.getText(), newPasswordField.getText())) {
             return;
         }
-        boolean CanChange=ClientManager.ChangePassword(UsernameField.getText(),OldPasswordField.getText(),newPasswordField.getText());
-        if(CanChange){
-            ChangedPasswordComplete();
+        boolean CanChange = ClientManager.ChangePassword(UsernameField.getText(), OldPasswordField.getText(), newPasswordField.getText());
+        if (CanChange) {
+            Errors.ChangedPasswordComplete();
             return;
-        }
-        else {
-            CanNotChangePassword();
+        } else {
+            Errors.CanNotChangePassword();
             return;
         }
     }
@@ -45,46 +45,17 @@ public class FindPassController {
 
     public void GetThePassword(ActionEvent actionEvent) {
         if (UsernameField.getText().isEmpty() || getthepassword.getText().isEmpty()) {
-            ShowInvalidFilling();
+            Errors. ShowInvalidFilling();
             return;
         }
         String received = ClientManager.GetThePassword(UsernameField.getText(), getthepassword.getText());
         if (received == null) {
-            ShowNotHasTheSecPassword();
+            Errors. ShowNotHasTheSecPassword();
             return;
         } else {
             password_here.setText(received);
             password_here.setVisible(true);
         }
     }
-    private void ChangedPasswordComplete() {
-        String title = "Success";
-        String contentText = "You have changed your password";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-    private void CanNotChangePassword() {
-        String title = "Error";
-        String contentText = "The old password wasn't correct\nPlease try again";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
 
-    private void ShowInvalidFilling() {
-        String title = "Error";
-        String contentText = "Please Fill in the required fields";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    private void ShowNotHasTheSecPassword() {
-        String title = "Warning";
-        String contentText = "There is no such name \nor you may have entered the wrong password";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    public void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-    }
 }

@@ -2,6 +2,7 @@ package Controller;
 
 import Client.*;
 import Model.PageLoader;
+import Whatever.Errors;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -27,24 +28,24 @@ public class SignUpController {
     public RadioButton MaleButton;
     public RadioButton FemaleButton;
     private Image image = null;
-    private byte[]bytes;
+    private byte[] bytes;
 
     public void SignUp(ActionEvent actionEvent) {
         if (hasEmptyField()) return;
-        if (!isValidPassword(pass_field.getText(), password_again.getText())) return;
-        if (!isValidUsername(username_field.getText())) return;
-        if(!isValidBirth(Birthdate.getValue().getYear()))return;
-        if(MaleButton.isSelected() && FemaleButton.isSelected()){
-            ShowInvalidChooseGenderDialog();
+        if (!Errors.isValidPassword(pass_field.getText(), password_again.getText())) return;
+        if (!Errors.isValidUsername(username_field.getText())) return;
+        if (!Errors.isValidBirth(Birthdate.getValue().getYear())) return;
+        if (MaleButton.isSelected() && FemaleButton.isSelected()) {
+            Errors.ShowInvalidChooseGenderDialog();
             return;
         }
         //profile seems valid
         Profile justCreatedProfile = this.makeProfileFromPageContent();
         thisClient.setProfile(justCreatedProfile);
         ClientManager.signUp(justCreatedProfile);
-        showProfileCreatedDialog();
+        Errors.showProfileCreatedDialog();
         try {
-          new PageLoader().load("SecurityQuestion");
+            new PageLoader().load("SecurityQuestion");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,36 +60,32 @@ public class SignUpController {
             newProfile.setLastname(lastname_field.getText());
         }
         newProfile.setBirthDate((Birthdate.getValue()));
-        if(MaleButton.isSelected()){
+        if (MaleButton.isSelected()) {
             newProfile.setGender(Gender.Male);
-        }
-        else if(FemaleButton.isSelected()){
+        } else if (FemaleButton.isSelected()) {
             newProfile.setGender(Gender.Female);
-        }
-        else {
+        } else {
             newProfile.setGender(Gender.Not_Say);
         }
-        if(image==null){
+        if (image == null) {
             File file = new File("src/pic/prof-removebg-preview.png");
             try {
-                bytes= Files.readAllBytes(file.toPath());
+                bytes = Files.readAllBytes(file.toPath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             newProfile.setProfilePhoto(bytes);
-        }
-        else {
+        } else {
             newProfile.setProfilePhoto(bytes);
         }
         return newProfile;
     }
 
 
-
     public void addProfile(ActionEvent actionEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(new Popup());
-        if(file==null){
+        if (file == null) {
             return;
         }
         FileInputStream fileInputStream = new FileInputStream(file);
@@ -104,70 +101,11 @@ public class SignUpController {
 
     public boolean hasEmptyField() {
         if (username_field.getText().isEmpty() || pass_field.getText().isEmpty() || name_field.getText().isEmpty() || Birthdate.getValue() == null || password_again.getText().isEmpty()) {
-            ErrorEmptyFields();
+            Errors.ErrorSignUpEmptyFields();
             return true;
         }
         return false;
     }
 
-    public void ErrorEmptyFields() {
-        String title = "Error in SignUp";
-        String contentText = "Please Fill in the required fields";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    public void showProfileCreatedDialog() {
-        String title = "Success";
-        String contentText = "profile created successfully!";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-    private void ShowInvalidChooseGenderDialog() {
-        String title = "Wrong choose";
-        String contentText = "You can not be both a man and a woman:|!!!!";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    public static void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-    }
-
-    public boolean isValidUsername(String username) {
-        boolean exists = ClientManager.isUserNameExists(username_field.getText());
-        if (exists) {
-            String title = "Failed to create profile";
-            String contentText = "Username already exists, choose another one!";
-            this.makeAndShowInformationDialog(title, contentText);
-        }
-        return !exists;
-    }
-    public static boolean isValidPassword(String text, String text2) {
-        if (!text.equals(text2)) {
-            String title = "invalid password";
-            String contentText = "The passwords are not the same \nPlease try again";
-            makeAndShowInformationDialog(title, contentText);
-            return false;
-        }
-        String regex = "^[a-zA-Z0-9]{8,}";
-        if (!Pattern.matches(regex, text)) {
-            String title = "invalid password";
-            String contentText = "The password is at least 8 letters long and includes numbers and letters Please try again";
-            makeAndShowInformationDialog(title, contentText);
-            return false;
-        }
-        return true;
-    }
-    public boolean isValidBirth(int year){
-        if (  (2021 - (year)) < 13){
-            String title = "Age warning";
-            String contentText = "you should be at least 13\nplease wait few years :D";
-            this.makeAndShowInformationDialog( title, contentText );
-            return false;
-        }
-        return true;
-    }
 
 }

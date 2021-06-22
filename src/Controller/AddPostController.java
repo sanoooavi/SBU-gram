@@ -5,6 +5,7 @@ import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
 import Model.Post;
+import Whatever.Errors;
 import Whatever.Time;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
@@ -37,7 +38,7 @@ public class AddPostController {
         currentPost.setTimeReleased(Time.getTime());
         currentPost.setTimerMil(Time.getMilli());
         ClientManager.PublishPost(currentPost);
-        makeSuccessfulDialog();
+        Errors.makeSuccessfulDialog();
         clearAfterPublish();
     }
 
@@ -46,34 +47,14 @@ public class AddPostController {
         description_field.clear();
         imageToPost.setVisible(false);
         defaultBackground.setVisible(true);
-        BytesOfPhotoPosted=null;
+        BytesOfPhotoPosted = null;
         currentPost = new Post();
     }
 
     public boolean hasEmpty() {
         boolean hasEmpty = (description_field.getText().isEmpty() || post_title_field.getText().isEmpty());
-        if (hasEmpty) showFillRequiredFieldsDialog();
+        if (hasEmpty) Errors.showFillRequiredFieldsDialog();
         return hasEmpty;
-    }
-
-    public void makeSuccessfulDialog() {
-        String title = "Successful";
-        String contentText = "You have posted a new post";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    public void showFillRequiredFieldsDialog() {
-        String title = "Incomplete information";
-        String contentText = "Please fill all of the required fields";
-        makeAndShowInformationDialog(title, contentText);
-    }
-
-    public void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
     }
 
     public void GoBackToPostList(MouseEvent mouseEvent) throws IOException {
@@ -85,7 +66,7 @@ public class AddPostController {
         description_field.clear();
         imageToPost.setVisible(false);
         defaultBackground.setVisible(true);
-        BytesOfPhotoPosted=null;
+        BytesOfPhotoPosted = null;
     }
 
     public void AddImageToPost(ActionEvent actionEvent) throws IOException {

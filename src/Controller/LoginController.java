@@ -4,6 +4,7 @@ import Client.Profile;
 import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
+import Whatever.Errors;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -16,6 +17,7 @@ public class LoginController {
     public PasswordField Password_field;
     public TextField Username_field;
     public TextField password_visible;
+
     public void login(ActionEvent actionEvent) throws IOException {
         String username = Username_field.getText();
         String password;
@@ -23,13 +25,13 @@ public class LoginController {
             password = Password_field.getText();
         else
             password = password_visible.getText();
-        if ( username.isEmpty() || password.isEmpty() ) {
-            InvalidLoginDialog();
+        if (username.isEmpty() || password.isEmpty()) {
+            Errors.InvalidLoginDialog();
             return;
         }
-        Profile profile = ClientManager.login(username,password);
-        if(profile == null){
-            ShowInvalidLoginDialog();
+        Profile profile = ClientManager.login(username, password);
+        if (profile == null) {
+            Errors.ShowInvalidLoginDialog();
             return;
         }
         thisClient.setProfile(profile);
@@ -41,24 +43,7 @@ public class LoginController {
     }
 
     public void Password_recovery(ActionEvent actionEvent) throws IOException {
-            new PageLoader().load("FindPassWord");
-    }
-    public void  InvalidLoginDialog(){
-        String title = "Incomplete information";
-        String contentText = "Please fill all of the required fields";
-        makeAndShowInformationDialog( title, contentText );
-    }
-    public void ShowInvalidLoginDialog() {
-        String title = "Error in login";
-        String contentText = "invalid username or password\nTry again or sign up";
-        this.makeAndShowInformationDialog( title, contentText );
-    }
-    public void makeAndShowInformationDialog(String title, String contentText ) {
-        Alert alert = new Alert( Alert.AlertType.INFORMATION );
-        alert.setTitle( title );
-        alert.setHeaderText( null );
-        alert.setContentText( contentText );
-        alert.showAndWait();
+        new PageLoader().load("FindPassWord");
     }
 
     public void show_Pass(MouseEvent mouseEvent) {
@@ -66,8 +51,7 @@ public class LoginController {
             password_visible.setVisible(true);
             Password_field.setVisible(false);
             password_visible.setText(Password_field.getText());
-        }
-        else {
+        } else {
             password_visible.setVisible(false);
             Password_field.setVisible(true);
             Password_field.setText(password_visible.getText());

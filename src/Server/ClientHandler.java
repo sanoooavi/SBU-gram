@@ -111,6 +111,9 @@ public class ClientHandler implements Runnable {
                     case GetProfile:
                         answer = ServerManager.GetProfile(income);
                         break;
+                    case  StartChat:
+                        answer=ServerManager.StartChat(income);
+                        break;
                 }
                 dos.reset();
                 dos.writeObject(answer);

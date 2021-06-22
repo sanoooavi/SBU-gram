@@ -5,6 +5,7 @@ import Client.Gender;
 import Client.Profile;
 import Client.thisClient;
 import Model.PageLoader;
+import Whatever.Errors;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -54,9 +55,9 @@ public class UpdateProfileController {
     }
 
     public void SaveNewProfile(ActionEvent actionEvent) {
-        if (!isPhoneNumberValid(PhoneNumberField.getText())) return;
+        if (!Errors.isPhoneNumberValid(PhoneNumberField.getText())) return;
         if (malebutton.isSelected() && female_button.isSelected()) {
-            ShowInvalidChooseGenderDialog();
+            Errors.ShowInvalidChooseGenderDialog();
             return;
         }
         String newName = NameField.getText();
@@ -107,44 +108,6 @@ public class UpdateProfileController {
             return true;
         }
         return false;
-    }
-
-    public boolean isEmailValid(String email) {
-        String regex = "";
-        if (!Pattern.matches(regex, email)) {
-            String title = "invalid email-address";
-            String contentText = "Please use valid emails\n then try again";
-            makeAndShowInformationDialog(title, contentText);
-            return false;
-        }
-        return true;
-    }
-
-    public boolean isPhoneNumberValid(String phoneNumber) {
-        String regex = "09([0-9]{9})";
-        if (phoneNumber.isEmpty())
-            return true;
-        if (!Pattern.matches(regex, phoneNumber)) {
-            String title = "invalid phoneNumber";
-            String contentText = "Please enter valid number\n then try again";
-            makeAndShowInformationDialog(title, contentText);
-            return false;
-        }
-        return true;
-    }
-
-    private void ShowInvalidChooseGenderDialog() {
-        String title = "Wrong choose";
-        String contentText = "You can not be both a man and a woman:|!!!!";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    public void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
     }
 
     public void BackToProfilePage(MouseEvent mouseEvent) throws IOException {

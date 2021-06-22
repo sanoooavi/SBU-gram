@@ -4,6 +4,7 @@ import Client.ClientManager;
 import Client.Profile;
 import Client.thisClient;
 import Model.PageLoader;
+import Whatever.Errors;
 import Whatever.ThatUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,7 +94,7 @@ public class SearchPageController implements Initializable {
         } else {
             if (prof.getBlocked() != null) {
                 if (prof.getBlocked().contains(thisClient.getProfile())) {
-                    ShowBlockedDialog();
+                    Errors.ShowBlockedDialog();
                     return;
                 }
             }
@@ -102,21 +103,9 @@ public class SearchPageController implements Initializable {
         }
     }
 
-    private void ShowBlockedDialog() {
-        String title = "Oops";
-        String contentText = "You can not see this user's profile \nYou are blocked";
-        makeAndShowInformationDialog(title, contentText);
-    }
+
 
     public void GoBackToTimeLine(MouseEvent mouseEvent) throws IOException {
         new PageLoader().load("timeLine");
-    }
-
-    public static void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
     }
 }

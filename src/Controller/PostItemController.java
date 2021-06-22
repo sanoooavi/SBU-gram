@@ -7,6 +7,7 @@ import Model.PageLoader;
 import Model.Post;
 import Server.Server;
 import Whatever.Comment;
+import Whatever.Errors;
 import Whatever.ThatUser;
 import Whatever.Time;
 import com.jfoenix.controls.JFXTextArea;
@@ -77,7 +78,7 @@ public class PostItemController {
     public void ViewProfile(ActionEvent actionEvent) throws IOException {
         Profile profile = ClientManager.getInfo(post.getWriter(), thisClient.getUserName());
         if (profile == null) {
-            ShowInvalidViewProfileDialog();
+            Errors.ShowInvalidViewProfileDialog();
             return;
         }
         if (profile.equals(thisClient.getProfile())) {
@@ -85,7 +86,7 @@ public class PostItemController {
         } else {
             if (profile.getBlocked() != null) {
                 if (profile.getBlocked().contains(thisClient.getProfile())) {
-                    ShowBlockedDialog();
+                    Errors.ShowBlockedDialog();
                     return;
                 }
             }
@@ -97,25 +98,16 @@ public class PostItemController {
 
     public void Retweet(MouseEvent mouseEvent) {
         if (post.getPublisher().equals(thisClient.getUserName())) {
-            ShowInvalidRePostDialog();
+            Errors.ShowInvalidRePostDialog();
             return;
         }
         if (post.getRepost().contains(thisClient.getProfile())) {
-            ShowInvalidRePostDialog();
+            Errors.ShowInvalidRePostDialog();
             return;
         }
-        //Post newPost = post;
-        // newPost.setWriter(post.getWriter());
-        // newPost.setDescription(post.getDescription());
-        // newPost.setTitle(post.getTitle());
-        // newPost.setPhoto(post.getPhoto());
-        // newPost.setProfilePhoto(post.getProfilePhoto());
-        // newPost.setTimeReleased(Time.getTime());
-        //  newPost.setTimerMil(Time.getMilli());
-        // newPost.setPublisher(thisClient.getUserName());
         ClientManager.rePost(post, thisClient.getUserName());
         post.getRepost().add(thisClient.getProfile());
-        ShowSuccessfulRepostDialog();
+        Errors.ShowSuccessfulRepostDialog();
     }
 
     public void ToComment(MouseEvent mouseEvent) {
@@ -133,7 +125,7 @@ public class PostItemController {
     @FXML
     void AddTheComment(ActionEvent event) throws IOException {
         if (comments_field.getText().isEmpty()) {
-            ShowInvalidCommentDialog();
+            Errors.ShowInvalidCommentDialog();
             return;
         }
         Comment comment = new Comment(thisClient.getUserName(), comments_field.getText());
@@ -153,57 +145,11 @@ public class PostItemController {
     public void Like(MouseEvent mouseEvent) throws IOException {
         boolean HasLiked = ClientManager.LikePost(thisClient.getUserName(), this.post);
         if (HasLiked) {
-            ShowInvalidLikeDialog();
+            Errors.ShowInvalidLikeDialog();
             return;
         } else {
             post.getLikes().add(thisClient.getProfile());
             emptyHeart.setImage(new Image("/pic/afterlike.png"));
         }
-    }
-
-    private void ShowInvalidViewProfileDialog() {
-        String title = "Error in ViewProfile";
-        String contentText = "This user might have deleted account";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    private void ShowInvalidRePostDialog() {
-        String title = "Error in RePosting";
-        String contentText = "You Can Not repost this post!";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-
-    public void ShowInvalidLikeDialog() {
-        String title = "Error in Liking";
-        String contentText = "You must have liked this post before\nOr this user has deleted account";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    public void ShowInvalidCommentDialog() {
-        String title = "Error in adding comment";
-        String contentText = "The comment part is null\nOr this user has deleted account";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    public void ShowSuccessfulRepostDialog() {
-        String title = "Successful Reposting";
-        String contentText = "You Have reposted";
-        this.makeAndShowInformationDialog(title, contentText);
-    }
-
-    private void ShowBlockedDialog() {
-        String title = "Oops";
-        String contentText = "You can not see this user's profile \nYou are blocked";
-        makeAndShowInformationDialog(title, contentText);
-    }
-
-
-    public void makeAndShowInformationDialog(String title, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(contentText);
-        alert.showAndWait();
     }
 }

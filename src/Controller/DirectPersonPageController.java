@@ -31,13 +31,13 @@ public class DirectPersonPageController {
     public Pane AttachPage;
     byte[] ToSendPhoto;
     byte[] ToSendVoice;
-    // public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTime(), b.getTime());
+    public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
 
     public void initialize() {
         UsernameLabel.setText(ThatUser.getUserName());
         ProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream((ThatUser.getProfile().getProfilePhoto())))));
         List<Message> shown = ClientManager.LoadingChatInfo();
-        // shown.sort(timeCompare);
+        shown.sort(timeCompare);
         ListViewChats.setItems(FXCollections.observableArrayList(shown));
         ListViewChats.setCellFactory(ListViewChats -> new ChatItem());
 
@@ -58,8 +58,8 @@ public class DirectPersonPageController {
         message.setReceiver(ThatUser.getUserName());
         ClientManager.SendMessage(message, thisClient.getUserName(), ThatUser.getUserName());
         MessageField.clear();
-        ToSendVoice=null;
-        ToSendPhoto=null;
+        ToSendVoice = null;
+        ToSendPhoto = null;
         AttachPage.setVisible(false);
     }
 

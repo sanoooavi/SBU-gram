@@ -367,7 +367,9 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.LoadUserDirect);
         ArrayList<Profile> returnValue = new ArrayList<>();
-        returnValue.addAll(Server.users.values());
+        for (String user : Server.users.get(username).getMessages().keySet()) {
+            returnValue.add(Server.users.get(user));
+        }
         ans.put("answer", returnValue);
         return ans;
     }
@@ -455,6 +457,18 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.GetProfile);
         ans.put("answer", prof);
+        return ans;
+    }
+
+    public static Map<String, Object> StartChat(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        Boolean isNullProfile = (Server.users.get(username) == null);
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.StartChat);
+        ans.put("answer", Boolean.TRUE);
+        if (isNullProfile) {
+            ans.put("answer", null);
+        }
         return ans;
     }
 }
