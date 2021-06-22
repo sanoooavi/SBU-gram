@@ -2,7 +2,6 @@ package Server;
 
 import Client.Command;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -111,8 +110,8 @@ public class ClientHandler implements Runnable {
                     case GetProfile:
                         answer = ServerManager.GetProfile(income);
                         break;
-                    case  StartChat:
-                        answer=ServerManager.StartChat(income);
+                    case StartChat:
+                        answer = ServerManager.StartChat(income);
                         break;
                 }
                 dos.reset();

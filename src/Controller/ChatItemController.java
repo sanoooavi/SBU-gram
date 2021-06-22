@@ -5,7 +5,6 @@ import Client.thisClient;
 import Model.PageLoader;
 import Whatever.*;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,29 +31,35 @@ public class ChatItemController {
     public AnchorPane rightItem;
     @FXML
     public Label timeOftextright;
+    @FXML
     public Label timeOftextleft;
+    @FXML
     public AnchorPane RightPhotoItem;
+    @FXML
     public ImageView ImageShownleft;
+    @FXML
     public ImageView ImageShownRight;
+    @FXML
     public AnchorPane LeftPhotoItem;
-    public Circle UserProfilerightImageIcon;
-    public Circle UserProfileleftImageIcon;
+    @FXML
+    public Circle ProfileRight;
+    @FXML
+    public Circle ProfileLeft;
     Message message;
 
     public ChatItemController(Message message) throws IOException {
         this.message = message;
-        if(message instanceof TextMessage) {
-            if (message.getSender().equals(thisClient.getUserName())) {
-                new PageLoader().load("MyMessageIcon", this);
+        if (message.getSender().equals(thisClient.getUserName())) {
+            if (message instanceof PhotoMessage) {
+                new PageLoader().load("OthersImageIcon", this);
             } else {
-                new PageLoader().load("OthersMessageIcon", this);
+                new PageLoader().load("MyMessageIcon", this);
             }
-        }
-        if(message instanceof PhotoMessage){
-            if (message.getSender().equals(thisClient.getUserName())) {
+        } else {
+            if (message instanceof PhotoMessage) {
                 new PageLoader().load("MyImageIcon", this);
             } else {
-                new PageLoader().load("OthersImageIcon", this);
+                new PageLoader().load("OthersMessageIcon", this);
             }
         }
     }
@@ -74,11 +79,11 @@ public class ChatItemController {
             }
         } else if (message instanceof PhotoMessage) {
             if (message.getSender().equals(thisClient.getUserName())) {
-                UserProfilerightImageIcon.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
+                ProfileRight.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
                 ImageShownRight.setImage(new Image(new ByteArrayInputStream(((PhotoMessage) message).getPhoto())));
                 return RightPhotoItem;
             } else {
-                UserProfileleftImageIcon.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
+                ProfileLeft.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
                 ImageShownleft.setImage(new Image(new ByteArrayInputStream(((PhotoMessage) message).getPhoto())));
                 return LeftPhotoItem;
             }
@@ -94,9 +99,13 @@ public class ChatItemController {
     }
 
     public void EditText(MouseEvent mouseEvent) {
+
+        ClientManager.EditText(message);
     }
 
-    public void TrashMessage(MouseEvent mouseEvent) {
+    public void TrashMessage(MouseEvent mouseEvent) throws IOException {
         ClientManager.TrashMessage(message, thisClient.getUserName());
+        thisClient.getProfile().getMessages().get(message.getReceiver()).remove(message);
+        new PageLoader().load("DirectPersonPage");
     }
 }

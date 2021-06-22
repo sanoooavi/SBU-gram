@@ -1,6 +1,7 @@
 package Client;
 
 import Model.Post;
+import Whatever.Message;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -29,7 +30,7 @@ public class Profile implements Serializable {
     public List<Profile> followers = new CopyOnWriteArrayList<>();
     public List<Profile> Blocked = new CopyOnWriteArrayList<>();
     public List<Profile> Mute = new CopyOnWriteArrayList<>();
-    public Map<String, List<Object>> Messages = new HashMap<>();
+    public Map<String, List<Message>> Messages = new ConcurrentHashMap<>();
 
     public Profile(String username) {
         this.username = username;
@@ -90,7 +91,7 @@ public class Profile implements Serializable {
     }
 
 
-    public Map<String, List<Object>> getMessages() {
+    public Map<String, List<Message>> getMessages() {
         return Messages;
     }
 

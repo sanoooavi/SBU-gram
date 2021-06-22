@@ -378,14 +378,14 @@ public class ServerManager {
         String sender = (String) income.get("usernameSender");
         String Receiver = (String) income.get("usernameReceiver");
         Message message = (Message) income.get("message");
-        ArrayList<Object> messages = new ArrayList<>();
+        ArrayList<Message> messages = new ArrayList<>();
         if (Server.users.get(sender).getMessages() != null) {
             if (Server.users.get(sender).getMessages().containsKey(Receiver)) {
                 messages.addAll(Server.users.get(sender).getMessages().get(Receiver));
             }
         }
         messages.add(message);
-        Server.users.get(sender).getMessages().put(Receiver, messages);
+        Server.users.get(sender).getMessages().put(Receiver,messages);
         DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.SendMessage);
@@ -431,7 +431,6 @@ public class ServerManager {
         ans.put("command", Command.TrashText);
         ans.put("answer", Boolean.TRUE);
         return ans;
-
     }
 
     public static Map<String, Object> ChangePassword(Map<String, Object> income) {
@@ -471,4 +470,5 @@ public class ServerManager {
         }
         return ans;
     }
+
 }

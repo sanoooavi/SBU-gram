@@ -139,9 +139,9 @@ public class Errors {
     }
 
     public static boolean isValidBirth(int year) {
-        if ((2021 - (year)) < 13) {
+        if ((2021 - (year)) < 7) {
             String title = "Age warning";
-            String contentText = "you should be at least 13\nplease wait few years :D";
+            String contentText = "you should be at least 7\nplease wait few years :D";
             makeAndShowInformationDialog(title, contentText);
             return false;
         }
@@ -171,20 +171,23 @@ public class Errors {
         }
         return true;
     }
+
     public static void ShowInvalidFollowDialog() {
         String title = "Blocked";
         String contentText = "You can not follow this user\n You are blocked!";
         makeAndShowInformationDialog(title, contentText);
     }
-    public static void  InvalidLoginDialog(){
+
+    public static void InvalidLoginDialog() {
         String title = "Incomplete information";
         String contentText = "Please fill all of the required fields";
-        makeAndShowInformationDialog( title, contentText );
+        makeAndShowInformationDialog(title, contentText);
     }
+
     public static void ShowInvalidLoginDialog() {
         String title = "Error in login";
         String contentText = "invalid username or password\nTry again or sign up";
-        makeAndShowInformationDialog( title, contentText );
+        makeAndShowInformationDialog(title, contentText);
     }
 
     public static void makeAndShowInformationDialog(String title, String contentText) {

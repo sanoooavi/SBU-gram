@@ -231,6 +231,11 @@ public class ClientManager {
         toSend.put("message", message);
         Network.serve(toSend);
     }
+    public static void EditText(Message message) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.EditText);
+        toSend.put("message", message);
+    }
 
     public static void Mute(String usernameToMute, String userName) {
         Map<String, Object> toSend = new HashMap<>();
@@ -265,4 +270,6 @@ public class ClientManager {
         if (received.get("answer") == null) return null;
         return (Boolean) received.get("answer");
     }
+
+
 }

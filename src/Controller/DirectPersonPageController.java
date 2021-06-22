@@ -31,7 +31,7 @@ public class DirectPersonPageController {
     public Pane AttachPage;
     byte[] ToSendPhoto;
     byte[] ToSendVoice;
-    public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
+    public static Comparator<Message> timeCompare = (a, b) -> Long.compare(a.getTimeMilli(), b.getTimeMilli());
 
     public void initialize() {
         UsernameLabel.setText(ThatUser.getUserName());
@@ -43,7 +43,7 @@ public class DirectPersonPageController {
 
     }
 
-    public void SendMessage(MouseEvent mouseEvent) {
+    public void SendMessage(MouseEvent mouseEvent) throws IOException {
         Message message;
         if (!MessageField.getText().isEmpty()) {
             message = new TextMessage(MessageField.getText(), Time.getMilli());
@@ -61,6 +61,7 @@ public class DirectPersonPageController {
         ToSendVoice = null;
         ToSendPhoto = null;
         AttachPage.setVisible(false);
+        new PageLoader().load("DirectPersonPage");
     }
 
     public void ExitPage(MouseEvent mouseEvent) throws IOException {

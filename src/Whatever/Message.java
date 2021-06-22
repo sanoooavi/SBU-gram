@@ -21,6 +21,7 @@ public abstract class Message implements Serializable {
         return timeMilli;
     }
 
+
     public void setSender(String sender) {
         this.sender = sender;
     }
