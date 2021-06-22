@@ -1,6 +1,7 @@
 package Server;
 
 import Client.Command;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,13 +26,13 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        while(true){
-            Map<String,Object> income = null;
-            try{
-                income = (Map<String,Object>) dis.readObject();
-                Map<String,Object> answer = null;
+        while (true) {
+            Map<String, Object> income = null;
+            try {
+                income = (Map<String, Object>) dis.readObject();
+                Map<String, Object> answer = null;
                 Command command = (Command) income.get("command");
-                switch(command){
+                switch (command) {
                     case Login:
                         answer = ServerManager.login(income);
                         break;
@@ -56,79 +57,76 @@ public class ClientHandler implements Runnable {
                     case AddComment:
                         answer = ServerManager.AddComment(income);
                         break;
+                    case rePost:
+                        answer = ServerManager.rePost(income);
+                        break;
                     case Follow:
                         answer = ServerManager.Follow(income);
                         break;
                     case UnFollow:
                         answer = ServerManager.UnFollow(income);
                         break;
-                    case GetInfo:
-                        answer = ServerManager.GetInfo(income);
+                    case Block:
+                        answer = ServerManager.Block(income);
+                        break;
+                    case UnBlock:
+                        answer = ServerManager.UnBlock(income);
+                        break;
+                    case Mute:
+                        answer = ServerManager.Mute(income);
+                        break;
+                    case UnMute:
+                        answer = ServerManager.UnMute(income);
                         break;
                     case UpdateProfile:
                         answer = ServerManager.UpdateProfile(income);
                         break;
-                    case rePost:
-                        answer = ServerManager.rePost(income);
+                    case GetInfo:
+                        answer = ServerManager.GetInfo(income);
                         break;
                     case LoadPersonalTimeLine:
                         answer = ServerManager.LoadingPersonalInfo(income);
                         break;
                     case ForgotPassword:
-                        answer=ServerManager.GetPassword(income);
+                        answer = ServerManager.GetPassword(income);
                         break;
                     case SaveSecondPassword:
-                       answer = ServerManager.SaveThePassword(income);
-                        break;
-                    case LoadUserDirect:
-                        answer=ServerManager.LoadingDirectInfo(income);
-                        break;
-                    case SendMessage:
-                        answer=ServerManager.SendMessage(income);
-                        break;
-                    case LoadChatPage:
-                        answer=ServerManager.LoadChatPage(income);
-                        break;
-                    case Block:
-                        answer=ServerManager.Block(income);
-                        break;
-                    case UnBlock:
-                        answer=ServerManager.UnBlock(income);
-                        break;
-                    case TrashText:
-                        answer=ServerManager.TrashText(income);
+                        answer = ServerManager.SaveThePassword(income);
                         break;
                     case ChangePassword:
-                        answer=ServerManager.ChangePassword(income);
+                        answer = ServerManager.ChangePassword(income);
                         break;
-                    case UpdateData:
-                       ServerManager.UpdateAfterDifference();
-                       break;
-                    case Mute:
-                        answer=ServerManager.Mute(income);
+                    case LoadUserDirect:
+                        answer = ServerManager.LoadingDirectInfo(income);
                         break;
-                    case UnMute:
-                        answer=ServerManager.UnMute(income);
+                    case LoadChatPage:
+                        answer = ServerManager.LoadChatPage(income);
+                        break;
+                    case SendMessage:
+                        answer = ServerManager.SendMessage(income);
+                        break;
+                    case TrashText:
+                        answer = ServerManager.TrashText(income);
+                        break;
+                    case GetProfile:
+                        answer = ServerManager.GetProfile(income);
                         break;
                 }
+                dos.reset();
                 dos.writeObject(answer);
                 dos.flush();
-            }
-            catch(ClassCastException | ClassNotFoundException e){
-            }
-            catch(EOFException e){
-                break;
-            }
-            catch(IOException e){
+            } catch (ClassCastException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 break;
             }
 
         }
         // after loggin out!
-        try{
+        try {
             dis.close();
             dos.close();
             userSocket.close();
-        }catch(IOException e){}
+        } catch (IOException e) {
+        }
     }
-    }
+}

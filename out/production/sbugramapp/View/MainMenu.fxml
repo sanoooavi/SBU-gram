@@ -30,9 +30,9 @@
             <Font name="Century Gothic Bold Italic" size="13.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="14.0" layoutY="13.0" onMouseClicked="#backToTimeLine" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="7.0" layoutY="6.0" onMouseClicked="#backToTimeLine" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../pic/exit.png" />
+            <Image url="@../pic/close_window_96px.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="188.0" fitWidth="227.0" layoutX="389.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">

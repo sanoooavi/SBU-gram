@@ -14,7 +14,7 @@
          <children>
             <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="6.0" layoutY="3.0" onMouseClicked="#BacktoInfoPage" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../pic/f0a111531f184580b39cd8cc3ca6bbed.png" />
+                  <Image url="@../pic/close_window_96px.png" />
                </image>
             </ImageView>
             <Label layoutX="567.0" layoutY="7.0" text="User Posts" textFill="#fbfcfc">

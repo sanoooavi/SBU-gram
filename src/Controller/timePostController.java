@@ -32,7 +32,6 @@ public class timePostController {
     }
 
     public void RefreshPost(MouseEvent mouseEvent) throws IOException {
-        ClientManager.UpdateData();
         new PageLoader().load("timePost");
     }
 }

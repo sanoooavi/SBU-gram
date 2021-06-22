@@ -32,7 +32,6 @@ public class TimeLineController {
     }
 
     public void RefreshTimeLine(MouseEvent mouseEvent) throws IOException {
-            ClientManager.UpdateData();
             new PageLoader().load("timeLine");
     }
 

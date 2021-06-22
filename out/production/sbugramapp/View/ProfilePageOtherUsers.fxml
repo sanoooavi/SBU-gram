@@ -50,17 +50,17 @@
                   <Font name="Century Gothic" size="12.0" />
                </font>
             </Text>
-            <Button fx:id="FollowButton" layoutX="14.0" layoutY="170.0" mnemonicParsing="false" onAction="#Follow" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Follow">
+            <Button fx:id="FollowButton" layoutX="14.0" layoutY="170.0" mnemonicParsing="false" onAction="#Follow" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Follow" visible="false">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="MuteButton" layoutX="144.0" layoutY="170.0" mnemonicParsing="false" onAction="#Mute" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Mute">
+            <Button fx:id="MuteButton" layoutX="144.0" layoutY="170.0" mnemonicParsing="false" onAction="#Mute" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Mute" visible="false">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="BlockButton" layoutX="273.0" layoutY="170.0" mnemonicParsing="false" onAction="#Block" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Block">
+            <Button fx:id="BlockButton" layoutX="273.0" layoutY="170.0" mnemonicParsing="false" onAction="#Block" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #d6e082; -fx-background-radius: 10;" text="Block" visible="false">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
@@ -121,7 +121,12 @@
             </Label>
             <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="1.0" onMouseClicked="#ExitPage" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../pic/close_window_48px.png" />
+                  <Image url="@../pic/close_window_96px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="24.0" layoutX="536.0" onMouseClicked="#Refresh" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/available_updates_64px.png" />
                </image>
             </ImageView>
          </children>

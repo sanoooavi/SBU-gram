@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="LeftPhotoItem" prefHeight="300.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="UserProfileleftImageIcon" layoutX="33.0" layoutY="269.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fill="#f4d6d6" layoutX="153.0" layoutY="190.0" points="-62.33335876464844, 36.66667175292969, -61.999969482421875, 94.0, -93.66666412353516, 94.00001525878906" stroke="#f4d6d6" strokeType="INSIDE" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4d6d6" height="272.0" layoutX="87.0" layoutY="12.0" stroke="#f4d6d6" strokeType="INSIDE" width="329.0" />
+      <ImageView fx:id="ImageShownleft" fitHeight="255.0" fitWidth="309.0" layoutX="98.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

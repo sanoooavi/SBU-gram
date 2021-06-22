@@ -44,6 +44,8 @@ public class PostItemController {
     public Label LikesNumber;
     public Label PostPublisher;
     public Label ReleaseTime;
+    @FXML
+    private Label RepostNumber;
     Post post;
 
     public PostItemController(Post post) throws IOException {
@@ -64,6 +66,7 @@ public class PostItemController {
             frame.setVisible(false);
         }
         LikesNumber.setText(String.valueOf(post.getLikes().size()));
+        RepostNumber.setText(String.valueOf(post.getRepost().size()));
         boolean isLiked = post.getLikes().contains(thisClient.getProfile());
         if (isLiked) {
             emptyHeart.setImage(new Image("/pic/afterlike.png"));
@@ -101,17 +104,17 @@ public class PostItemController {
             ShowInvalidRePostDialog();
             return;
         }
-        Post newPost = new Post();
-        newPost.setWriter(post.getWriter());
-        newPost.setDescription(post.getDescription());
-        newPost.setTitle(post.getTitle());
-        newPost.setPhoto(post.getPhoto());
-        newPost.setProfilePhoto(post.getProfilePhoto());
-        newPost.setTimeReleased(Time.getTime());
-        newPost.setTimerMil(Time.getMilli());
-        newPost.setPublisher(thisClient.getUserName());
-        ClientManager.rePost(newPost, thisClient.getUserName(), post);
-        //  post.getRepost().add(thisClient.getProfile());
+        //Post newPost = post;
+        // newPost.setWriter(post.getWriter());
+        // newPost.setDescription(post.getDescription());
+        // newPost.setTitle(post.getTitle());
+        // newPost.setPhoto(post.getPhoto());
+        // newPost.setProfilePhoto(post.getProfilePhoto());
+        // newPost.setTimeReleased(Time.getTime());
+        //  newPost.setTimerMil(Time.getMilli());
+        // newPost.setPublisher(thisClient.getUserName());
+        ClientManager.rePost(post, thisClient.getUserName());
+        post.getRepost().add(thisClient.getProfile());
         ShowSuccessfulRepostDialog();
     }
 
@@ -135,6 +138,7 @@ public class PostItemController {
         }
         Comment comment = new Comment(thisClient.getUserName(), comments_field.getText());
         ClientManager.AddComment(comment, post);
+        post.getComments().add(comment);
         afterComment();
     }
 
@@ -152,6 +156,7 @@ public class PostItemController {
             ShowInvalidLikeDialog();
             return;
         } else {
+            post.getLikes().add(thisClient.getProfile());
             emptyHeart.setImage(new Image("/pic/afterlike.png"));
         }
     }

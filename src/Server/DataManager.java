@@ -12,7 +12,6 @@ public class DataManager {
     private static DataManager ourInstance = new DataManager();
     public static final String FILE_PREFIX = "C:/Users/Asus/Desktop/";
     public static final String PROFILES_FILE = FILE_PREFIX + "Profiles.txt";
-    public static final String Post_File = FILE_PREFIX + "Posts.txt";
 
     /**
      * only way to se use this class is using this method and get inly instance of this class
@@ -46,8 +45,10 @@ public class DataManager {
             FileOutputStream fout = new FileOutputStream(PROFILES_FILE);
             ObjectOutputStream objToFile = new ObjectOutputStream(fout);
             objToFile.writeObject(Server.users); //writing profiles
+            objToFile.reset();
             objToFile.close();
             fout.close();
+            //  initializeServer();
         } catch (IOException e) {
             e.printStackTrace();
         }

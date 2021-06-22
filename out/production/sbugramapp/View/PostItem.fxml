@@ -84,14 +84,19 @@
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="PostPublisher" layoutX="323.0" layoutY="5.0" text="Post publisher">
+      <Label fx:id="PostPublisher" layoutX="323.0" layoutY="5.0" style="-fx-prompt-text-fill: #000000; -fx-text-fill: #000000;" text="Post publisher">
          <font>
             <Font name="Century Gothic" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="ReleaseTime" layoutX="323.0" layoutY="20.0" text="time">
+      <Label fx:id="ReleaseTime" layoutX="323.0" layoutY="20.0" style="-fx-prompt-text-fill: #000000; -fx-text-fill: #000000;" text="time">
          <font>
             <Font name="Century Gothic" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="RepostNumber" layoutX="252.0" layoutY="371.0" style="-fx-prompt-text-fill: #000000; -fx-text-fill: #000000;">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Label>
    </children>

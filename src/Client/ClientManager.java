@@ -79,12 +79,11 @@ public class ClientManager {
         Network.serve(toSend);
     }
 
-    public static void rePost(Post post, String userName, Post MainPost) {
+    public static void rePost(Post post, String userName) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.rePost);
         toSend.put("username", userName);
         toSend.put("post", post);
-        toSend.put("MainPost", MainPost);
         Network.serve(toSend);
     }
 
@@ -108,7 +107,7 @@ public class ClientManager {
         toSend.put("follower", followerUserName);
         Map<String, Object> received = Network.serve(toSend);
         if (received.get("answer") == null) return null;
-        return (Boolean) received.get("answer");
+        return (boolean) received.get("answer");
     }
 
     public static Boolean Unfollow(String profile, String profile1) {
@@ -140,7 +139,7 @@ public class ClientManager {
         toSend.put("ToUnBlock", username);
         //your profile
         toSend.put("from", userName);
-       Network.serve(toSend);
+        Network.serve(toSend);
     }
 
     public static Profile UpdateProfile(String userName, String email, String newName, String newLastName, String phoneNumber, String location, Gender gender, byte[] bytes) {
@@ -233,12 +232,6 @@ public class ClientManager {
         Network.serve(toSend);
     }
 
-    public static void UpdateData() {
-        Map<String, Object> toSend = new HashMap<>();
-        toSend.put("command", Command.UpdateData);
-        Network.serve(toSend);
-    }
-
     public static void Mute(String usernameToMute, String userName) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.Mute);
@@ -255,5 +248,13 @@ public class ClientManager {
         Network.serve(toSend);
     }
 
+    public static Profile GetProfile(String username) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.GetProfile);
+        toSend.put("username", username);
+        Map<String, Object> received = Network.serve(toSend);
+        if (received.get("answer") == null) return null;
+        return (Profile) received.get("answer");
+    }
 
 }

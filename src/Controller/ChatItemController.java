@@ -3,12 +3,12 @@ package Controller;
 import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
-import Whatever.Message;
-import Whatever.ThatUser;
+import Whatever.*;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
@@ -30,30 +30,64 @@ public class ChatItemController {
     public AnchorPane leftItem;
     @FXML
     public AnchorPane rightItem;
+    @FXML
     public Label timeOftextright;
     public Label timeOftextleft;
+    public AnchorPane RightPhotoItem;
+    public ImageView ImageShownleft;
+    public ImageView ImageShownRight;
+    public AnchorPane LeftPhotoItem;
+    public Circle UserProfilerightImageIcon;
+    public Circle UserProfileleftImageIcon;
     Message message;
 
     public ChatItemController(Message message) throws IOException {
         this.message = message;
-        if (message.getSender().equals(thisClient.getUserName())) {
-            new PageLoader().load("MyMessageIcon", this);
-        } else {
-            new PageLoader().load("OthersMessageIcon", this);
+        if(message instanceof TextMessage) {
+            if (message.getSender().equals(thisClient.getUserName())) {
+                new PageLoader().load("MyMessageIcon", this);
+            } else {
+                new PageLoader().load("OthersMessageIcon", this);
+            }
+        }
+        if(message instanceof PhotoMessage){
+            if (message.getSender().equals(thisClient.getUserName())) {
+                new PageLoader().load("MyImageIcon", this);
+            } else {
+                new PageLoader().load("OthersImageIcon", this);
+            }
         }
     }
 
     public AnchorPane init() {
-        if (message.getSender().equals(thisClient.getUserName())) {
-            UserMessageright.setText(message.getTextMessage());
-            UserProfileright.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
-            timeOftextright.setText(message.getTime());
-            return rightItem;
+        if (message instanceof TextMessage) {
+            if (message.getSender().equals(thisClient.getUserName())) {
+                UserMessageright.setText(((TextMessage) message).getText());
+                UserProfileright.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
+                timeOftextright.setText(String.valueOf(message.getTimeMilli()));
+                return rightItem;
+            } else {
+                UserMessageleft.setText(((TextMessage) message).getText());
+                UserProfileleft.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
+                timeOftextleft.setText(String.valueOf(message.getTimeMilli()));
+                return leftItem;
+            }
+        } else if (message instanceof PhotoMessage) {
+            if (message.getSender().equals(thisClient.getUserName())) {
+                UserProfilerightImageIcon.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
+                ImageShownRight.setImage(new Image(new ByteArrayInputStream(((PhotoMessage) message).getPhoto())));
+                return RightPhotoItem;
+            } else {
+                UserProfileleftImageIcon.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
+                ImageShownleft.setImage(new Image(new ByteArrayInputStream(((PhotoMessage) message).getPhoto())));
+                return LeftPhotoItem;
+            }
+        } else if (message instanceof VoiceMessage) {
+            if (message.getSender().equals(thisClient.getUserName())) {
+            } else {
+            }
         }
-        UserMessageleft.setText(message.getTextMessage());
-        UserProfileleft.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
-        timeOftextleft.setText(message.getTime());
-        return leftItem;
+        return null;
     }
 
     public void TrashTextOthers(MouseEvent mouseEvent) {
@@ -63,6 +97,6 @@ public class ChatItemController {
     }
 
     public void TrashMessage(MouseEvent mouseEvent) {
-        ClientManager.TrashMessage(message,thisClient.getUserName());
+        ClientManager.TrashMessage(message, thisClient.getUserName());
     }
 }

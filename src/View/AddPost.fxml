@@ -34,7 +34,7 @@
          <children>
             <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="3.0" layoutY="1.0" onMouseClicked="#GoBackToPostList" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../pic/f0a111531f184580b39cd8cc3ca6bbed.png" />
+                  <Image url="@../pic/close_window_96px.png" />
                </image>
             </ImageView>
             <Text layoutX="530.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Post" wrappingWidth="53.1353874206543">

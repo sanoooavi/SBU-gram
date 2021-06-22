@@ -41,7 +41,8 @@ public class OthersProfilePageController {
     Profile profile;
 
     public void initialize() {
-        ClientManager.UpdateData();
+        ThatUser.setProfile(ClientManager.GetProfile(ThatUser.getUserName()));
+        thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
         this.profile = ThatUser.getProfile();
         UserName.setText("  " + profile.getUsername());
         FullName.setText("  " + profile.getName() + " " + profile.getLastname());
@@ -106,6 +107,8 @@ public class OthersProfilePageController {
             profile.getFollowings().remove(thisClient.getProfile());
             thisClient.getFollowers().remove(profile);
         }
+        //thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
+        //ThatUser.setProfile(ClientManager.GetProfile(ThatUser.getUserName()));
         new PageLoader().load("ProfilePageOtherUsers");
     }
 
@@ -165,5 +168,9 @@ public class OthersProfilePageController {
         alert.setHeaderText(null);
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+
+    public void Refresh(MouseEvent mouseEvent) throws IOException {
+        new PageLoader().load("ProfilePageOtherUsers");
     }
 }

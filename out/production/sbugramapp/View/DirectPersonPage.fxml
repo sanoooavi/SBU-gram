@@ -40,7 +40,7 @@
       <Pane layoutY="370.0" prefHeight="43.0" prefWidth="638.0" style="-fx-background-color: #2A363F;">
          <children>
             <TextField fx:id="MessageField" layoutX="48.0" layoutY="6.0" prefHeight="32.0" prefWidth="543.0" promptText="Write here..." style="-fx-background-color: #fbfcfc; -fx-text-fill: #2A363F; -fx-prompt-text-fill: #2A363F;" />
-            <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#Attach" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../pic/attach_48px.png" />
                </image>
@@ -53,5 +53,19 @@
          </children>
       </Pane>
       <ListView fx:id="ListViewChats" layoutY="43.0" prefHeight="327.0" prefWidth="638.0" />
+      <Pane fx:id="AttachPage" layoutX="9.0" layoutY="332.0" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #fbfcfc; -fx-border-color: #2A363F;" visible="false">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="22.0" layoutX="14.0" layoutY="7.0" onMouseClicked="#SendPhotoMessage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/unsplash_100px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="55.0" layoutY="7.0" onMouseClicked="#SendVoiceMessage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/voice_100px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

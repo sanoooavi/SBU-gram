@@ -92,10 +92,10 @@
             </Label>
             <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="1.0" onMouseClicked="#ExitPage" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../pic/close_window_48px.png" />
+                  <Image url="@../pic/close_window_96px.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="30.0" fitWidth="24.0" layoutX="531.0" onMouseClicked="#Update" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="24.0" layoutX="536.0" onMouseClicked="#Refresh" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../pic/available_updates_64px.png" />
                </image>

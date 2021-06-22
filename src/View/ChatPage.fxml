@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="638.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ProfilesDirectController">
    <children>
       <Pane prefHeight="410.0" prefWidth="332.0" style="-fx-background-color: #2A363F;">
@@ -25,6 +24,11 @@
       <ImageView fitHeight="79.0" fitWidth="75.0" layoutX="438.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pic/chat_60px.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="606.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/close_window_96px.png" />
          </image>
       </ImageView>
    </children>
