@@ -149,8 +149,10 @@ public class Errors {
     }
 
     public static boolean isEmailValid(String email) {
-        String regex = "";
-        if (!Pattern.matches(regex, email)) {
+        if (email.isEmpty())
+            return true;
+        String regexEmail = "^(.+)@(.+)$";
+        if (!Pattern.matches(regexEmail, email)) {
             String title = "invalid email-address";
             String contentText = "Please use valid emails\n then try again";
             makeAndShowInformationDialog(title, contentText);

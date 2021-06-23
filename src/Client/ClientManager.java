@@ -204,12 +204,10 @@ public class ClientManager {
         return (boolean) received.get("answer");
     }
 
-    public static void SendMessage(Message message, String userName, String userName1) {
+    public static void SendMessage(Message message) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.SendMessage);
         toSend.put("message", message);
-        toSend.put("usernameSender", userName);
-        toSend.put("usernameReceiver", userName1);
         Network.serve(toSend);
     }
 
@@ -224,17 +222,19 @@ public class ClientManager {
     }
 
 
-    public static void TrashMessage(Message message, String userName) {
+    public static void TrashMessage(Message message) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.TrashText);
-        toSend.put("username", userName);
         toSend.put("message", message);
         Network.serve(toSend);
     }
-    public static void EditText(Message message) {
+
+    public static void EditText(Message message, String text) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.EditText);
         toSend.put("message", message);
+        toSend.put("text",text);
+        Network.serve(toSend);
     }
 
     public static void Mute(String usernameToMute, String userName) {
@@ -272,4 +272,10 @@ public class ClientManager {
     }
 
 
+    public static void LogOut(String username) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.LogOut);
+        toSend.put("username", username);
+        Network.serve(toSend);
+    }
 }

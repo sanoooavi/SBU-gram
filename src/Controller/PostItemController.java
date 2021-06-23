@@ -97,6 +97,7 @@ public class PostItemController {
 
 
     public void Retweet(MouseEvent mouseEvent) {
+        thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
         if (post.getPublisher().equals(thisClient.getUserName())) {
             Errors.ShowInvalidRePostDialog();
             return;
@@ -143,6 +144,7 @@ public class PostItemController {
     }
 
     public void Like(MouseEvent mouseEvent) throws IOException {
+        thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
         boolean HasLiked = ClientManager.LikePost(thisClient.getUserName(), this.post);
         if (HasLiked) {
             Errors.ShowInvalidLikeDialog();

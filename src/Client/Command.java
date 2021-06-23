@@ -22,7 +22,13 @@ public enum Command {
     SendMessage,
     LoadChatPage,
     Block,
-    TrashText, Mute, UnMute, UnBlock, GetProfile,
-    EditText, StartChat
+    TrashText,
+    Mute,
+    UnMute,
+    UnBlock,
+    GetProfile,
+    EditText,
+    StartChat,
+    LogOut
 
 }

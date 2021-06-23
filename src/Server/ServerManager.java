@@ -6,6 +6,7 @@ import Client.Profile;
 import Model.Post;
 import Whatever.Comment;
 import Whatever.Message;
+import Whatever.TextMessage;
 import Whatever.Time;
 
 import java.util.*;
@@ -19,6 +20,8 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.SignUp);
         ans.put("answer", true);
+        System.out.println(newProfile.getUsername() + " connected to server");
+        System.out.println("time : " + Time.getTime());
         System.out.println(newProfile.getUsername() + " register" /* + TODO */); //add image address
         System.out.println("time : " + Time.getTime());
         System.out.println(newProfile.getUsername() + " sign_in");
@@ -48,6 +51,7 @@ public class ServerManager {
         Profile profile = Server.users.get(username).authenticate(username, password);
         ans.put("answer", profile);
         if (profile != null) {
+            System.out.println(profile.getUsername() + " connected to server");
             System.out.println(profile.getUsername() + " logged in");
             System.out.println("time : " + Time.getTime());
         }
@@ -88,7 +92,8 @@ public class ServerManager {
                 returnValue.addAll(a.getPosts());
             }
         }
-        //Server.users.get(username).getFollowings().forEach(p -> returnValue.addAll(p.getPosts()));
+        System.out.println(username + " get post list");
+        System.out.println("time : " + Time.getTime());
         returnValue.addAll(Server.users.get(username).getPosts());
         ans.put("answer", returnValue);
         return ans;
@@ -122,7 +127,7 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.LikePost);
         ans.put("answer", isGonnaLike);
-        System.out.println(profile.getUsername() + " " + "like");
+        System.out.println(usernameToAdd + " like");
         System.out.println("message: " + post.getWriter() + " " + post.getTitle());
         System.out.println("time : " + Time.getTime());
         return ans;
@@ -137,7 +142,7 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.AddComment);
         ans.put("answer", Boolean.TRUE);
-        System.out.println(comment.toString());
+        System.out.println(comment.toString() + " commented");
         System.out.println("message: " + post.getTitle());
         System.out.println("time : " + Time.getTime());
         return ans;
@@ -191,6 +196,8 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.Block);
         ans.put("answer", Boolean.TRUE);
+        System.out.println(from + " blocked ");
+        System.out.println("message : " + ToBlock);
         System.out.println("time : " + Time.getTime());
         return ans;
     }
@@ -204,6 +211,8 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.UnBlock);
         ans.put("answer", Boolean.TRUE);
+        System.out.println(from + " Unblocked ");
+        System.out.println("message : " + ToUnBlock);
         System.out.println("time : " + Time.getTime());
         return ans;
     }
@@ -232,6 +241,9 @@ public class ServerManager {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.UnMute);
         ans.put("answer", Boolean.TRUE);
+        System.out.println(username + " muted ");
+        System.out.println("message : " + usernameToUnMute);
+        System.out.println("time: " + Time.getTime());
         return ans;
     }
 
@@ -271,8 +283,13 @@ public class ServerManager {
         }
         if (profilePhoto != null) {
             Server.users.get(username).setProfilePhoto(profilePhoto);
-            for (Post a : Server.users.get(username).getPosts()) {
-                a.setProfilePhoto(profilePhoto);
+            List<Post> posts = new ArrayList<>();
+            for (Profile profile : Server.users.values()) {
+                posts.addAll(profile.getPosts());
+            }
+            for (Post post : posts) {
+                if (post.getWriter().equals(username))
+                    post.setProfilePhoto(profilePhoto);
             }
         }
         Server.users.get(username).setEmail(email);
@@ -349,7 +366,6 @@ public class ServerManager {
         newPost.setTimerMil(Time.getMilli());
         newPost.setPublisher(username);
         Server.users.get(username).getPosts().add(newPost);
-        DataManager.getInstance().updateDataBase(); // save to local file
         int index = Server.users.get(MainPost.getWriter()).getPosts().indexOf(MainPost);
         Server.users.get(MainPost.getWriter()).getPosts().get(index).getRepost().add(profile);
         DataManager.getInstance().updateDataBase(); // save to local file
@@ -375,9 +391,9 @@ public class ServerManager {
     }
 
     public static Map<String, Object> SendMessage(Map<String, Object> income) {
-        String sender = (String) income.get("usernameSender");
-        String Receiver = (String) income.get("usernameReceiver");
         Message message = (Message) income.get("message");
+        String sender = message.getSender();
+        String Receiver = message.getReceiver();
         ArrayList<Message> messages = new ArrayList<>();
         if (Server.users.get(sender).getMessages() != null) {
             if (Server.users.get(sender).getMessages().containsKey(Receiver)) {
@@ -385,7 +401,7 @@ public class ServerManager {
             }
         }
         messages.add(message);
-        Server.users.get(sender).getMessages().put(Receiver,messages);
+        Server.users.get(sender).getMessages().put(Receiver, messages);
         DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.SendMessage);
@@ -421,10 +437,10 @@ public class ServerManager {
 
 
     public static Map<String, Object> TrashText(Map<String, Object> income) {
-        String username = (String) income.get("username");
         Message message = (Message) income.get("message");
+        String sender = message.getSender();
         String Receiver = message.getReceiver();
-        Server.users.get(username).getMessages().get(Receiver).remove(message);
+        Server.users.get(sender).getMessages().get(Receiver).remove(message);
         DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         System.out.println("message deleted");
@@ -471,4 +487,22 @@ public class ServerManager {
         return ans;
     }
 
+    public static void LogOut(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        System.out.println(username + " LogOut");
+        System.out.println("time: " + Time.getTime());
+    }
+
+    public static void EditTextMessage(Map<String, Object> income) {
+        Message message = (TextMessage) income.get("message");
+        String text = (String) income.get("text");
+        String Sender = message.getSender();
+        String receiver = message.getReceiver();
+        int indexOfMessage = Server.users.get(Sender).getMessages().get(receiver).indexOf(message);
+        Message newMessage = new TextMessage(text, message.getTimeMilli(), message.getTime());
+        newMessage.setSender(Sender);
+        newMessage.setReceiver(receiver);
+        Server.users.get(Sender).getMessages().get(receiver).set(indexOfMessage, newMessage);
+        DataManager.getInstance().updateDataBase();
+    }
 }

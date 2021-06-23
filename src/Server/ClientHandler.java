@@ -113,6 +113,12 @@ public class ClientHandler implements Runnable {
                     case StartChat:
                         answer = ServerManager.StartChat(income);
                         break;
+                    case LogOut:
+                        ServerManager.LogOut(income);
+                        break;
+                    case EditText:
+                        ServerManager.EditTextMessage(income);
+                        break;
                 }
                 dos.reset();
                 dos.writeObject(answer);

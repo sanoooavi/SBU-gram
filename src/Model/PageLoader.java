@@ -63,5 +63,4 @@ public class PageLoader {
                 stage.close();
             }
         }
-
     }

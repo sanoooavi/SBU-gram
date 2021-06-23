@@ -56,6 +56,7 @@ public class UpdateProfileController {
 
     public void SaveNewProfile(ActionEvent actionEvent) {
         if (!Errors.isPhoneNumberValid(PhoneNumberField.getText())) return;
+        if (!Errors.isEmailValid(EmailField.getText())) return;
         if (malebutton.isSelected() && female_button.isSelected()) {
             Errors.ShowInvalidChooseGenderDialog();
             return;

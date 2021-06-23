@@ -35,6 +35,11 @@
                   <Font name="Century Gothic" size="12.0" />
                </font>
             </Label>
+            <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="450.0" layoutY="8.0" onMouseClicked="#Refresh" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/refresh_60px.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutY="370.0" prefHeight="43.0" prefWidth="638.0" style="-fx-background-color: #2A363F;">

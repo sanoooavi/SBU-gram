@@ -10,17 +10,17 @@
 <AnchorPane fx:id="leftItem" prefHeight="100.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Circle fx:id="UserProfileleft" layoutX="29.0" layoutY="50.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="UserMessageleft" layoutX="56.0" layoutY="10.0" lineSpacing="2.0" prefHeight="79.0" prefWidth="348.0" style="-fx-background-color: #f4d6d6; -fx-background-radius: 10;" text="   text " textAlignment="CENTER">
+      <Label fx:id="UserMessageleft" layoutX="56.0" layoutY="10.0" lineSpacing="2.0" prefHeight="79.0" prefWidth="348.0" style="-fx-background-color: #f4d6d6; -fx-background-radius: 10;" text="   text " textAlignment="JUSTIFY">
          <font>
             <Font name="Century Gothic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="timeOftextleft" layoutX="303.0" layoutY="73.0" text="time">
+      <Label fx:id="timeOftextleft" layoutX="302.0" layoutY="72.0" text="time">
          <font>
             <Font name="Century Gothic" size="10.0" />
          </font>
       </Label>
-      <ImageView fitHeight="20.0" fitWidth="17.0" layoutX="65.0" layoutY="71.0" onMouseClicked="#TrashTextOthers" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="20.0" fitWidth="17.0" layoutX="66.0" layoutY="70.0" onMouseClicked="#TrashTextOthers" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pic/trash_48px.png" />
          </image>

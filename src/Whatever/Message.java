@@ -12,6 +12,11 @@ public abstract class Message implements Serializable {
     String sender;
     String receiver;
     Long timeMilli;
+    String time;
+
+    public String getTime() {
+        return time;
+    }
 
     public String getSender() {
         return sender;

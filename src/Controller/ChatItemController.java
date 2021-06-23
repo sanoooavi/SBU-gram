@@ -4,8 +4,11 @@ import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
 import Whatever.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -45,19 +48,26 @@ public class ChatItemController {
     public Circle ProfileRight;
     @FXML
     public Circle ProfileLeft;
+    @FXML
+    private TextField EditTextFieldRight;
+    @FXML
+    private Button EditMessageButton;
+
     Message message;
 
     public ChatItemController(Message message) throws IOException {
         this.message = message;
+        thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
+        ThatUser.setProfile(ClientManager.GetProfile(ThatUser.getUserName()));
         if (message.getSender().equals(thisClient.getUserName())) {
             if (message instanceof PhotoMessage) {
-                new PageLoader().load("OthersImageIcon", this);
+                new PageLoader().load("MyChatImageIcon", this);
             } else {
                 new PageLoader().load("MyMessageIcon", this);
             }
         } else {
             if (message instanceof PhotoMessage) {
-                new PageLoader().load("MyImageIcon", this);
+                new PageLoader().load("OthersChatImageIcon", this);
             } else {
                 new PageLoader().load("OthersMessageIcon", this);
             }
@@ -69,12 +79,12 @@ public class ChatItemController {
             if (message.getSender().equals(thisClient.getUserName())) {
                 UserMessageright.setText(((TextMessage) message).getText());
                 UserProfileright.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
-                timeOftextright.setText(String.valueOf(message.getTimeMilli()));
+                timeOftextright.setText(message.getTime());
                 return rightItem;
             } else {
                 UserMessageleft.setText(((TextMessage) message).getText());
                 UserProfileleft.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
-                timeOftextleft.setText(String.valueOf(message.getTimeMilli()));
+                timeOftextleft.setText(message.getTime());
                 return leftItem;
             }
         } else if (message instanceof PhotoMessage) {
@@ -95,17 +105,37 @@ public class ChatItemController {
         return null;
     }
 
-    public void TrashTextOthers(MouseEvent mouseEvent) {
+    public void TrashTextOthers(MouseEvent mouseEvent) throws IOException {
+        ClientManager.TrashMessage(message);
+        new PageLoader().load("DirectPersonPage");
     }
 
     public void EditText(MouseEvent mouseEvent) {
+        EditTextFieldRight.setVisible(true);
+        EditMessageButton.setVisible(true);
 
-        ClientManager.EditText(message);
     }
 
     public void TrashMessage(MouseEvent mouseEvent) throws IOException {
-        ClientManager.TrashMessage(message, thisClient.getUserName());
-        thisClient.getProfile().getMessages().get(message.getReceiver()).remove(message);
+        ClientManager.TrashMessage(message);
         new PageLoader().load("DirectPersonPage");
+    }
+    @FXML
+    void EditMessage(ActionEvent event) throws IOException {
+       if(EditTextFieldRight.getText().isEmpty()){
+           Errors.showFillRequiredFieldsDialog();
+           afterEdit();
+           return;
+       }
+       else {
+           ClientManager.EditText(message,EditTextFieldRight.getText());
+           afterEdit();
+           new PageLoader().load("DirectPersonPage");
+       }
+    }
+    public void afterEdit(){
+        EditTextFieldRight.clear();
+        EditTextFieldRight.setVisible(false);
+        EditMessageButton.setVisible(false);
     }
 }

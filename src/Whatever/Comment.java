@@ -9,6 +9,7 @@ public class Comment implements Serializable {
         this.writer = writer;
         this.text = text;
     }
+
     @Override
     public String toString() {
         return  writer +" : "+text+"\n";

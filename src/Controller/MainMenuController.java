@@ -1,5 +1,7 @@
 package Controller;
 
+import Client.ClientManager;
+import Client.thisClient;
 import Model.PageLoader;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
@@ -8,6 +10,7 @@ import java.io.IOException;
 
 public class MainMenuController {
     public void LogOut(ActionEvent actionEvent) {
+          ClientManager.LogOut(thisClient.getUserName());
           PageLoader.logout();
     }
 
