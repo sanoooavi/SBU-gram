@@ -16,22 +16,23 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
+import javax.print.attribute.standard.Media;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class ChatItemController {
-    @FXML
-    public Circle UserProfileleft;
-    @FXML
-    public Label UserMessageleft;
-    @FXML
-    public Circle UserProfileright;
-    @FXML
-    public Label UserMessageright;
-    @FXML
+
     public AnchorPane leftItem;
     @FXML
     public AnchorPane rightItem;
+    @FXML
+    public Circle UserProfileleft;
+    @FXML
+    public Circle UserProfileright;
+    @FXML
+    public Label UserMessageleft;
+    @FXML
+    public Label UserMessageright;
     @FXML
     public Label timeOftextright;
     @FXML
@@ -39,11 +40,11 @@ public class ChatItemController {
     @FXML
     public AnchorPane RightPhotoItem;
     @FXML
+    public AnchorPane LeftPhotoItem;
+    @FXML
     public ImageView ImageShownleft;
     @FXML
     public ImageView ImageShownRight;
-    @FXML
-    public AnchorPane LeftPhotoItem;
     @FXML
     public Circle ProfileRight;
     @FXML
@@ -52,6 +53,12 @@ public class ChatItemController {
     private TextField EditTextFieldRight;
     @FXML
     private Button EditMessageButton;
+    @FXML
+    private AnchorPane MyMusicPage;
+    @FXML
+    private Label MusicNameLabel;
+    @FXML
+    private Media media;
 
     Message message;
 
@@ -62,14 +69,19 @@ public class ChatItemController {
         if (message.getSender().equals(thisClient.getUserName())) {
             if (message instanceof PhotoMessage) {
                 new PageLoader().load("MyChatImageIcon", this);
-            } else {
+            } else if (message instanceof TextMessage) {
                 new PageLoader().load("MyMessageIcon", this);
+            } else {
+                new PageLoader().load("MySongMessage", this);
             }
         } else {
             if (message instanceof PhotoMessage) {
                 new PageLoader().load("OthersChatImageIcon", this);
-            } else {
+            } else if (message instanceof TextMessage) {
                 new PageLoader().load("OthersMessageIcon", this);
+            } else {
+
+
             }
         }
     }
@@ -99,6 +111,8 @@ public class ChatItemController {
             }
         } else if (message instanceof VoiceMessage) {
             if (message.getSender().equals(thisClient.getUserName())) {
+            //   media = new Media(((VoiceMessage) message).getVoice().toURI().toString());
+             //   mediaPlayer=new MediaPlayer(media);
             } else {
             }
         }
@@ -120,22 +134,33 @@ public class ChatItemController {
         ClientManager.TrashMessage(message);
         new PageLoader().load("DirectPersonPage");
     }
+
     @FXML
     void EditMessage(ActionEvent event) throws IOException {
-       if(EditTextFieldRight.getText().isEmpty()){
-           Errors.showFillRequiredFieldsDialog();
-           afterEdit();
-           return;
-       }
-       else {
-           ClientManager.EditText(message,EditTextFieldRight.getText());
-           afterEdit();
-           new PageLoader().load("DirectPersonPage");
-       }
+        if (EditTextFieldRight.getText().isEmpty()) {
+            Errors.showFillRequiredFieldsDialog();
+            afterEdit();
+            return;
+        } else {
+            ClientManager.EditText(message, EditTextFieldRight.getText());
+            afterEdit();
+            new PageLoader().load("DirectPersonPage");
+        }
     }
-    public void afterEdit(){
+
+    public void afterEdit() {
         EditTextFieldRight.clear();
         EditTextFieldRight.setVisible(false);
         EditMessageButton.setVisible(false);
+    }
+
+    @FXML
+    void PauseMusic(ActionEvent event) {
+
+    }
+
+    @FXML
+    void PlayMusic(ActionEvent event) {
+
     }
 }

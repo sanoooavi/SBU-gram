@@ -4,6 +4,7 @@ import Client.ClientManager;
 import Client.Profile;
 import Model.PageLoader;
 import Whatever.Errors;
+import Whatever.Message;
 import Whatever.ThatUser;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ListView;

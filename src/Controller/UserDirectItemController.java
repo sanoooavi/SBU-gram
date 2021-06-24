@@ -1,9 +1,11 @@
 package Controller;
 
+import Client.ClientManager;
 import Client.Profile;
 import Client.thisClient;
 import Model.PageLoader;
 import Model.Post;
+import Whatever.Message;
 import Whatever.ThatUser;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;

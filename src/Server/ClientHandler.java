@@ -119,6 +119,9 @@ public class ClientHandler implements Runnable {
                     case EditText:
                         ServerManager.EditTextMessage(income);
                         break;
+                    case DeleteAccount:
+                       answer= ServerManager.DeleteAccount(income);
+                        break;
                 }
                 dos.reset();
                 dos.writeObject(answer);

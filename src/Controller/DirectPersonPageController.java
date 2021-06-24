@@ -27,7 +27,7 @@ public class DirectPersonPageController {
     public TextField MessageField;
     public Pane AttachPage;
     byte[] ToSendPhoto;
-    byte[] ToSendVoice;
+    File ToSendVoice;
     public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
 
     public void initialize() {
@@ -82,8 +82,7 @@ public class DirectPersonPageController {
         if (file == null) {
             return;
         }
-        FileInputStream fileInputStream = new FileInputStream(file);
-        ToSendVoice = fileInputStream.readAllBytes();
+        ToSendVoice = file;
     }
 
     public void Attach(MouseEvent mouseEvent) {

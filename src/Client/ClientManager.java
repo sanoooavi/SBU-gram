@@ -233,7 +233,7 @@ public class ClientManager {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.EditText);
         toSend.put("message", message);
-        toSend.put("text",text);
+        toSend.put("text", text);
         Network.serve(toSend);
     }
 
@@ -277,5 +277,13 @@ public class ClientManager {
         toSend.put("command", Command.LogOut);
         toSend.put("username", username);
         Network.serve(toSend);
+    }
+
+    public static boolean DeleteAccount(String username) {
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.DeleteAccount);
+        toSend.put("username", username);
+        Map<String, Object> received = Network.serve(toSend);
+        return (boolean) received.get("answer");
     }
 }

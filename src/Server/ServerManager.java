@@ -121,6 +121,9 @@ public class ServerManager {
             if (!isGonnaLike) {
                 Server.users.get(username).getPosts().get(index).getLikes().add(profile);
                 DataManager.getInstance().updateDataBase();
+            } else {
+                Server.users.get(username).getPosts().get(index).getLikes().remove(profile);
+                DataManager.getInstance().updateDataBase();
             }
         }
         //if the boolean is true it means this user has liked this post before or has deleted account
@@ -386,6 +389,11 @@ public class ServerManager {
         for (String user : Server.users.get(username).getMessages().keySet()) {
             returnValue.add(Server.users.get(user));
         }
+        for (Profile profile : Server.users.values()) {
+            if (profile.getMessages().containsKey(username) && (!Server.users.get(username).getMessages().containsKey(profile.getUsername()))) {
+                returnValue.add(profile);
+            }
+        }
         ans.put("answer", returnValue);
         return ans;
     }
@@ -504,5 +512,46 @@ public class ServerManager {
         newMessage.setReceiver(receiver);
         Server.users.get(Sender).getMessages().get(receiver).set(indexOfMessage, newMessage);
         DataManager.getInstance().updateDataBase();
+    }
+
+    public static Map<String, Object> DeleteAccount(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        Profile profile = Server.users.get(username);
+        for (Profile a : Server.users.values()) {
+            if (a.getFollowings().contains(profile)) {
+                a.getFollowings().remove(profile);
+                profile.getFollowers().remove(a);
+            }
+        }
+        for (Profile a : Server.users.values()) {
+            if (a.getFollowers().contains(profile)) {
+                a.getFollowers().remove(profile);
+                profile.getFollowings().remove(a);
+            }
+        }
+
+        for (Profile prof : Server.users.values()) {
+            prof.getPosts().removeIf(post -> post.getWriter().equals(username));
+        }
+        for (Profile prof : Server.users.values()) {
+            for (Post post : prof.getPosts()) {
+                post.getLikes().remove(profile);
+            }
+        }
+        for (Profile prof : Server.users.values()) {
+            for (Post post : prof.getPosts()) {
+                post.getRepost().remove(profile);
+            }
+        }
+        for (Profile prof : Server.users.values()) {
+            profile.getMessages().remove(prof);
+            prof.getMessages().remove(username);
+        }
+        Server.users.remove(username);
+        DataManager.getInstance().updateDataBase();
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("command", Command.DeleteAccount);
+        ans.put("answer", Boolean.TRUE);
+        return ans;
     }
 }

@@ -1,14 +1,12 @@
 package Controller;
 
 import Client.ClientManager;
-import Client.Gender;
 import Client.Profile;
 import Client.thisClient;
 import Model.PageLoader;
 import Whatever.ThatUser;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
@@ -49,6 +47,8 @@ public class ProfilebythisUserController {
     }
 
     public void DeleteAccount(ActionEvent actionEvent) {
+        ClientManager.DeleteAccount(thisClient.getUserName());
+        PageLoader.logout();
     }
 
     public void ExitPage(MouseEvent mouseEvent) throws IOException {

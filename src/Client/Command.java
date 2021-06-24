@@ -29,6 +29,6 @@ public enum Command {
     GetProfile,
     EditText,
     StartChat,
-    LogOut
-
+    LogOut,
+    DeleteAccount
 }

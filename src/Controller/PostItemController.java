@@ -147,8 +147,10 @@ public class PostItemController {
         thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
         boolean HasLiked = ClientManager.LikePost(thisClient.getUserName(), this.post);
         if (HasLiked) {
-            Errors.ShowInvalidLikeDialog();
-            return;
+            post.getLikes().remove(thisClient.getProfile());
+            emptyHeart.setImage(new Image("/pic/beforelike.png"));
+            //   Errors.ShowInvalidLikeDialog();
+            //   return;
         } else {
             post.getLikes().add(thisClient.getProfile());
             emptyHeart.setImage(new Image("/pic/afterlike.png"));
