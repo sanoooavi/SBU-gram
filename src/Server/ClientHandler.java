@@ -98,6 +98,9 @@ public class ClientHandler implements Runnable {
                     case LoadUserDirect:
                         answer = ServerManager.LoadingDirectInfo(income);
                         break;
+                    case MakeSeen:
+                        ServerManager.UnseenDms(income);
+                        break;
                     case LoadChatPage:
                         answer = ServerManager.LoadChatPage(income);
                         break;
@@ -120,7 +123,7 @@ public class ClientHandler implements Runnable {
                         ServerManager.EditTextMessage(income);
                         break;
                     case DeleteAccount:
-                       answer= ServerManager.DeleteAccount(income);
+                        answer = ServerManager.DeleteAccount(income);
                         break;
                 }
                 dos.reset();

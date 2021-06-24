@@ -13,6 +13,15 @@ public abstract class Message implements Serializable {
     String receiver;
     Long timeMilli;
     String time;
+    boolean wasSeen = false;
+
+    public void setWasSeen(boolean wasSeen) {
+        this.wasSeen = wasSeen;
+    }
+
+    public boolean isWasSeen() {
+        return wasSeen;
+    }
 
     public String getTime() {
         return time;

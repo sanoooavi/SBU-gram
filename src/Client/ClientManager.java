@@ -210,6 +210,13 @@ public class ClientManager {
         toSend.put("message", message);
         Network.serve(toSend);
     }
+    public static void MakeSeen(){
+        Map<String, Object> toSend = new HashMap<>();
+        toSend.put("command", Command.MakeSeen);
+        toSend.put("username", thisClient.getUserName());
+        toSend.put("chatWith", ThatUser.getUserName());
+        Network.serve(toSend);
+    }
 
     public static List<Message> LoadingChatInfo() {
         Map<String, Object> toSend = new HashMap<>();
@@ -286,4 +293,5 @@ public class ClientManager {
         Map<String, Object> received = Network.serve(toSend);
         return (boolean) received.get("answer");
     }
+
 }

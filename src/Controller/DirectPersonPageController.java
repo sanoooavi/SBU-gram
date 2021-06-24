@@ -28,15 +28,16 @@ public class DirectPersonPageController {
     public Pane AttachPage;
     byte[] ToSendPhoto;
     File ToSendVoice;
-    public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
+    List<Message> shown;
+
 
     public void initialize() {
         thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
         ThatUser.setProfile(ClientManager.GetProfile(ThatUser.getUserName()));
         UsernameLabel.setText(ThatUser.getUserName());
         ProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream((ThatUser.getProfile().getProfilePhoto())))));
-        List<Message> shown = ClientManager.LoadingChatInfo();
-        shown.sort(timeCompare);
+        ClientManager.MakeSeen();
+        shown = ClientManager.LoadingChatInfo();
         ListViewChats.setItems(FXCollections.observableArrayList(shown));
         ListViewChats.setCellFactory(ListViewChats -> new ChatItem());
     }

@@ -8,6 +8,7 @@ import Model.Post;
 import Whatever.Message;
 import Whatever.ThatUser;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,8 @@ public class UserDirectItemController {
     public Circle UserProfilePhoto;
     public Label messageLabel;
     public Label UsernameLabel;
+    @FXML
+    private Label NotReadMessages;
     public AnchorPane rootPage;
     Profile profile;
 
@@ -31,13 +34,16 @@ public class UserDirectItemController {
     }
 
     public AnchorPane init() {
+        thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
         UserProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream(profile.getProfilePhoto()))));
         UsernameLabel.setText(profile.getUsername());
+        NotReadMessages.setText(String.valueOf(profile.getNotSeen().get(thisClient.getUserName())));
         return rootPage;
     }
 
     public void StartChat(ActionEvent actionEvent) throws IOException {
-        ThatUser.setProfile(profile);
+        ThatUser.setProfile(ClientManager.GetProfile(profile.getUsername()));
+        // ThatUser.setProfile(profile);
         new PageLoader().load("DirectPersonPage");
     }
 }

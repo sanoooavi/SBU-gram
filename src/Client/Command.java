@@ -30,5 +30,6 @@ public enum Command {
     EditText,
     StartChat,
     LogOut,
-    DeleteAccount
+    DeleteAccount,
+    MakeSeen
 }

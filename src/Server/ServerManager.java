@@ -12,6 +12,8 @@ import Whatever.Time;
 import java.util.*;
 
 public class ServerManager {
+    public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
+
     public static Map<String, Object> signUp(Map<String, Object> income) {
         Profile newProfile = (Profile) income.get("profile");
         String username = newProfile.getUsername();
@@ -383,6 +385,20 @@ public class ServerManager {
 
     public static Map<String, Object> LoadingDirectInfo(Map<String, Object> income) {
         String username = (String) income.get("username");
+        for (Profile profile : Server.users.values()) {
+            int size = 0;
+            if (profile.getMessages().containsKey(username)) {
+                for (Message message : profile.getMessages().get(username)) {
+                    if (!message.isWasSeen()) {
+                        size++;
+                    }
+                }
+                profile.getNotSeen().put(username, size);
+            } else {
+                profile.getNotSeen().put(username, 0);
+            }
+        }
+        DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.LoadUserDirect);
         ArrayList<Profile> returnValue = new ArrayList<>();
@@ -423,10 +439,23 @@ public class ServerManager {
         return ans;
     }
 
+    public static void UnseenDms(Map<String, Object> income) {
+        String username = (String) income.get("username");
+        String chatWith = (String) income.get("chatWith");
+        if (Server.users.get(chatWith).getMessages() != null) {
+            if ((Server.users.get(chatWith).getMessages().containsKey(username))) {
+                for (Message message : Server.users.get(chatWith).getMessages().get(username)) {
+                    message.setWasSeen(true);
+                }
+            }
+        }
+        DataManager.getInstance().updateDataBase();
+    }
+
     public static Map<String, Object> LoadChatPage(Map<String, Object> income) {
         String username = (String) income.get("username");
         String chatWith = (String) income.get("chatWith");
-        List<Object> returnValue = new ArrayList<>();
+        List<Message> returnValue = new ArrayList<>();
         if (Server.users.get(username).getMessages() != null) {
             if (Server.users.get(username).getMessages().containsKey(chatWith)) {
                 returnValue.addAll(Server.users.get(username).getMessages().get(chatWith));
@@ -437,6 +466,8 @@ public class ServerManager {
                 returnValue.addAll(Server.users.get(chatWith).getMessages().get(username));
             }
         }
+        returnValue.sort(timeCompare);
+        DataManager.getInstance().updateDataBase();
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.LoadChatPage);
         ans.put("answer", returnValue);

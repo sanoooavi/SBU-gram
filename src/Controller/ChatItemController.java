@@ -4,8 +4,10 @@ import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
 import Whatever.*;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -111,8 +113,6 @@ public class ChatItemController {
             }
         } else if (message instanceof VoiceMessage) {
             if (message.getSender().equals(thisClient.getUserName())) {
-            //   media = new Media(((VoiceMessage) message).getVoice().toURI().toString());
-             //   mediaPlayer=new MediaPlayer(media);
             } else {
             }
         }
