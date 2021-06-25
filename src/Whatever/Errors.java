@@ -6,6 +6,11 @@ import javafx.scene.control.Alert;
 import java.util.regex.Pattern;
 
 public class Errors {
+    /**
+     * this class has all the error to know if the command is true or not
+     * all the methods are static so that you can call them whenever you want from any class
+     * and to shorten the line by not calling same thing more than twice
+     */
     public static void ShowInvalidViewProfileDialog() {
         String title = "Error in ViewProfile";
         String contentText = "This user might have deleted account";

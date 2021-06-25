@@ -13,6 +13,11 @@ public class ClientHandler implements Runnable {
     private ObjectOutputStream dos;
     private ObjectInputStream dis;
 
+    /**
+     * to save our data and communicate between server and client
+     * we need to read and write objects
+     * @param socket like a door which opens so you can transfer what is happening in the app
+     */
     public ClientHandler(Socket socket) {
         try {
             userSocket = socket;
@@ -22,6 +27,11 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
     }
+
+    /**
+     * this method recognizes the commands and transfer to their methods to be figured out
+     * it has a loop which never stops until you close the app
+     */
 
     @Override
     public void run() {

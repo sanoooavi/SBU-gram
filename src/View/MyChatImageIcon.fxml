@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
@@ -10,7 +12,13 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6ed9a0" height="272.0" layoutX="14.0" layoutY="12.0" stroke="#6ed9a0" strokeType="INSIDE" width="329.0" />
       <Polygon fill="#6ed9a0" layoutX="404.0" layoutY="190.0" points="-62.33335876464844, 36.66667175292969, -61.999969482421875, 94.0, -28.999984741210938, 93.33332824707031" stroke="#6ed9a0" strokeType="INSIDE" />
-      <ImageView fx:id="ImageShownRight" fitHeight="253.0" fitWidth="308.0" layoutX="23.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="ImageShownRight" fitHeight="223.0" fitWidth="308.0" layoutX="23.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
       <Circle fx:id="ProfileRight" layoutX="398.0" layoutY="263.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fitHeight="23.0" fitWidth="18.0" layoutX="319.0" layoutY="261.0" onMouseClicked="#TrashImageMessage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/trash_48px.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="timeImageMessage" layoutX="90.0" layoutY="261.0" text="time" />
    </children>
 </AnchorPane>

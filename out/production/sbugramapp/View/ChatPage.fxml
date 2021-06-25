@@ -31,5 +31,10 @@
             <Image url="@../pic/chat_240px.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="22.0" layoutX="450.0" layoutY="18.0" onMouseClicked="#RefreshList" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/refresh_60px.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

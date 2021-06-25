@@ -13,7 +13,6 @@ import java.util.*;
 
 public class ServerManager {
     public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
-
     public static Map<String, Object> signUp(Map<String, Object> income) {
         Profile newProfile = (Profile) income.get("profile");
         String username = newProfile.getUsername();

@@ -32,15 +32,10 @@ public class Profile implements Serializable {
     public List<Profile> Blocked = new CopyOnWriteArrayList<>();
     public List<Profile> Mute = new CopyOnWriteArrayList<>();
     public Map<String, List<Message>> Messages = new ConcurrentHashMap<>();
-    public Map<String, Message> lastMessage = new ConcurrentHashMap<>();
     public Map<String, Integer> NotSeen = new ConcurrentHashMap<>();
 
     public Profile(String username) {
         this.username = username;
-    }
-
-    public Map<String, Message> getLastMessage() {
-        return lastMessage;
     }
 
     public Map<String, Integer> getNotSeen() {

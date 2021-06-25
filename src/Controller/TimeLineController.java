@@ -15,6 +15,12 @@ public class TimeLineController {
     public static Comparator<Post> timeCompare = (a, b) -> -1 * Long.compare(a.getTimerMil(), b.getTimerMil());
     public ListView<Post> PostList;
 
+    /**
+     *
+     *
+     *
+     */
+
     @FXML
     public void initialize() {
         List<Post> shown = ClientManager.LoadingInfo();

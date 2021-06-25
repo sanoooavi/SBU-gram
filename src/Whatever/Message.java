@@ -14,6 +14,11 @@ public abstract class Message implements Serializable {
     Long timeMilli;
     String time;
     boolean wasSeen = false;
+    /**Message class which is abstract is parent of 3 other classes
+     * voice chat/image/and text
+     * each message has it's sender and receiver and time of sending also has a boolean
+     * to know if this message was seen by receiver or not
+     */
 
     public void setWasSeen(boolean wasSeen) {
         this.wasSeen = wasSeen;

@@ -20,7 +20,9 @@ import javafx.scene.shape.Circle;
 
 import javax.print.attribute.standard.Media;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 
 public class ChatItemController {
 
@@ -52,6 +54,10 @@ public class ChatItemController {
     @FXML
     public Circle ProfileLeft;
     @FXML
+    private Label timeImageMessage;
+    @FXML
+    private Label timeImageMessageLeft;
+    @FXML
     private TextField EditTextFieldRight;
     @FXML
     private Button EditMessageButton;
@@ -60,7 +66,7 @@ public class ChatItemController {
     @FXML
     private Label MusicNameLabel;
     @FXML
-    private Media media;
+    Media media;
 
     Message message;
 
@@ -105,10 +111,12 @@ public class ChatItemController {
             if (message.getSender().equals(thisClient.getUserName())) {
                 ProfileRight.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
                 ImageShownRight.setImage(new Image(new ByteArrayInputStream(((PhotoMessage) message).getPhoto())));
+                timeImageMessage.setText(message.getTime());
                 return RightPhotoItem;
             } else {
                 ProfileLeft.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
                 ImageShownleft.setImage(new Image(new ByteArrayInputStream(((PhotoMessage) message).getPhoto())));
+                timeImageMessageLeft.setText(message.getTime());
                 return LeftPhotoItem;
             }
         } else if (message instanceof VoiceMessage) {
@@ -162,5 +170,11 @@ public class ChatItemController {
     @FXML
     void PlayMusic(ActionEvent event) {
 
+    }
+
+    @FXML
+    void TrashImageMessage(MouseEvent event) throws IOException {
+        ClientManager.TrashMessage(message);
+        new PageLoader().load("DirectPersonPage");
     }
 }

@@ -11,7 +11,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2A363F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddPostController">
    <children>
-      <JFXButton buttonType="RAISED" layoutX="342.0" layoutY="294.0" onAction="#PublishPost" prefHeight="43.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc;" text="Publish" textFill="#fdffff">
+      <JFXButton buttonType="RAISED" layoutX="342.0" layoutY="294.0" onAction="#PublishPost" prefHeight="43.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc; -fx-background-radius: 20; -fx-border-radius: 20;" text="Publish" textFill="#fdffff">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font></JFXButton>
@@ -44,12 +44,12 @@
             </Text>
          </children></Pane>
       <ImageView fx:id="imageToPost" fitHeight="231.0" fitWidth="228.0" layoutX="56.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <JFXButton buttonType="RAISED" layoutX="342.0" layoutY="343.0" onAction="#ClearAll" prefHeight="43.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc;" text="Clear all" textFill="#fdffff">
+      <JFXButton buttonType="RAISED" layoutX="342.0" layoutY="343.0" onAction="#ClearAll" prefHeight="43.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc; -fx-background-radius: 20; -fx-border-radius: 20;" text="Clear all" textFill="#fdffff">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="308.0" onAction="#AddImageToPost" prefHeight="68.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc;" text="add post" textFill="#fdffff">
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="308.0" onAction="#AddImageToPost" prefHeight="68.0" prefWidth="228.0" style="-fx-border-color: #fbfcfc; -fx-background-radius: 20; -fx-border-radius: 20;" text="add picture" textFill="#fdffff">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>

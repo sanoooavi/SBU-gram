@@ -8,7 +8,11 @@ import Whatever.ThatUser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * ClientManager is the main ClientClass which allows us  to send messages to server
+ * it contains 30 different methods which make the commands ready to be served and then get the result for us
+ * @author SanaMousavi
+ */
 public class ClientManager {
     public static Boolean signUp(Profile profile) {
         Map<String, Object> toSend = new HashMap<>();
@@ -19,6 +23,13 @@ public class ClientManager {
         return (Boolean) received.get("answer");
     }
 
+    /**
+     * this method commands server to search if there is a username or not
+     * and if there was it returns the profile who logged in
+     * @param username the username of user
+     * @param password password to seek
+     * @return profile
+     */
     public static Profile login(String username, String password) {
         Map<String, Object> toSend = new HashMap<>();
         toSend.put("command", Command.Login);
@@ -109,6 +120,12 @@ public class ClientManager {
         if (received.get("answer") == null) return null;
         return (boolean) received.get("answer");
     }
+
+    /**
+     * it is obvious that it is used to unfollow members
+     * @param profile the person you are going to unfollow
+     * @return the boolean.true so that the operation went well
+     */
 
     public static Boolean Unfollow(String profile, String profile1) {
         Map<String, Object> toSend = new HashMap<>();

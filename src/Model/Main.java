@@ -25,6 +25,13 @@ public class Main extends Application {
         System.out.println("program closed");
     }
 
+    /**
+     * main method is the first you should run so that you get connected to the server
+     * and that launches the application
+     * then after this happened the app comes up for you and then you can
+     * get started
+     * @param args
+     */
     public static void main(String[] args) {
         Network.connectToServer(args);
         launch(args);

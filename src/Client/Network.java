@@ -38,7 +38,7 @@ public class Network {
 
     /**
      a method that disconnect from server and make socket null
-     it also make isconnected boolean as false
+     it also make is connected boolean as false
      **/
     public static Boolean disconnectFromServer(){
         try{
@@ -62,11 +62,11 @@ public class Network {
         return false;
     }
     /**
-     main method of sending and recieving to server
+     main method of sending and receiving to server
      if named serve because it give command and send it to server and return the response
-     as i told, it send a map<String,Object> and recieve same map too
-     it use socletout to send and socketin top recieve
-     it flush the socketout to make sure that buffering dont make delay for us
+     as i told, it send a map<String,Object> and receive same map too
+     it use dos to send and dis top receive
+     it flush the dos to make sure that buffering don't make delay for us
      **/
     public static Map<String,Object> serve(Map<String,Object> toSend){
         Map<String,Object> recieved = null;

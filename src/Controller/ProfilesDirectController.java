@@ -43,4 +43,8 @@ public class ProfilesDirectController {
             }
         }
     }
+
+    public void RefreshList(MouseEvent mouseEvent) throws IOException {
+        new PageLoader().load("ChatPage");
+    }
 }

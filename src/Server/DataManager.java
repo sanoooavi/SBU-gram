@@ -14,7 +14,7 @@ public class DataManager {
     public static final String PROFILES_FILE = FILE_PREFIX + "Profiles.txt";
 
     /**
-     * only way to se use this class is using this method and get inly instance of this class
+     * only way to see use this class is using this method and get its instance of this class
      **/
     public static DataManager getInstance() {
         return ourInstance;
