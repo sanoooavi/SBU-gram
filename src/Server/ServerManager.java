@@ -13,6 +13,7 @@ import java.util.*;
 
 public class ServerManager {
     public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
+
     public static Map<String, Object> signUp(Map<String, Object> income) {
         Profile newProfile = (Profile) income.get("profile");
         String username = newProfile.getUsername();
@@ -407,6 +408,34 @@ public class ServerManager {
         for (Profile profile : Server.users.values()) {
             if (profile.getMessages().containsKey(username) && (!Server.users.get(username).getMessages().containsKey(profile.getUsername()))) {
                 returnValue.add(profile);
+            }
+        }
+        for (Profile profile : Server.users.values()) {
+            List<Message> messages = new ArrayList<>();
+            if (Server.users.get(username).getMessages() != null) {
+                if (Server.users.get(username).getMessages().containsKey(profile.getUsername())) {
+                    messages.addAll(Server.users.get(username).getMessages().get(profile.getUsername()));
+                }
+            }
+            if (Server.users.get(profile.getUsername()).getMessages() != null) {
+                if (Server.users.get(profile.getUsername()).getMessages().containsKey(username)) {
+                    messages.addAll(Server.users.get(profile.getUsername()).getMessages().get(username));
+                }
+            }
+            messages.sort(timeCompare);
+            if (messages .size()>=1) {
+                Server.users.get(profile.getUsername()).getLastMessage().put(username, messages.get(0));
+                Server.users.get(username).getLastMessage().put(profile.getUsername(), messages.get(0));
+            }
+            DataManager.getInstance().updateDataBase();
+        }
+        if(returnValue.size()>=2) {
+            for (int i = 0; i < returnValue.size()-1; i++) {
+                if (returnValue.get(i).getLastMessage().get(username).getTimeMilli() <returnValue.get(i + 1).getLastMessage().get(username).getTimeMilli()) {
+                    Profile temp = returnValue.get(i);
+                    returnValue.set(i, returnValue.get(i + 1));
+                    returnValue.set(i + 1, temp);
+                }
             }
         }
         ans.put("answer", returnValue);

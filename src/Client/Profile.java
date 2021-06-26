@@ -33,6 +33,11 @@ public class Profile implements Serializable {
     public List<Profile> Mute = new CopyOnWriteArrayList<>();
     public Map<String, List<Message>> Messages = new ConcurrentHashMap<>();
     public Map<String, Integer> NotSeen = new ConcurrentHashMap<>();
+    public Map<String, Message> LastMessage = new ConcurrentHashMap<>();
+
+    public Map<String, Message> getLastMessage() {
+        return LastMessage;
+    }
 
     public Profile(String username) {
         this.username = username;

@@ -51,8 +51,6 @@ public class Network {
             dos = null;
             return true;
         }
-       // catch (SocketException | NullPointerException e ){
-      //  }
         catch( Exception e){
             e.printStackTrace();
         }
