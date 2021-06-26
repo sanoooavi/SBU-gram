@@ -16,6 +16,11 @@ public class VoiceMessage extends Message {
         path = voice.getAbsolutePath();
     }
 
+    @Override
+    public String toString() {
+      return   sender +" : " + "sent a voice" ;
+    }
+
     public String getPath() {
         return path;
     }

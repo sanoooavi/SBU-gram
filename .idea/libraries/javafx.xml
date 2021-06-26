@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="javafx">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib/src.zip!/javafx.base" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib/src.zip!/javafx.controls" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib/src.zip!/javafx.fxml" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib/src.zip!/javafx.graphics" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib/src.zip!/javafx.media" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib/src.zip!/javafx.swing" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-16_windows-x64_bin-sdk/javafx-sdk-16/lib/src.zip!/javafx.web" />
+    </SOURCES>
+  </library>
+</component>

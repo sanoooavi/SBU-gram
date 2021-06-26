@@ -4,25 +4,25 @@ import Client.ClientManager;
 import Client.thisClient;
 import Model.PageLoader;
 import Whatever.*;
-import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
-import javax.print.attribute.standard.Media;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.Serial;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ChatItemController {
 
@@ -64,8 +64,31 @@ public class ChatItemController {
     @FXML
     private AnchorPane MyMusicPage;
     @FXML
-    private Label MusicNameLabel;
+    private Label MusicNameLabelRight;
     Message message;
+    @FXML
+    Media media;
+    @FXML
+    MediaPlayer mediaPlayer;
+    @FXML
+    private Circle UserProfilerightAudio;
+
+    @FXML
+    private AnchorPane OthersMusicPage;
+    @FXML
+    private Circle UserProfilerightAudioLeft;
+    @FXML
+    private Label timeVoiceOthers;
+    @FXML
+    private Label timeVoiceMine;
+    @FXML
+    private Slider volumeSliderRight;
+    @FXML
+    private ProgressBar songMineProgressbar;
+    @FXML
+    private Label MusicNameLabelleft;
+    @FXML
+    private Slider volumeSliderleft;
 
     public ChatItemController(Message message) throws IOException {
         this.message = message;
@@ -85,8 +108,7 @@ public class ChatItemController {
             } else if (message instanceof TextMessage) {
                 new PageLoader().load("OthersMessageIcon", this);
             } else {
-
-
+                new PageLoader().load("OthersMusicMessage", this);
             }
         }
     }
@@ -118,7 +140,31 @@ public class ChatItemController {
             }
         } else if (message instanceof VoiceMessage) {
             if (message.getSender().equals(thisClient.getUserName())) {
+                UserProfilerightAudio.setFill(new ImagePattern(new Image(new ByteArrayInputStream(thisClient.getProfile().getProfilePhoto()))));
+                media = new Media(((VoiceMessage) message).getVoice().toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                MusicNameLabelRight.setText(((VoiceMessage) message).getVoice().getName());
+                volumeSliderRight.valueProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                        mediaPlayer.setVolume(volumeSliderRight.getValue() * 0.01);
+                    }
+                });
+                timeVoiceMine.setText(message.getTime());
+                return MyMusicPage;
             } else {
+                UserProfilerightAudioLeft.setFill(new ImagePattern(new Image(new ByteArrayInputStream(ThatUser.getProfile().getProfilePhoto()))));
+                media = new Media(((VoiceMessage) message).getVoice().toURI().toString());
+                MusicNameLabelleft.setText(((VoiceMessage) message).getVoice().getName());
+                volumeSliderleft.valueProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                        mediaPlayer.setVolume(volumeSliderleft.getValue() * 0.01);
+                    }
+                });
+                mediaPlayer = new MediaPlayer(media);
+                timeVoiceOthers.setText(message.getTime());
+                return OthersMusicPage;
             }
         }
         return null;
@@ -161,12 +207,18 @@ public class ChatItemController {
 
     @FXML
     void PauseMusic(ActionEvent event) {
-
+        mediaPlayer.pause();
     }
 
     @FXML
     void PlayMusic(ActionEvent event) {
+        mediaPlayer.play();
+    }
 
+    @FXML
+    void ResetMusic(ActionEvent event) {
+        songMineProgressbar.setProgress(0);
+        mediaPlayer.seek(Duration.seconds(0.0));
     }
 
     @FXML

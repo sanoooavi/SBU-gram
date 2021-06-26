@@ -24,5 +24,14 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="jfoenix-9.0.10" level="project" />
+    <orderEntry type="library" name="javafx.media" level="project" />
+    <orderEntry type="library" name="javafx-swt" level="project" />
+    <orderEntry type="library" name="javafx.base" level="project" />
+    <orderEntry type="library" name="javafx.controls" level="project" />
+    <orderEntry type="library" name="javafx.fxml" level="project" />
+    <orderEntry type="library" name="javafx.graphics" level="project" />
+    <orderEntry type="library" name="javafx.swing" level="project" />
+    <orderEntry type="library" name="javafx.web" level="project" />
+    <orderEntry type="library" name="javafx" level="project" />
   </component>
 </module>

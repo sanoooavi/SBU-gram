@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="OthersMusicPage" prefHeight="115.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="58.0" layoutY="4.0" prefHeight="109.0" prefWidth="347.0" style="-fx-background-color: #f4d6d6;">
+         <children>
+            <Label fx:id="MusicNameLabelleft" alignment="CENTER" prefHeight="39.0" prefWidth="337.0" text="MusicName">
+               <font>
+                  <Font name="Century Gothic Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Slider fx:id="volumeSliderleft" layoutX="247.0" layoutY="52.0" prefHeight="39.0" prefWidth="99.0" />
+            <Button layoutX="166.0" layoutY="52.0" mnemonicParsing="false" onAction="#ResetMusic" prefHeight="39.0" prefWidth="80.0" style="-fx-background-color: #f4d6d6; -fx-background-radius: 0;" text="Reset">
+               <font>
+                  <Font name="Century Gothic Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="80.0" layoutY="52.0" mnemonicParsing="false" onAction="#PauseMusic" prefHeight="39.0" prefWidth="80.0" style="-fx-background-color: #f4d6d6; -fx-background-radius: 0;" text="Pause">
+               <font>
+                  <Font name="Century Gothic Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="3.0" layoutY="52.0" mnemonicParsing="false" onAction="#PlayMusic" prefHeight="40.0" prefWidth="70.0" style="-fx-background-color: #f4d6d6; -fx-background-radius: 0;" text="Play">
+               <font>
+                  <Font name="Century Gothic Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="timeVoiceOthers" layoutX="92.0" layoutY="90.0" text="time" />
+         </children></AnchorPane>
+      <Circle fx:id="UserProfilerightAudioLeft" layoutX="23.0" layoutY="60.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+      <Line endX="222.33334350585938" endY="1.1444091796875E-5" layoutX="182.0" layoutY="52.0" startX="-122.00001525878906" startY="1.1444091796875E-5" strokeWidth="3.0" />
+   </children>
+</AnchorPane>
