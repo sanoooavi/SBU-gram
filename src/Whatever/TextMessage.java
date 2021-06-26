@@ -31,4 +31,9 @@ public class TextMessage extends Whatever.Message {
     public String getText() {
         return text;
     }
+
+    @Override
+    public String toString() {
+        return   sender +" : " + text ;
+    }
 }

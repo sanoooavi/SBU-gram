@@ -2,6 +2,7 @@ package Controller;
 
 import Client.ClientManager;
 import Client.Profile;
+import Client.thisClient;
 import Model.PageLoader;
 import Whatever.Errors;
 import Whatever.Message;
@@ -39,6 +40,10 @@ public class ProfilesDirectController {
                 return;
             } else {
                 ThatUser.setProfile(ClientManager.GetProfile(SearchField.getText()));
+                if(ThatUser.getProfile().getBlocked().contains(thisClient.getProfile())){
+                    Errors.ShowBlockedDialog();
+                    return;
+                }
                 new PageLoader().load("DirectPersonPage");
             }
         }

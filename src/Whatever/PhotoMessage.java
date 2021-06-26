@@ -29,6 +29,11 @@ public class PhotoMessage extends Message {
         return Objects.hash(Arrays.hashCode(photo), receiver);
     }
 
+    @Override
+    public String toString() {
+        return  sender +" : "+"sent a photo" ;
+    }
+
     public byte[] getPhoto() {
         return photo;
     }

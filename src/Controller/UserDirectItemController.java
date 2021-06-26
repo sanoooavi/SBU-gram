@@ -5,6 +5,7 @@ import Client.Profile;
 import Client.thisClient;
 import Model.PageLoader;
 import Model.Post;
+import Whatever.Errors;
 import Whatever.Message;
 import Whatever.ThatUser;
 import javafx.event.ActionEvent;
@@ -37,13 +38,17 @@ public class UserDirectItemController {
         thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
         UserProfilePhoto.setFill(new ImagePattern(new Image(new ByteArrayInputStream(profile.getProfilePhoto()))));
         UsernameLabel.setText(profile.getUsername());
+        messageLabel.setText(String.valueOf(profile.getLastMessage().get(thisClient.getUserName())));
         NotReadMessages.setText(String.valueOf(profile.getNotSeen().get(thisClient.getUserName())));
         return rootPage;
     }
 
     public void StartChat(ActionEvent actionEvent) throws IOException {
         ThatUser.setProfile(ClientManager.GetProfile(profile.getUsername()));
-        // ThatUser.setProfile(profile);
+        if(ThatUser.getProfile().getBlocked().contains(thisClient.getProfile())){
+            Errors.ShowBlockedDialog();
+            return;
+        }
         new PageLoader().load("DirectPersonPage");
     }
 }

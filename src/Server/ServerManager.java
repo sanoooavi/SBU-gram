@@ -542,6 +542,13 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * this method is useful when you want to  find some one to start your chat
+     * so you just give the username you want and wait to go to her/his chat page
+     * @param income
+     * @return if the command were accepted or this user doesn't exist
+     */
+
     public static Map<String, Object> StartChat(Map<String, Object> income) {
         String username = (String) income.get("username");
         Boolean isNullProfile = (Server.users.get(username) == null);
@@ -554,11 +561,21 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * this method is not useful and it just sout that some one logged out
+     * @param income the user who want to logout
+     */
+
     public static void LogOut(Map<String, Object> income) {
         String username = (String) income.get("username");
         System.out.println(username + " LogOut");
         System.out.println("time: " + Time.getTime());
     }
+
+    /**
+     * this method edit the text message to anything we want but it just works for text messages and that's it
+     * @param income contains the message we want to edit
+     */
 
     public static void EditTextMessage(Map<String, Object> income) {
         Message message = (TextMessage) income.get("message");
@@ -572,6 +589,13 @@ public class ServerManager {
         Server.users.get(Sender).getMessages().get(receiver).set(indexOfMessage, newMessage);
         DataManager.getInstance().updateDataBase();
     }
+
+    /**
+     * this method deletes account of a user so it will delete all the posts or like and comments
+     * and dleete this user from the whole app and also data manager
+     * @param income contains the username of the person who wants to delete account
+     * @return return that the command were accepted
+     */
 
     public static Map<String, Object> DeleteAccount(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -595,6 +619,7 @@ public class ServerManager {
         for (Profile prof : Server.users.values()) {
             for (Post post : prof.getPosts()) {
                 post.getLikes().remove(profile);
+                post.getComments().remove(profile);
             }
         }
         for (Profile prof : Server.users.values()) {

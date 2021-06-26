@@ -1,6 +1,4 @@
 package Model;
-
-import Client.ClientManager;
 import Client.Network;
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -65,9 +65,6 @@ public class ChatItemController {
     private AnchorPane MyMusicPage;
     @FXML
     private Label MusicNameLabel;
-    @FXML
-    Media media;
-
     Message message;
 
     public ChatItemController(Message message) throws IOException {
