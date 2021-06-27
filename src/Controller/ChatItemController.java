@@ -90,6 +90,14 @@ public class ChatItemController {
     @FXML
     private Slider volumeSliderleft;
 
+    /**
+     * this class is a controller class that shows all the messages between 2 people
+     * there are 3 different messages and each has a different view also
+     * there are difference between sender and receiver message the sender is green and the receiver is kind pink
+     * @param message the message we want to show in our list view
+     * @throws IOException
+     */
+
     public ChatItemController(Message message) throws IOException {
         this.message = message;
         thisClient.setProfile(ClientManager.GetProfile(thisClient.getUserName()));
@@ -170,10 +178,23 @@ public class ChatItemController {
         return null;
     }
 
+    /**
+     * this method send client a command to command the server that we are gonna delete
+     * the message from these 2 people chat page
+     * @param mouseEvent if the mouse be clicked on the view
+     * @throws IOException
+     */
     public void TrashTextOthers(MouseEvent mouseEvent) throws IOException {
         ClientManager.TrashMessage(message);
         new PageLoader().load("DirectPersonPage");
     }
+
+    /**
+     *  this method send client a command to command the server that we are gonna change
+     *      the message into another one and it should be saved and shown for both sides
+     *      @param mouseEvent if the mouse be clicked on the view
+     *      @throws IOException
+     */
 
     public void EditText(MouseEvent mouseEvent) {
         EditTextFieldRight.setVisible(true);
@@ -205,11 +226,15 @@ public class ChatItemController {
         EditMessageButton.setVisible(false);
     }
 
+    /**
+     * the 3 following methods are used to play/pause and reset the music and they are used when there is song
+     * or voice between both people
+     * @param event mouse click
+     */
     @FXML
     void PauseMusic(ActionEvent event) {
         mediaPlayer.pause();
     }
-
     @FXML
     void PlayMusic(ActionEvent event) {
         mediaPlayer.play();
@@ -217,7 +242,6 @@ public class ChatItemController {
 
     @FXML
     void ResetMusic(ActionEvent event) {
-        songMineProgressbar.setProgress(0);
         mediaPlayer.seek(Duration.seconds(0.0));
     }
 

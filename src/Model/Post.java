@@ -10,6 +10,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * post class is a serializable so that can be written in file it also consists of 3 lists:likes/comments/repost
+ * each list contains of different users but the comment is different each post has a publisher and writer and also
+ * has a photo that we save it in an array of bytes and also has the profile photo of the person who wrote the post
+ * In addition to the title and desc it save the time of the post releases so that can be sorted in the future
+ * this class has just setter and getter and equal so there is nothing to talk about
+ * it is obvious and you can get it by just taking a look
+ * @author Me
+ * @since idk
+ */
+
 public class Post implements Serializable {
     @Serial
     private static final long serialVersionUID = -2622370219466881429L;

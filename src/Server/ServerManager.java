@@ -11,9 +11,21 @@ import Whatever.Time;
 
 import java.util.*;
 
+/**
+ * server manager class is the mossssssssst important class in this project
+ * it makes the commands to happen and save them all in our data in has the access to our data and
+ * there is no other class which can change our data directly
+ */
+
 public class ServerManager {
     public static Comparator<Message> timeCompare = (a, b) -> -1 * Long.compare(a.getTimeMilli(), b.getTimeMilli());
 
+    /**
+     * when a new profile creates the server should put this user and it's profile in to the map
+     * and also the data manager should save the new profile
+     * @param income the new profile that just signed-up
+     * @return
+     */
     public static Map<String, Object> signUp(Map<String, Object> income) {
         Profile newProfile = (Profile) income.get("profile");
         String username = newProfile.getUsername();
@@ -60,6 +72,13 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * it is of the most useful methods which searches in the users list to see  a new member of this app
+     * chooses a right username and doesn't let him/her choose repeated username
+     * @param income the username
+     * @return if you can continue or should change the username
+     */
+
     public static Map<String, Object> UserNameExists(Map<String, Object> income) {
         String usernameCheck = (String) income.get("username");
         Profile profile = Server.users.get(usernameCheck);
@@ -69,6 +88,12 @@ public class ServerManager {
         ans.put("command", Command.Username_unique);
         return ans;
     }
+
+    /**also each profile has a list of posts that when you publish a post you should first
+     * add this post to you array and tell the data manager to save all the info
+     * @param income the new post and the publisher
+     * @return nothing really!:/
+     */
 
     public static Map<String, Object> PublishPost(Map<String, Object> income) {
         Post post = (Post) income.get("post");
@@ -83,6 +108,13 @@ public class ServerManager {
         System.out.println("time : " + Time.getTime());
         return ans;
     }
+
+    /**
+     * in order to see what happened to your followings when you open your time line you can see
+     * a list view of all the posts of yours and your following that are sorted in time
+     * @param income the username who logged in
+     * @return list of posts that is waiting to see
+     */
 
     public static Map<String, Object> LoadTimeLine(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -101,12 +133,25 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * this method is used when you are looking for some one this app shows all the users
+     * that has an account and helps you find some one by name or age
+     * @param income not used
+     * @return all the users
+     */
     public static Map<String, Object> LoadingTable(Map<String, Object> income) {
         Map<String, Object> ans = new HashMap<>();
         ans.put("command", Command.LoadTimeLine);
         ans.put("answer", new ArrayList<>(Server.users.values()));
         return ans;
     }
+
+    /**
+     * if you liked a post before this appears as dislike and decreases the amount of likes
+     * but if it's not so there is an increasment and yor profile is added to this post's liked list
+     * @param income your username and the post you want to like or dislike
+     * @return the bool which show what to do
+     */
 
     public static Map<String, Object> LikePost(Map<String, Object> income) {
         boolean isGonnaLike = true;
@@ -138,6 +183,13 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * when you want to add comment to a post there is no limit this is a simple method
+     * with no condition
+     * @param income the comment and the post we are gonna add the comment to
+     * @return nothing useful like always
+     */
+
     public static Map<String, Object> AddComment(Map<String, Object> income) {
         Comment comment = (Comment) income.get("Comment");
         Post post = (Post) income.get("Post");
@@ -152,6 +204,13 @@ public class ServerManager {
         System.out.println("time : " + Time.getTime());
         return ans;
     }
+
+    /**
+     * by following a user his/her post will be shown in your time line and also there is an increase
+     * in your following and in that user's followers
+     * @param income both sides username
+     * @return
+     */
 
     public static Map<String, Object> Follow(Map<String, Object> income) {
         String following = (String) income.get("following");
@@ -170,6 +229,14 @@ public class ServerManager {
         System.out.println("time : " + Time.getTime());
         return ans;
     }
+
+    /**
+     * it just works the opposite of follow and removes the user from your following list
+     * and also removes you from that user's follower list
+     * and saves the changes in data so there again you can follow the user
+     * @param income both sides username
+     * @return
+     */
 
     public static Map<String, Object> UnFollow(Map<String, Object> income) {
         String User = (String) income.get("User");
@@ -192,6 +259,13 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * when you block a user that user can not send you message or can not even visit your profile so
+     * until you have the user in your list that user can not communicate with u and
+     * @param income both sides username
+     * @return just that the command was accepted boolean.true
+     */
+
     public static Map<String, Object> Block(Map<String, Object> income) {
         String ToBlock = (String) income.get("ToBlock");
         String from = (String) income.get("from");
@@ -206,6 +280,15 @@ public class ServerManager {
         System.out.println("time : " + Time.getTime());
         return ans;
     }
+
+    /**
+     * works the opposite of the block so you remove some one from your blocked list
+     * then you can chat or see each other's post
+     * but if that user has followed you in the past and then you blocked her it looks like
+     * that she unfollowed you too so you need to follow her if you want
+     * @param income both sides username
+     * @return nothing useful
+     */
 
     public static Map<String, Object> UnBlock(Map<String, Object> income) {
         String ToUnBlock = (String) income.get("ToUnBlock");
@@ -222,6 +305,14 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * mute method doesn't give the permission the other person's post to be shown
+     * in your time line but this doesn't mean that there is change in follower and following
+     * and it is different from block
+     * @param income your username and also the person who u want to mute
+     * @return the command was accepted
+     */
+
     public static Map<String, Object> Mute(Map<String, Object> income) {
         String username = (String) income.get("userName");
         String usernameToMute = (String) income.get("usernameToMute");
@@ -237,6 +328,13 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * it just removes the person from your muted list and so you can see her/his posts in your timeline
+     * and then saves the changes in data manager
+     * @param income your username and the person you want to un mute
+     * @return
+     */
+
     public static Map<String, Object> UnMute(Map<String, Object> income) {
         String username = (String) income.get("userName");
         String usernameToUnMute = (String) income.get("usernameToUnMute");
@@ -251,6 +349,14 @@ public class ServerManager {
         System.out.println("time: " + Time.getTime());
         return ans;
     }
+
+    /**
+     * when you search some one and go to see it's profile this method loads and find all the info
+     * that user has and gives and shows it to you but if the user doesn't exist this give you a null and
+     * by that you understand that it has deleted account
+     * @param income your username and the who you want to see the personal info
+     * @return the target user profile
+     */
 
     public static Map<String, Object> GetInfo(Map<String, Object> income) {
         String userTarget = (String) income.get("userTarget");
@@ -270,6 +376,13 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * update profile gets all the field that can be changes and if there was any change it appears in you profile
+     * you can change your profile,name,lastname,phone number,email,gender and your location
+     * but u should know that you can not ever change your username
+     * @param income all the field that can be changed
+     * @return the new profile to set
+     */
 
     public static Map<String, Object> UpdateProfile(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -314,6 +427,11 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * when you go to some ones profile and want to see her/his posts this method helps you
+     * @param income the username who you want to see posts
+     * @return all the post this user has
+     */
 
     public static Map<String, Object> LoadingPersonalInfo(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -323,6 +441,14 @@ public class ServerManager {
         ans.put("answer", returnValue);
         return ans;
     }
+
+    /**
+     * when you forget your password you write the second password and send it to server
+     * so it searches and gives you the result that if you were correct you can get your password and login again
+     * but if not there is no use to get back your account
+     * @param income the username and the second password
+     * @return the real password
+     */
 
     public static Map<String, Object> GetPassword(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -344,6 +470,12 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * this is the method to save the second password which is used
+     * when you forget your password
+     * @param income the username and the second password using in emergencies
+     * @return
+     */
 
     public static Map<String, Object> SaveThePassword(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -356,6 +488,13 @@ public class ServerManager {
         return ans;
 
     }
+
+    /**
+     * by the name it is obvious that repost method reposts the post :/i did not get what was written in the project
+     * so my repost is kinda different i mean it has the same writer,desc,title but likes and comments are individual
+     * @param income the post and also the user who wants to repost
+     * @return
+     */
 
     public static Map<String, Object> rePost(Map<String, Object> income) {
         Post MainPost = (Post) income.get("post");
@@ -383,6 +522,14 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * this method really took time it's kinda messy but at least it works when you open your
+     * direct page you can see how many unread messages you have from different people
+     * and also the last message is shown in the view and of course it is sorted by the time of last message
+     * between each user
+     * @param income the user that we are gonna open the chat page for
+     * @return array list of people who were communicating with u
+     */
     public static Map<String, Object> LoadingDirectInfo(Map<String, Object> income) {
         String username = (String) income.get("username");
         for (Profile profile : Server.users.values()) {
@@ -442,6 +589,13 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     *by each profile there is a map each contains of usernames you have chatted with and the messages
+     * so when you send a message this message should be put in this map and this method does that
+     * @param income just the message
+     * @return that the command was accepted
+     */
+
     public static Map<String, Object> SendMessage(Map<String, Object> income) {
         Message message = (Message) income.get("message");
         String sender = message.getSender();
@@ -467,6 +621,12 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     * this method shows if the message was seen by the receiver or not and if it was
+     * so the bool changes to true
+     * @param income the chats between 2 people
+     */
+
     public static void UnseenDms(Map<String, Object> income) {
         String username = (String) income.get("username");
         String chatWith = (String) income.get("chatWith");
@@ -479,6 +639,13 @@ public class ServerManager {
         }
         DataManager.getInstance().updateDataBase();
     }
+
+    /**
+     * when you go to some one's chat page you hope to see all the last messages between you
+     * so this method helps you take a look
+     * @param income both usernames that chatted with each other
+     * @return all the messages between these people
+     */
 
     public static Map<String, Object> LoadChatPage(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -502,6 +669,12 @@ public class ServerManager {
         return ans;
     }
 
+    /**
+     *this method is used in chat and just for photos and texts(did not have time to use for voices)
+     * @param income contains the message you are gonna delete for both sides
+     * @return that the command was accepted
+     */
+
 
     public static Map<String, Object> TrashText(Map<String, Object> income) {
         Message message = (Message) income.get("message");
@@ -515,6 +688,13 @@ public class ServerManager {
         ans.put("answer", Boolean.TRUE);
         return ans;
     }
+
+    /**
+     * by it's name well its obvious that this method change your current password if
+     * you select the new one and remember the last
+     * @param income contains the old and new password also the username
+     * @return if the command were accepted or not
+     */
 
     public static Map<String, Object> ChangePassword(Map<String, Object> income) {
         String username = (String) income.get("username");
@@ -532,7 +712,11 @@ public class ServerManager {
         return ans;
     }
 
-
+    /**
+     * this method gives back the user info we want
+     * @param income just have the username to find the profile
+     * @return the profile which has changed and we need to continue the program
+     */
     public static Map<String, Object> GetProfile(Map<String, Object> income) {
         String username = (String) income.get("username");
         Profile prof = Server.users.get(username);
